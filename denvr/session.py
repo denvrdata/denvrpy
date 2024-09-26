@@ -19,8 +19,8 @@ class Session:
     def request(self, method, path, params=None, json=None):
         url = os.path.join(self.config.server, os.path.splitroot(path)[-1])
         kwargs = {
-            'headers': { "Content-Type": "application/json" },
-            'auth': self.config.auth,
+            "headers": {"Content-Type": "application/json"},
+            "auth": self.config.auth,
         }
 
         # TODO: Fill missing params with potential defaults.
@@ -35,4 +35,4 @@ class Session:
             raise Exception(f"HTTP method {method} is not yet supported.")
 
         response.raise_for_status()
-        return response.json()['result']
+        return response.json()["result"]

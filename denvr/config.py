@@ -8,6 +8,7 @@ class Config:
     """
     Load the Denvr config and stores the auth and defaults.
     """
+
     def __init__(self):
         config_path = os.getenv(
             "DENVR_CONFIG",
@@ -19,21 +20,20 @@ class Config:
         )
 
         config = toml.load(config_path)
-        self.defaults = config['defaults']
+        self.defaults = config["defaults"]
 
         # TODO: Move this logic to a separate function for easier unit testing
-        username = os.getenv("DENVR_USERNAME", config['credentials']['username'])
+        username = os.getenv("DENVR_USERNAME", config["credentials"]["username"])
         if "DENVR_PASSWORD" in os.environ:
             password = os.getenv("DENVR_PASSWORD")
-        elif "keyring" in config['credentials'] and config['credentials']['keyring']:
+        elif "keyring" in config["credentials"] and config["credentials"]["keyring"]:
             import keyring
-            password = keyring.get_password("denvyrpy - " + self.defaults['server'], username)
-        elif "password" in config['credentials']:
-            password = config['credentials']['password']
+
+            password = keyring.get_password("denvyrpy - " + self.defaults["server"], username)
+        elif "password" in config["credentials"]:
+            password = config["credentials"]["password"]
         else:
-            raise Exception(
-                "Could not find password in \"DENVR_PASSWORD\", keyring or " + config_path
-            )
+            raise Exception('Could not find password in "DENVR_PASSWORD", keyring or ' + config_path)
 
         # NOTE: We're intentionally letting the loaded username/password go out of scope for security reasons.
         # The auth object should be able to handle everything from here onward.

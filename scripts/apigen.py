@@ -11,20 +11,22 @@ TODO:
 
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["jinja2"]
+# dependencies = ["jinja2", "requests"]
 # ///
 from __future__ import annotations
 
+import jinja2
 import json
 import os
+import requests
+
 from collections import defaultdict
 
-import jinja2
 
 # Define a few filepath constants we'll use in our script
 SCRIPTS_PATH = os.path.dirname(os.path.abspath(__file__))
 DENVR_PATH = os.path.join(os.path.dirname(SCRIPTS_PATH), "denvr")
-API_PATH = os.path.join(SCRIPTS_PATH, "api.json")
+API_SPEC_LOCATION = "https://api.cloud.denvrdata.com/swagger/v1/swagger.json"
 
 # Paths to include in our SDK to identify breaking changes,
 # but supporting feature gating.
@@ -58,6 +60,15 @@ TYPE_MAP = {
     "array": "list",
     "object": "dict",
 }
+
+
+def getapi(url=API_SPEC_LOCATION):
+    """
+    Fetch the API spec and extracts the JSON object.
+    """
+    resp = requests.get(url)
+    resp.raise_for_status()
+    return resp.json()
 
 
 def splitpaths(paths: list[str]) -> defaultdict[str, list]:
@@ -112,10 +123,7 @@ def generate(included=INCLUDED_PATHS):
         autoescape=True,
     ).get_template("client.py.jinja2")
 
-    # Load our openapi.json file
-    # TODO: Maybe pull this down elsewhere and pass it into this function
-    with open(API_PATH) as fobj:
-        api = json.load(fobj)
+    api = getapi()
 
     # Pull out the main components we're gonna care about
     paths = {k: v for (k, v) in api["paths"].items() if k in included}
