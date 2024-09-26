@@ -12,39 +12,36 @@ def test_get_vpcs():
     # code.
     client.get_vpcs()
 
-    kwargs = {
+    client_kwargs = {
+        "cluster": None,
+    }
+    request_kwargs = {
         "params": {
-            "cluster": None,
+            "Cluster": None,
         },
     }
 
-    client.get_vpcs(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_vpcs(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/vpcs/GetVpcs",
-        **kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/vpcs/GetVpcs", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "cluster": "Cluster",
+    }
+
+    request_kwargs = {
         "params": {
-            "cluster": "cluster",
+            "Cluster": "Cluster",
         },
     }
 
-    client.get_vpcs(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_vpcs(**client_kwargs)
 
     session.request.assert_called_with(
         "get",
         "/api/v1/vpcs/GetVpcs",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -57,41 +54,40 @@ def test_get_vpc():
     # code.
     client.get_vpc()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "cluster": None,
+    }
+    request_kwargs = {
         "params": {
-            "id": None,
-            "cluster": None,
+            "Id": None,
+            "Cluster": None,
         },
     }
 
-    client.get_vpc(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_vpc(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/vpcs/GetVpc",
-        **kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/vpcs/GetVpc", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "Id",
+        "cluster": "Cluster",
+    }
+
+    request_kwargs = {
         "params": {
-            "id": "id",
-            "cluster": "cluster",
+            "Id": "Id",
+            "Cluster": "Cluster",
         },
     }
 
-    client.get_vpc(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_vpc(**client_kwargs)
 
     session.request.assert_called_with(
         "get",
         "/api/v1/vpcs/GetVpc",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -104,41 +100,40 @@ def test_create_vpc():
     # code.
     client.create_vpc()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "cluster": None,
+    }
+    request_kwargs = {
         "json": {
             "id": None,
             "cluster": None,
         },
     }
 
-    client.create_vpc(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.create_vpc(**client_kwargs)
 
-    session.request.assert_called_with(
-        "post",
-        "/api/v1/vpcs/CreateVpc",
-        **kwargs,
-    )
+    session.request.assert_called_with("post", "/api/v1/vpcs/CreateVpc", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "id",
+        "cluster": "cluster",
+    }
+
+    request_kwargs = {
         "json": {
             "id": "id",
             "cluster": "cluster",
         },
     }
 
-    client.create_vpc(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.create_vpc(**client_kwargs)
 
     session.request.assert_called_with(
         "post",
         "/api/v1/vpcs/CreateVpc",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -151,39 +146,38 @@ def test_destroy_vpc():
     # code.
     client.destroy_vpc()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "cluster": None,
+    }
+    request_kwargs = {
         "params": {
-            "id": None,
-            "cluster": None,
+            "Id": None,
+            "Cluster": None,
         },
     }
 
-    client.destroy_vpc(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.destroy_vpc(**client_kwargs)
 
-    session.request.assert_called_with(
-        "delete",
-        "/api/v1/vpcs/DestroyVpc",
-        **kwargs,
-    )
+    session.request.assert_called_with("delete", "/api/v1/vpcs/DestroyVpc", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "Id",
+        "cluster": "Cluster",
+    }
+
+    request_kwargs = {
         "params": {
-            "id": "id",
-            "cluster": "cluster",
+            "Id": "Id",
+            "Cluster": "Cluster",
         },
     }
 
-    client.destroy_vpc(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.destroy_vpc(**client_kwargs)
 
     session.request.assert_called_with(
         "delete",
         "/api/v1/vpcs/DestroyVpc",
-        **kwargs,
+        **request_kwargs,
     )

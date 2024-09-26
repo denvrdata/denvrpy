@@ -54,7 +54,10 @@ total = "coverage report --format total"
 
 [tool.ruff.lint.per-file-ignores]
 "denvr/api/*" = ["A002"] # shadowing likely in generated code
-"scripts/apigen.py" = ["INP001"] # we don't need an __init__.py for a script
+"scripts/apigen.py" = [
+    "INP001",
+    "RET505",
+] # we don't need an __init__.py for a script
 "*" = [
     "EM101",  # I have mixed opinion about signing exception strings to a variable first
     "EM102",  # Same as above

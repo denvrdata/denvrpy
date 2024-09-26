@@ -17,7 +17,7 @@ class Client:
         """Get a list of metal hosts"""
         kwargs = {
             "params": {
-                "cluster": cluster,
+                "Cluster": cluster,
             },
         }
 
@@ -35,8 +35,8 @@ class Client:
         """Get detailed information about a specific metal host"""
         kwargs = {
             "params": {
-                "id": id,
-                "cluster": cluster,
+                "Id": id,
+                "Cluster": cluster,
             },
         }
 
@@ -57,7 +57,7 @@ class Client:
             "json": {
                 "id": id,
                 "cluster": cluster,
-                "vpc_id": vpc_id,
+                "vpcId": vpc_id,
             },
         }
 
@@ -78,7 +78,7 @@ class Client:
             "json": {
                 "id": id,
                 "cluster": cluster,
-                "vpc_id": vpc_id,
+                "vpcId": vpc_id,
             },
         }
 

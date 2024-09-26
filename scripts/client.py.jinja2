@@ -11,13 +11,13 @@ class Client:
 
     {% for method in methods %}
     def {{ method.name }}(self, {%- if method.params -%}
-        {%- for (name, type) in method.params.items() -%}
-        {{ name }}: {{ type }} | None = None,
+        {%- for entry in method.params -%}
+        {{ entry.kwarg }}: {{ entry.type }} | None = None,
         {%- endfor -%}
         {%- endif -%}
         {%- if method.json -%}
-        {%- for (name, type) in method.json.items() -%}
-        {{ name }}: {{ type }} | None = None,
+        {%- for entry in method.json -%}
+        {{ entry.kwarg }}: {{ entry.type }} | None = None,
         {%- endfor -%}
         {%- endif -%}
     ):
@@ -25,15 +25,15 @@ class Client:
         kwargs = {
             {%- if method.params -%}
             'params': {
-                {%- for name in method.params.keys() -%}
-                '{{ name }}': {{ name }},
+                {%- for entry in method.params -%}
+                '{{ entry.param }}': {{ entry.kwarg }},
                 {%- endfor -%}
             },
             {%- endif -%}
             {%- if method.json -%}
             'json': {
-                {%- for name in method.json.keys() -%}
-                '{{ name }}': {{ name }},
+                {%- for entry in method.json -%}
+                '{{ entry.param }}': {{ entry.kwarg }},
                 {%- endfor -%}
             },
             {%- endif -%}

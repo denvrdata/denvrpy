@@ -115,26 +115,22 @@ def makepaths(path: str):
                 fobj.write("")
 
 
-def testvals(params: dict):
+def testval(name, typ):
     """
     Given a dict of name -> type, return simple test values to use.
     """
-    result = {}
-    for name, typ in params.items():
-        if typ == "str":
-            result[name] = f'"{name}"'
-        elif typ == "bool":
-            result[name] = "True"
-        elif typ == "int":
-            result[name] = "1"
-        elif typ == "list":
-            result[name] = "[]"
-        elif typ == "dict":
-            result[name] = "{}"
-        else:
-            raise Exception(f"Type {typ} is not supported")
-
-    return result
+    if typ == "str":
+        return f'"{name}"'
+    elif typ == "bool":
+        return "True"
+    elif typ == "int":
+        return "1"
+    elif typ == "list":
+        return "[]"
+    elif typ == "dict":
+        return "{}"
+    else:
+        raise Exception(f"Type {typ} is not supported")
 
 
 def generate(included=INCLUDED_PATHS):
@@ -194,8 +190,8 @@ def generate(included=INCLUDED_PATHS):
             method["path"] = method_path
             method["description"] = path_vals["summary"]
             method["name"] = snakecase(methodname)
-            method["params"] = {}
-            method["json"] = {}
+            method["params"] = []
+            method["json"] = []
 
             # print(methodname + '( '+ http_method + ' ) -> \n' + json.dumps(path_vals) + '\n')
 
@@ -203,21 +199,29 @@ def generate(included=INCLUDED_PATHS):
             # TODO: These should also have descriptions for the docstrings
             if "parameters" in path_vals:
                 for param in path_vals["parameters"]:
-                    name = snakecase(param["name"])
-                    param_type = TYPE_MAP[param["schema"]["type"]]
-                    method["params"][name] = param_type
+                    method["params"].append(
+                        {
+                            "param": param["name"],
+                            "kwarg": snakecase(param["name"]),
+                            "type": TYPE_MAP[param["schema"]["type"]],
+                            "val": testval(param["name"], TYPE_MAP[param["schema"]["type"]]),
+                        }
+                    )
+
             if "requestBody" in path_vals:
                 # TODO: Technically we should test for the '$ref' case first
                 schema_ref = os.path.basename(path_vals["requestBody"]["content"]["application/json"]["schema"]["$ref"])
                 schema = schemas[schema_ref]
                 assert schema["type"] == "object"
                 for name, val in schema["properties"].items():
-                    k = snakecase(name)
-                    v = TYPE_MAP[val["type"]]
-                    if k:
-                        method["json"][k] = v
-                    else:
-                        print(f"{name} return empty string.")
+                    method["json"].append(
+                        {
+                            "param": name,
+                            "kwarg": snakecase(name),
+                            "type": TYPE_MAP[val["type"]],
+                            "val": testval(name, TYPE_MAP[val["type"]]),
+                        }
+                    )
 
             # Add our method to
             context["methods"].append(method)
@@ -231,11 +235,6 @@ def generate(included=INCLUDED_PATHS):
         content = client_template.render(context)
         with open(modpath, "w") as fobj:
             fobj.write(content)
-
-        # Write the test file as well
-        for method in context["methods"]:
-            method["params"] = testvals(method["params"])
-            method["json"] = testvals(method["json"])
 
         content = test_template.render(context)
         with open(testspath, "w") as fobj:

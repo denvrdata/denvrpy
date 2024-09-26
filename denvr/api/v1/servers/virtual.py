@@ -17,7 +17,7 @@ class Client:
         """Get a list of virtual machines"""
         kwargs = {
             "params": {
-                "cluster": cluster,
+                "Cluster": cluster,
             },
         }
 
@@ -36,9 +36,9 @@ class Client:
         """Get detailed information about a specific virtual machine"""
         kwargs = {
             "params": {
-                "id": id,
-                "namespace": namespace,
-                "cluster": cluster,
+                "Id": id,
+                "Namespace": namespace,
+                "Cluster": cluster,
             },
         }
 
@@ -72,12 +72,12 @@ class Client:
                 "configuration": configuration,
                 "cluster": cluster,
                 "ssh_keys": ssh_keys,
-                "operating_system_image": operating_system_image,
-                "personal_storage_mount_path": personal_storage_mount_path,
-                "tenant_shared_additional_storage": tenant_shared_additional_storage,
-                "persist_storage": persist_storage,
-                "direct_storage_mount_path": direct_storage_mount_path,
-                "root_disk_size": root_disk_size,
+                "operatingSystemImage": operating_system_image,
+                "personalStorageMountPath": personal_storage_mount_path,
+                "tenantSharedAdditionalStorage": tenant_shared_additional_storage,
+                "persistStorage": persist_storage,
+                "directStorageMountPath": direct_storage_mount_path,
+                "rootDiskSize": root_disk_size,
             },
         }
 
@@ -138,9 +138,9 @@ class Client:
         """Permanently delete a specified virtual machine, effectively wiping all its data and freeing up resources for other uses"""
         kwargs = {
             "params": {
-                "id": id,
-                "namespace": namespace,
-                "cluster": cluster,
+                "Id": id,
+                "Namespace": namespace,
+                "Cluster": cluster,
             },
         }
 
@@ -171,7 +171,7 @@ class Client:
         kwargs = {
             "params": {
                 "cluster": cluster,
-                "resource_pool": resource_pool,
+                "resourcePool": resource_pool,
             },
         }
 
