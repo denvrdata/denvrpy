@@ -1,7 +1,6 @@
 # denvr
 
-[![PyPI - Version](https://img.shields.io/pypi/v/denvr.svg)](https://pypi.org/project/denvr)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/denvr.svg)](https://pypi.org/project/denvr)
+![CI](https://github.com/denvrdata/denvrpy/actions/workflows/CI.yml/badge.svg?branch=main)
 
 -----
 
