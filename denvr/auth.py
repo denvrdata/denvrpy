@@ -1,10 +1,11 @@
 import os
+import requests
 import time
 
-import requests
+from requests.auth import AuthBase
 
 
-class Auth(requests.auth.AuthBase):
+class Auth(AuthBase):
     """
     Auth(server, username, password)
 
