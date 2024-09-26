@@ -17,7 +17,7 @@ class Client:
         """Get a list of virtual machines"""
         kwargs = {
             "params": {
-                "Cluster": cluster,
+                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
@@ -36,9 +36,9 @@ class Client:
         """Get detailed information about a specific virtual machine"""
         kwargs = {
             "params": {
-                "Id": id,
-                "Namespace": namespace,
-                "Cluster": cluster,
+                "Id": id if id else getattr(self.session.config, "id", None),
+                "Namespace": namespace if namespace else getattr(self.session.config, "namespace", None),
+                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
@@ -66,18 +66,32 @@ class Client:
         """Create a new virtual machine using pre-defined configuration"""
         kwargs = {
             "json": {
-                "name": name,
-                "rpool": rpool,
-                "vpc": vpc,
-                "configuration": configuration,
-                "cluster": cluster,
-                "ssh_keys": ssh_keys,
-                "operatingSystemImage": operating_system_image,
-                "personalStorageMountPath": personal_storage_mount_path,
-                "tenantSharedAdditionalStorage": tenant_shared_additional_storage,
-                "persistStorage": persist_storage,
-                "directStorageMountPath": direct_storage_mount_path,
-                "rootDiskSize": root_disk_size,
+                "name": name if name else getattr(self.session.config, "name", None),
+                "rpool": rpool if rpool else getattr(self.session.config, "rpool", None),
+                "vpc": vpc if vpc else getattr(self.session.config, "vpc", None),
+                "configuration": configuration
+                if configuration
+                else getattr(self.session.config, "configuration", None),
+                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "ssh_keys": ssh_keys if ssh_keys else getattr(self.session.config, "ssh_keys", None),
+                "operatingSystemImage": operating_system_image
+                if operating_system_image
+                else getattr(self.session.config, "operating_system_image", None),
+                "personalStorageMountPath": personal_storage_mount_path
+                if personal_storage_mount_path
+                else getattr(self.session.config, "personal_storage_mount_path", None),
+                "tenantSharedAdditionalStorage": tenant_shared_additional_storage
+                if tenant_shared_additional_storage
+                else getattr(self.session.config, "tenant_shared_additional_storage", None),
+                "persistStorage": persist_storage
+                if persist_storage
+                else getattr(self.session.config, "persist_storage", None),
+                "directStorageMountPath": direct_storage_mount_path
+                if direct_storage_mount_path
+                else getattr(self.session.config, "direct_storage_mount_path", None),
+                "rootDiskSize": root_disk_size
+                if root_disk_size
+                else getattr(self.session.config, "root_disk_size", None),
             },
         }
 
@@ -96,9 +110,9 @@ class Client:
         """Start a virtual machine that has been previously set up and provisioned, but is currently OFFLINE"""
         kwargs = {
             "json": {
-                "id": id,
-                "namespace": namespace,
-                "cluster": cluster,
+                "id": id if id else getattr(self.session.config, "id", None),
+                "namespace": namespace if namespace else getattr(self.session.config, "namespace", None),
+                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
@@ -117,9 +131,9 @@ class Client:
         """Stop a virtual machine, ensuring a secure and orderly shutdown of its operations within the cloud environment"""
         kwargs = {
             "json": {
-                "id": id,
-                "namespace": namespace,
-                "cluster": cluster,
+                "id": id if id else getattr(self.session.config, "id", None),
+                "namespace": namespace if namespace else getattr(self.session.config, "namespace", None),
+                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
@@ -138,9 +152,9 @@ class Client:
         """Permanently delete a specified virtual machine, effectively wiping all its data and freeing up resources for other uses"""
         kwargs = {
             "params": {
-                "Id": id,
-                "Namespace": namespace,
-                "Cluster": cluster,
+                "Id": id if id else getattr(self.session.config, "id", None),
+                "Namespace": namespace if namespace else getattr(self.session.config, "namespace", None),
+                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
@@ -170,8 +184,8 @@ class Client:
         """Get information about the current availability of different virtual machine configurations"""
         kwargs = {
             "params": {
-                "cluster": cluster,
-                "resourcePool": resource_pool,
+                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "resourcePool": resource_pool if resource_pool else getattr(self.session.config, "resource_pool", None),
             },
         }
 

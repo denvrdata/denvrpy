@@ -26,14 +26,14 @@ class Client:
             {%- if method.params -%}
             'params': {
                 {%- for entry in method.params -%}
-                '{{ entry.param }}': {{ entry.kwarg }},
+                '{{ entry.param }}': {{ entry.kwarg }} if {{ entry.kwarg }} else getattr(self.session.config, '{{entry.kwarg}}', None),
                 {%- endfor -%}
             },
             {%- endif -%}
             {%- if method.json -%}
             'json': {
                 {%- for entry in method.json -%}
-                '{{ entry.param }}': {{ entry.kwarg }},
+                '{{ entry.param }}': {{ entry.kwarg }} if {{ entry.kwarg }} else getattr(self.session.config, '{{entry.kwarg}}', None),
                 {%- endfor -%}
             },
             {%- endif -%}

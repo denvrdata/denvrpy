@@ -16,20 +16,6 @@ def test_get_vpcs():
     client.get_vpcs()
 
     client_kwargs = {
-        "cluster": None,
-    }
-    request_kwargs = {
-        "params": {
-            "Cluster": None,
-        },
-    }
-
-    client.get_vpcs(**client_kwargs)
-
-    session.request.assert_called_with("get", "/api/v1/vpcs/GetVpcs", **request_kwargs)
-    session.reset_mock()
-
-    client_kwargs = {
         "cluster": "Cluster",
     }
 
@@ -69,22 +55,6 @@ def test_get_vpc():
     # might as well test that it doesn't fail on the generated
     # code.
     client.get_vpc()
-
-    client_kwargs = {
-        "id": None,
-        "cluster": None,
-    }
-    request_kwargs = {
-        "params": {
-            "Id": None,
-            "Cluster": None,
-        },
-    }
-
-    client.get_vpc(**client_kwargs)
-
-    session.request.assert_called_with("get", "/api/v1/vpcs/GetVpc", **request_kwargs)
-    session.reset_mock()
 
     client_kwargs = {
         "id": "Id",
@@ -131,22 +101,6 @@ def test_create_vpc():
     client.create_vpc()
 
     client_kwargs = {
-        "id": None,
-        "cluster": None,
-    }
-    request_kwargs = {
-        "json": {
-            "id": None,
-            "cluster": None,
-        },
-    }
-
-    client.create_vpc(**client_kwargs)
-
-    session.request.assert_called_with("post", "/api/v1/vpcs/CreateVpc", **request_kwargs)
-    session.reset_mock()
-
-    client_kwargs = {
         "id": "id",
         "cluster": "cluster",
     }
@@ -189,22 +143,6 @@ def test_destroy_vpc():
     # might as well test that it doesn't fail on the generated
     # code.
     client.destroy_vpc()
-
-    client_kwargs = {
-        "id": None,
-        "cluster": None,
-    }
-    request_kwargs = {
-        "params": {
-            "Id": None,
-            "Cluster": None,
-        },
-    }
-
-    client.destroy_vpc(**client_kwargs)
-
-    session.request.assert_called_with("delete", "/api/v1/vpcs/DestroyVpc", **request_kwargs)
-    session.reset_mock()
 
     client_kwargs = {
         "id": "Id",

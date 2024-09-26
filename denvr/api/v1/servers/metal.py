@@ -17,7 +17,7 @@ class Client:
         """Get a list of metal hosts"""
         kwargs = {
             "params": {
-                "Cluster": cluster,
+                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
@@ -35,8 +35,8 @@ class Client:
         """Get detailed information about a specific metal host"""
         kwargs = {
             "params": {
-                "Id": id,
-                "Cluster": cluster,
+                "Id": id if id else getattr(self.session.config, "id", None),
+                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
@@ -55,9 +55,9 @@ class Client:
         """Add metal host to VPC"""
         kwargs = {
             "json": {
-                "id": id,
-                "cluster": cluster,
-                "vpcId": vpc_id,
+                "id": id if id else getattr(self.session.config, "id", None),
+                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "vpcId": vpc_id if vpc_id else getattr(self.session.config, "vpc_id", None),
             },
         }
 
@@ -76,9 +76,9 @@ class Client:
         """Remove metal host from VPC"""
         kwargs = {
             "json": {
-                "id": id,
-                "cluster": cluster,
-                "vpcId": vpc_id,
+                "id": id if id else getattr(self.session.config, "id", None),
+                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "vpcId": vpc_id if vpc_id else getattr(self.session.config, "vpc_id", None),
             },
         }
 
@@ -96,8 +96,8 @@ class Client:
         """Reboot the metal host"""
         kwargs = {
             "json": {
-                "id": id,
-                "cluster": cluster,
+                "id": id if id else getattr(self.session.config, "id", None),
+                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
