@@ -24,9 +24,6 @@ classifiers = [
 ]
 dependencies = ["requests", "toml"]
 
-[project.optional-dependencies]
-keyring = ["keyring"]
-
 [project.urls]
 Documentation = "https://github.com/denvrdata/denvrpy#readme"
 Issues = "https://github.com/denvrdata/denvrpy/issues"

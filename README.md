@@ -192,10 +192,7 @@ The config handles loading values from `~/.config/denvr.toml`, or the location o
 An `Auth` object is created from either:
 
 - `DENVR_USERNAME` and `DENVR_PASSWOR`
-- A `keyring` password value for `get_password("denvyrpy - {server}", username)`
 - The `username` and `password` values in the `credentials` section of the `denvr.toml` file.
-
-NOTE: In that order
 
 ### Auth
 

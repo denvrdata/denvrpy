@@ -60,10 +60,6 @@ def config(path=None):
     username = os.getenv("DENVR_USERNAME", credentials["username"])
     if "DENVR_PASSWORD" in os.environ:
         password = os.getenv("DENVR_PASSWORD")
-    elif credentials.get("keyring"):
-        import keyring
-
-        password = keyring.get_password("denvyrpy - " + server, username)
     elif "password" in credentials:
         password = credentials["password"]
     else:
