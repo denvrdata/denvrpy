@@ -1,0 +1,71 @@
+from unittest.mock import Mock
+from denvr.{{ module }} import Client
+
+{% for method in methods %}
+def test_{{ method.name }}():
+    session = Mock()
+    client = Client(session)
+
+    # This case will fail for a real session, but
+    # might as well test that it doesn't fail on the generated
+    # code.
+    client.{{ method.name }}()
+
+    kwargs = {
+        {%- if method.params -%}
+        'params': {
+            {%- for name in method.params.keys() -%}
+            '{{ name }}': None,
+            {%- endfor -%}
+        },
+        {%- endif -%}
+        {%- if method.json -%}
+        'json': {
+            {%- for name in method.json.keys() -%}
+            '{{ name }}': None,
+            {%- endfor -%}
+        },
+        {%- endif -%}
+    }
+
+    client.{{ method.name }}(
+        **kwargs.get('params', {}),
+        **kwargs.get('json', {}),
+    )
+
+    session.request.assert_called_with(
+        '{{ method.method }}',
+        '{{ method.path }}',
+        **kwargs,
+    )
+    session.reset_mock()
+
+
+    kwargs = {
+        {%- if method.params -%}
+        'params': {
+            {%- for (name, val) in method.params.items() -%}
+            '{{ name }}': {{ val|safe }},
+            {%- endfor -%}
+        },
+        {%- endif -%}
+        {%- if method.json -%}
+        'json': {
+            {%- for (name, val) in method.json.items() -%}
+            '{{ name }}': {{ val|safe }},
+            {%- endfor -%}
+        },
+        {%- endif -%}
+    }
+
+    client.{{ method.name }}(
+        **kwargs.get('params', {}),
+        **kwargs.get('json', {}),
+    )
+
+    session.request.assert_called_with(
+        '{{ method.method }}',
+        '{{ method.path }}',
+        **kwargs,
+    )
+{%- endfor -%}

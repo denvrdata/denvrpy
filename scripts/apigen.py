@@ -24,6 +24,7 @@ import requests
 # Define a few filepath constants we'll use in our script
 SCRIPTS_PATH = os.path.dirname(os.path.abspath(__file__))
 DENVR_PATH = os.path.join(os.path.dirname(SCRIPTS_PATH), "denvr")
+TESTS_PATH = os.path.join(os.path.dirname(SCRIPTS_PATH), "tests")
 API_SPEC_LOCATION = "https://api.cloud.denvrdata.com/swagger/v1/swagger.json"
 
 # Paths to include in our SDK to identify breaking changes,
@@ -114,12 +115,36 @@ def makepaths(path: str):
                 fobj.write("")
 
 
+def testvals(params: dict):
+    """
+    Given a dict of name -> type, return simple test values to use.
+    """
+    result = {}
+    for name, typ in params.items():
+        if typ == "str":
+            result[name] = f'"{name}"'
+        elif typ == "bool":
+            result[name] = "True"
+        elif typ == "int":
+            result[name] = "1"
+        elif typ == "list":
+            result[name] = "[]"
+        elif typ == "dict":
+            result[name] = "{}"
+        else:
+            raise Exception(f"Type {typ} is not supported")
+
+    return result
+
+
 def generate(included=INCLUDED_PATHS):
-    # Load our client jinja2 template
-    template = jinja2.Environment(
+    # Load our jinja2 templates
+    template_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(SCRIPTS_PATH),
         autoescape=True,
-    ).get_template("client.py.jinja2")
+    )
+    client_template = template_env.get_template("client.py.jinja2")
+    test_template = template_env.get_template("test_client.py.jinja2")
 
     api = getapi()
 
@@ -136,11 +161,20 @@ def generate(included=INCLUDED_PATHS):
         moddir = os.path.join(DENVR_PATH, os.path.splitroot(modsplit[0])[-1])
         makepaths(moddir)
 
+        # Create the test directory
+        testsdir = os.path.join(TESTS_PATH, os.path.splitroot(modsplit[0])[-1])
+        makepaths(testsdir)
+
         # Specify the module path
         modpath = os.path.join(moddir, f"{modsplit[1]}.py")
+        testspath = os.path.join(testsdir, f"test_{modsplit[1]}.py")
 
         # Start building our context for the client template
-        context = {"methods": []}
+        context = {
+            "module": os.path.splitroot(module)[-1].replace("/", "."),
+            "methods": [],
+        }
+        print(context)
         for methodname in methods:
             # The dict where we'll store the current method context
             # to be inserted
@@ -194,8 +228,17 @@ def generate(included=INCLUDED_PATHS):
         # with open(contextpath, 'w') as fobj:
         #     fobj.write(json.dumps(context, indent=2))
 
-        content = template.render(context)
+        content = client_template.render(context)
         with open(modpath, "w") as fobj:
+            fobj.write(content)
+
+        # Write the test file as well
+        for method in context["methods"]:
+            method["params"] = testvals(method["params"])
+            method["json"] = testvals(method["json"])
+
+        content = test_template.render(context)
+        with open(testspath, "w") as fobj:
             fobj.write(content)
 
 
