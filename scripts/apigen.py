@@ -15,13 +15,11 @@ TODO:
 # ///
 from __future__ import annotations
 
-import jinja2
-import json
 import os
-import requests
-
 from collections import defaultdict
 
+import jinja2
+import requests
 
 # Define a few filepath constants we'll use in our script
 SCRIPTS_PATH = os.path.dirname(os.path.abspath(__file__))

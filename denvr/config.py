@@ -1,4 +1,5 @@
 import os
+
 import toml
 
 from denvr.auth import Auth
