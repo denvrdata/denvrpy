@@ -14,8 +14,6 @@ def client(name):
     config = Config()
 
     # TODO: Better vetting of `name` for cross-platform paths
-    mod = importlib.import_module(
-        'denvr.api.{}.{}'.format(config.api, '.'.join(name.split('/')))
-    )
+    mod = importlib.import_module("denvr.api.{}.{}".format(config.api, ".".join(name.split("/"))))
 
     return mod.Client(Session(config))
