@@ -1,6 +1,9 @@
 from unittest.mock import Mock
 
+import pytest
+
 from denvr.api.v1.vpcs import Client
+from denvr.session import Session
 
 
 def test_get_vpcs():
@@ -43,6 +46,19 @@ def test_get_vpcs():
         "/api/v1/vpcs/GetVpcs",
         **request_kwargs,
     )
+
+
+@pytest.mark.integration
+def test_integration_get_vpcs(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "cluster": "Cluster",
+    }
+
+    client.get_vpcs(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
 
 
 def test_get_vpc():
@@ -91,6 +107,20 @@ def test_get_vpc():
     )
 
 
+@pytest.mark.integration
+def test_integration_get_vpc(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "Id",
+        "cluster": "Cluster",
+    }
+
+    client.get_vpc(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
+
+
 def test_create_vpc():
     session = Mock()
     client = Client(session)
@@ -137,6 +167,20 @@ def test_create_vpc():
     )
 
 
+@pytest.mark.integration
+def test_integration_create_vpc(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "id",
+        "cluster": "cluster",
+    }
+
+    client.create_vpc(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
+
+
 def test_destroy_vpc():
     session = Mock()
     client = Client(session)
@@ -181,3 +225,17 @@ def test_destroy_vpc():
         "/api/v1/vpcs/DestroyVpc",
         **request_kwargs,
     )
+
+
+@pytest.mark.integration
+def test_integration_destroy_vpc(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "Id",
+        "cluster": "Cluster",
+    }
+
+    client.destroy_vpc(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.

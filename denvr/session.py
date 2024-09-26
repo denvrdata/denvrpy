@@ -21,4 +21,7 @@ class Session:
         kwargs["auth"] = self.config.auth
         resp = requests.request(method, url, **kwargs)
         resp.raise_for_status()
-        return resp.json()["result"]
+        result = resp.json()
+        # According to the spec we should just be return result and not {"result": result }?
+        # For mock-server testing purposes we'll support both.
+        return result.get("result", result) if isinstance(result, dict) else result
