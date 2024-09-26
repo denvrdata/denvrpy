@@ -16,14 +16,6 @@ def test_get_all():
     client.get_all()
 
     client_kwargs = {}
-    request_kwargs = {}
-
-    client.get_all(**client_kwargs)
-
-    session.request.assert_called_with("get", "/api/v1/clusters/GetAll", **request_kwargs)
-    session.reset_mock()
-
-    client_kwargs = {}
 
     request_kwargs = {}
 

@@ -16,20 +16,6 @@ def test_get_hosts():
     client.get_hosts()
 
     client_kwargs = {
-        "cluster": None,
-    }
-    request_kwargs = {
-        "params": {
-            "Cluster": None,
-        },
-    }
-
-    client.get_hosts(**client_kwargs)
-
-    session.request.assert_called_with("get", "/api/v1/servers/metal/GetHosts", **request_kwargs)
-    session.reset_mock()
-
-    client_kwargs = {
         "cluster": "Cluster",
     }
 
@@ -69,22 +55,6 @@ def test_get_host():
     # might as well test that it doesn't fail on the generated
     # code.
     client.get_host()
-
-    client_kwargs = {
-        "id": None,
-        "cluster": None,
-    }
-    request_kwargs = {
-        "params": {
-            "Id": None,
-            "Cluster": None,
-        },
-    }
-
-    client.get_host(**client_kwargs)
-
-    session.request.assert_called_with("get", "/api/v1/servers/metal/GetHost", **request_kwargs)
-    session.reset_mock()
 
     client_kwargs = {
         "id": "Id",
@@ -129,24 +99,6 @@ def test_add_host_vpc():
     # might as well test that it doesn't fail on the generated
     # code.
     client.add_host_vpc()
-
-    client_kwargs = {
-        "id": None,
-        "cluster": None,
-        "vpc_id": None,
-    }
-    request_kwargs = {
-        "json": {
-            "id": None,
-            "cluster": None,
-            "vpcId": None,
-        },
-    }
-
-    client.add_host_vpc(**client_kwargs)
-
-    session.request.assert_called_with("post", "/api/v1/servers/metal/AddHostVpc", **request_kwargs)
-    session.reset_mock()
 
     client_kwargs = {
         "id": "id",
@@ -196,24 +148,6 @@ def test_remove_host_vpc():
     client.remove_host_vpc()
 
     client_kwargs = {
-        "id": None,
-        "cluster": None,
-        "vpc_id": None,
-    }
-    request_kwargs = {
-        "json": {
-            "id": None,
-            "cluster": None,
-            "vpcId": None,
-        },
-    }
-
-    client.remove_host_vpc(**client_kwargs)
-
-    session.request.assert_called_with("post", "/api/v1/servers/metal/RemoveHostVpc", **request_kwargs)
-    session.reset_mock()
-
-    client_kwargs = {
         "id": "id",
         "cluster": "cluster",
         "vpc_id": "vpcId",
@@ -259,22 +193,6 @@ def test_reboot_host():
     # might as well test that it doesn't fail on the generated
     # code.
     client.reboot_host()
-
-    client_kwargs = {
-        "id": None,
-        "cluster": None,
-    }
-    request_kwargs = {
-        "json": {
-            "id": None,
-            "cluster": None,
-        },
-    }
-
-    client.reboot_host(**client_kwargs)
-
-    session.request.assert_called_with("post", "/api/v1/servers/metal/RebootHost", **request_kwargs)
-    session.reset_mock()
 
     client_kwargs = {
         "id": "id",

@@ -17,7 +17,7 @@ class Client:
         """Get a list of VPCs"""
         kwargs = {
             "params": {
-                "Cluster": cluster,
+                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
@@ -35,8 +35,8 @@ class Client:
         """Get detailed information about a specific VPC"""
         kwargs = {
             "params": {
-                "Id": id,
-                "Cluster": cluster,
+                "Id": id if id else getattr(self.session.config, "id", None),
+                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
@@ -54,8 +54,8 @@ class Client:
         """Create a new VPC"""
         kwargs = {
             "json": {
-                "id": id,
-                "cluster": cluster,
+                "id": id if id else getattr(self.session.config, "id", None),
+                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
@@ -73,8 +73,8 @@ class Client:
         """Destroy a VPC"""
         kwargs = {
             "params": {
-                "Id": id,
-                "Cluster": cluster,
+                "Id": id if id else getattr(self.session.config, "id", None),
+                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
             },
         }
 
