@@ -1,4 +1,3 @@
-import denvr
 import importlib
 
 from denvr.config import Config

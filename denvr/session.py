@@ -2,7 +2,6 @@ import os
 
 import requests
 
-from denvr.auth import Auth
 from denvr.config import Config
 
 
