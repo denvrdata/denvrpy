@@ -47,6 +47,11 @@ extra-dependencies = ["mypy>=1.0.0"]
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:denvr tests}"
 
+[tool.hatch.envs.coverage]
+dependencies = ["coverage"]
+[tool.hatch.envs.coverage.scripts]
+total = "coverage report --format total"
+
 [tool.ruff.lint.per-file-ignores]
 "denvr/api/*" = ["A002"] # shadowing likely in generated code
 "scripts/apigen.py" = ["INP001"] # we don't need an __init__.py for a script
