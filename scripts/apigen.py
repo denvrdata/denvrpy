@@ -126,9 +126,9 @@ def testval(name, typ):
     elif typ == "int":
         return "1"
     elif typ == "list":
-        return "[]"
+        return '["foo"]'
     elif typ == "dict":
-        return "{}"
+        return '{"foo": "bar"}'
     else:
         raise Exception(f"Type {typ} is not supported")
 

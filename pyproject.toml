@@ -47,10 +47,18 @@ extra-dependencies = ["mypy>=1.0.0"]
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:denvr tests}"
 
-[tool.hatch.envs.coverage]
-dependencies = ["coverage"]
-[tool.hatch.envs.coverage.scripts]
-total = "coverage report --format total"
+# By default don't run integration tests
+[tool.hatch.envs.hatch-test]
+extra-args = ["-m", "not integration"]
+
+# Run full tests including integration
+[tool.hatch.envs.integration]
+dependencies = ["coverage", "pytest"]
+[tool.hatch.envs.integration.scripts]
+test = "coverage run --data-file .coverage -m pytest tests"
+cov-combine = "coverage combine"
+cov-report = "coverage report -m"
+cov-total = "coverage report -m --format=total"
 
 [tool.ruff.lint.per-file-ignores]
 "denvr/api/*" = ["A002"] # shadowing likely in generated code
@@ -84,3 +92,8 @@ exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
 [tool.pyright]
 venvPath = "."
 venv = "venv"
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: Test against mock-server at localhost:1080 (deselect with '-m \"not integration\"')",
+]

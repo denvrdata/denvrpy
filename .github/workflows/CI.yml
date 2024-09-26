@@ -27,5 +27,21 @@ jobs:
         uses: pypa/hatch@install
       - name: Lint
         run: hatch fmt --check
-      - name: Test
-        run: hatch test
+      # Run just the unit tests
+      # - name: Test
+      #   run: hatch test
+      - name: Integration Tests
+        run: hatch run integration:test
+      - name: Combine Coverage
+        run: hatch run integration:cov-combine
+      - name: Report Coverage
+        run: hatch run integration:cov-report
+      # TODO: use cov-total to update a coverage badge.
+      # - name: Report Coverage
+      #   run: hatch run integration:cov-total
+    services:
+      # Run a mock-server for our integration tests
+      mock-server:
+        image: mockserver/mockserver
+        ports:
+          - 1080:1080

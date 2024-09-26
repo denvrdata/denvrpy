@@ -1,6 +1,9 @@
 from unittest.mock import Mock
 
+import pytest
+
 from denvr.api.v1.servers.virtual import Client
+from denvr.session import Session
 
 
 def test_get_servers():
@@ -43,6 +46,19 @@ def test_get_servers():
         "/api/v1/servers/virtual/GetServers",
         **request_kwargs,
     )
+
+
+@pytest.mark.integration
+def test_integration_get_servers(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "cluster": "Cluster",
+    }
+
+    client.get_servers(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
 
 
 def test_get_server():
@@ -93,6 +109,21 @@ def test_get_server():
         "/api/v1/servers/virtual/GetServer",
         **request_kwargs,
     )
+
+
+@pytest.mark.integration
+def test_integration_get_server(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "Id",
+        "namespace": "Namespace",
+        "cluster": "Cluster",
+    }
+
+    client.get_server(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
 
 
 def test_create_server():
@@ -146,7 +177,7 @@ def test_create_server():
         "vpc": "vpc",
         "configuration": "configuration",
         "cluster": "cluster",
-        "ssh_keys": [],
+        "ssh_keys": ["foo"],
         "operating_system_image": "operatingSystemImage",
         "personal_storage_mount_path": "personalStorageMountPath",
         "tenant_shared_additional_storage": "tenantSharedAdditionalStorage",
@@ -162,7 +193,7 @@ def test_create_server():
             "vpc": "vpc",
             "configuration": "configuration",
             "cluster": "cluster",
-            "ssh_keys": [],
+            "ssh_keys": ["foo"],
             "operatingSystemImage": "operatingSystemImage",
             "personalStorageMountPath": "personalStorageMountPath",
             "tenantSharedAdditionalStorage": "tenantSharedAdditionalStorage",
@@ -179,6 +210,30 @@ def test_create_server():
         "/api/v1/servers/virtual/CreateServer",
         **request_kwargs,
     )
+
+
+@pytest.mark.integration
+def test_integration_create_server(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "name": "name",
+        "rpool": "rpool",
+        "vpc": "vpc",
+        "configuration": "configuration",
+        "cluster": "cluster",
+        "ssh_keys": ["foo"],
+        "operating_system_image": "operatingSystemImage",
+        "personal_storage_mount_path": "personalStorageMountPath",
+        "tenant_shared_additional_storage": "tenantSharedAdditionalStorage",
+        "persist_storage": True,
+        "direct_storage_mount_path": "directStorageMountPath",
+        "root_disk_size": 1,
+    }
+
+    client.create_server(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
 
 
 def test_start_server():
@@ -231,6 +286,21 @@ def test_start_server():
     )
 
 
+@pytest.mark.integration
+def test_integration_start_server(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "id",
+        "namespace": "namespace",
+        "cluster": "cluster",
+    }
+
+    client.start_server(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
+
+
 def test_stop_server():
     session = Mock()
     client = Client(session)
@@ -279,6 +349,21 @@ def test_stop_server():
         "/api/v1/servers/virtual/StopServer",
         **request_kwargs,
     )
+
+
+@pytest.mark.integration
+def test_integration_stop_server(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "id",
+        "namespace": "namespace",
+        "cluster": "cluster",
+    }
+
+    client.stop_server(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
 
 
 def test_destroy_server():
@@ -331,6 +416,21 @@ def test_destroy_server():
     )
 
 
+@pytest.mark.integration
+def test_integration_destroy_server(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "Id",
+        "namespace": "Namespace",
+        "cluster": "Cluster",
+    }
+
+    client.destroy_server(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
+
+
 def test_get_configurations():
     session = Mock()
     client = Client(session)
@@ -359,6 +459,17 @@ def test_get_configurations():
         "/api/v1/servers/virtual/GetConfigurations",
         **request_kwargs,
     )
+
+
+@pytest.mark.integration
+def test_integration_get_configurations(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {}
+
+    client.get_configurations(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
 
 
 def test_get_availability():
@@ -405,3 +516,17 @@ def test_get_availability():
         "/api/v1/servers/virtual/GetAvailability",
         **request_kwargs,
     )
+
+
+@pytest.mark.integration
+def test_integration_get_availability(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        "cluster": "cluster",
+        "resource_pool": "resourcePool",
+    }
+
+    client.get_availability(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
