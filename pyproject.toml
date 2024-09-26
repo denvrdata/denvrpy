@@ -1,0 +1,78 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "denvr"
+version = "0.1.0"
+description = 'Python SDK for the Denvr Cloud API'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [{ name = "rofinn", email = "rory@denvrdata.com" }]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = ["requests", "toml"]
+
+[project.optional-dependencies]
+keyring = ["keyring"]
+
+[project.urls]
+Documentation = "https://github.com/denvrdata/denvrpy#readme"
+Issues = "https://github.com/denvrdata/denvrpy/issues"
+Source = "https://github.com/denvrdata/denvrpy"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.version]
+path = "denvr/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = ["jinja2", "keyring", "requests", "toml"]
+path = "venv"
+
+[tool.hatch.envs.types]
+extra-dependencies = ["mypy>=1.0.0"]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:denvr tests}"
+
+[tool.ruff.lint.per-file-ignores]
+"denvr/api/*" = ["A002"] # shadowing likely in generated code
+"scripts/apigen.py" = ["INP001"] # we don't need an __init__.py for a script
+"*" = [
+    "EM101",  # I have mixed opinion about signing exception strings to a variable first
+    "EM102",  # Same as above
+    "S101",   # asserts are fine for now
+    "S113",   # requests timeouts N/A yet
+    "T201",   # print debugging seems fine for now
+    "TRY002", # we'll add custom exceptions later
+    "TRY003", # again, we'll add exceptions later
+]
+
+[tool.coverage.run]
+source_pkgs = ["denvr", "tests"]
+branch = true
+parallel = true
+omit = ["denvr/__about__.py"]
+
+[tool.coverage.paths]
+denvr = ["denvr"]
+tests = ["tests"]
+
+[tool.coverage.report]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+[tool.pyright]
+venvPath = "."
+venv = "venv"
