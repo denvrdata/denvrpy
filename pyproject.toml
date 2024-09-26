@@ -66,6 +66,11 @@ cov-total = "coverage report -m --format=total"
     "INP001",
     "RET505",
 ] # we don't need an __init__.py for a script
+"tests/*" = [
+    "SLF001",
+    "S105",
+    "PLR2004",
+] # Manipulating private hardcoded values is fine in tests
 "*" = [
     "EM101",  # I have mixed opinion about signing exception strings to a variable first
     "EM102",  # Same as above
