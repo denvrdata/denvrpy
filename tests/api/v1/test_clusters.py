@@ -12,29 +12,22 @@ def test_get_all():
     # code.
     client.get_all()
 
-    kwargs = {}
+    client_kwargs = {}
+    request_kwargs = {}
 
-    client.get_all(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_all(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/clusters/GetAll",
-        **kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/clusters/GetAll", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {}
+    client_kwargs = {}
 
-    client.get_all(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    request_kwargs = {}
+
+    client.get_all(**client_kwargs)
 
     session.request.assert_called_with(
         "get",
         "/api/v1/clusters/GetAll",
-        **kwargs,
+        **request_kwargs,
     )

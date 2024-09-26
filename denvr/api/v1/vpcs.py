@@ -17,7 +17,7 @@ class Client:
         """Get a list of VPCs"""
         kwargs = {
             "params": {
-                "cluster": cluster,
+                "Cluster": cluster,
             },
         }
 
@@ -35,8 +35,8 @@ class Client:
         """Get detailed information about a specific VPC"""
         kwargs = {
             "params": {
-                "id": id,
-                "cluster": cluster,
+                "Id": id,
+                "Cluster": cluster,
             },
         }
 
@@ -73,8 +73,8 @@ class Client:
         """Destroy a VPC"""
         kwargs = {
             "params": {
-                "id": id,
-                "cluster": cluster,
+                "Id": id,
+                "Cluster": cluster,
             },
         }
 

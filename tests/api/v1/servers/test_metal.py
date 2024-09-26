@@ -12,39 +12,36 @@ def test_get_hosts():
     # code.
     client.get_hosts()
 
-    kwargs = {
+    client_kwargs = {
+        "cluster": None,
+    }
+    request_kwargs = {
         "params": {
-            "cluster": None,
+            "Cluster": None,
         },
     }
 
-    client.get_hosts(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_hosts(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/servers/metal/GetHosts",
-        **kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/servers/metal/GetHosts", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "cluster": "Cluster",
+    }
+
+    request_kwargs = {
         "params": {
-            "cluster": "cluster",
+            "Cluster": "Cluster",
         },
     }
 
-    client.get_hosts(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_hosts(**client_kwargs)
 
     session.request.assert_called_with(
         "get",
         "/api/v1/servers/metal/GetHosts",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -57,41 +54,40 @@ def test_get_host():
     # code.
     client.get_host()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "cluster": None,
+    }
+    request_kwargs = {
         "params": {
-            "id": None,
-            "cluster": None,
+            "Id": None,
+            "Cluster": None,
         },
     }
 
-    client.get_host(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_host(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/servers/metal/GetHost",
-        **kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/servers/metal/GetHost", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "Id",
+        "cluster": "Cluster",
+    }
+
+    request_kwargs = {
         "params": {
-            "id": "id",
-            "cluster": "cluster",
+            "Id": "Id",
+            "Cluster": "Cluster",
         },
     }
 
-    client.get_host(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_host(**client_kwargs)
 
     session.request.assert_called_with(
         "get",
         "/api/v1/servers/metal/GetHost",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -104,43 +100,44 @@ def test_add_host_vpc():
     # code.
     client.add_host_vpc()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "cluster": None,
+        "vpc_id": None,
+    }
+    request_kwargs = {
         "json": {
             "id": None,
             "cluster": None,
-            "vpc_id": None,
+            "vpcId": None,
         },
     }
 
-    client.add_host_vpc(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.add_host_vpc(**client_kwargs)
 
-    session.request.assert_called_with(
-        "post",
-        "/api/v1/servers/metal/AddHostVpc",
-        **kwargs,
-    )
+    session.request.assert_called_with("post", "/api/v1/servers/metal/AddHostVpc", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "id",
+        "cluster": "cluster",
+        "vpc_id": "vpcId",
+    }
+
+    request_kwargs = {
         "json": {
             "id": "id",
             "cluster": "cluster",
-            "vpc_id": "vpc_id",
+            "vpcId": "vpcId",
         },
     }
 
-    client.add_host_vpc(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.add_host_vpc(**client_kwargs)
 
     session.request.assert_called_with(
         "post",
         "/api/v1/servers/metal/AddHostVpc",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -153,43 +150,44 @@ def test_remove_host_vpc():
     # code.
     client.remove_host_vpc()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "cluster": None,
+        "vpc_id": None,
+    }
+    request_kwargs = {
         "json": {
             "id": None,
             "cluster": None,
-            "vpc_id": None,
+            "vpcId": None,
         },
     }
 
-    client.remove_host_vpc(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.remove_host_vpc(**client_kwargs)
 
-    session.request.assert_called_with(
-        "post",
-        "/api/v1/servers/metal/RemoveHostVpc",
-        **kwargs,
-    )
+    session.request.assert_called_with("post", "/api/v1/servers/metal/RemoveHostVpc", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "id",
+        "cluster": "cluster",
+        "vpc_id": "vpcId",
+    }
+
+    request_kwargs = {
         "json": {
             "id": "id",
             "cluster": "cluster",
-            "vpc_id": "vpc_id",
+            "vpcId": "vpcId",
         },
     }
 
-    client.remove_host_vpc(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.remove_host_vpc(**client_kwargs)
 
     session.request.assert_called_with(
         "post",
         "/api/v1/servers/metal/RemoveHostVpc",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -202,39 +200,38 @@ def test_reboot_host():
     # code.
     client.reboot_host()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "cluster": None,
+    }
+    request_kwargs = {
         "json": {
             "id": None,
             "cluster": None,
         },
     }
 
-    client.reboot_host(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.reboot_host(**client_kwargs)
 
-    session.request.assert_called_with(
-        "post",
-        "/api/v1/servers/metal/RebootHost",
-        **kwargs,
-    )
+    session.request.assert_called_with("post", "/api/v1/servers/metal/RebootHost", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "id",
+        "cluster": "cluster",
+    }
+
+    request_kwargs = {
         "json": {
             "id": "id",
             "cluster": "cluster",
         },
     }
 
-    client.reboot_host(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.reboot_host(**client_kwargs)
 
     session.request.assert_called_with(
         "post",
         "/api/v1/servers/metal/RebootHost",
-        **kwargs,
+        **request_kwargs,
     )

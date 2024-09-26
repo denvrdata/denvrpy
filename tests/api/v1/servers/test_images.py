@@ -12,29 +12,22 @@ def test_get_operating_system_images():
     # code.
     client.get_operating_system_images()
 
-    kwargs = {}
+    client_kwargs = {}
+    request_kwargs = {}
 
-    client.get_operating_system_images(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_operating_system_images(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/servers/images/GetOperatingSystemImages",
-        **kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/servers/images/GetOperatingSystemImages", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {}
+    client_kwargs = {}
 
-    client.get_operating_system_images(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    request_kwargs = {}
+
+    client.get_operating_system_images(**client_kwargs)
 
     session.request.assert_called_with(
         "get",
         "/api/v1/servers/images/GetOperatingSystemImages",
-        **kwargs,
+        **request_kwargs,
     )

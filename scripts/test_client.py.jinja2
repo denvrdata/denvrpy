@@ -11,61 +11,80 @@ def test_{{ method.name }}():
     # code.
     client.{{ method.name }}()
 
-    kwargs = {
+    client_kwargs = {
+        {%- if method.params -%}
+        {%- for entry in method.params -%}
+        '{{ entry.kwarg }}': None,
+        {%- endfor -%}
+        {%- endif -%}
+        {%- if method.json -%}
+        {%- for entry in method.json -%}
+        '{{ entry.kwarg }}': None,
+        {%- endfor -%}
+        {%- endif -%}
+    }
+    request_kwargs = {
         {%- if method.params -%}
         'params': {
-            {%- for name in method.params.keys() -%}
-            '{{ name }}': None,
-            {%- endfor -%}
+        {%- for entry in method.params -%}
+        '{{ entry.param }}': None,
+        {%- endfor -%}
         },
         {%- endif -%}
         {%- if method.json -%}
         'json': {
-            {%- for name in method.json.keys() -%}
-            '{{ name }}': None,
-            {%- endfor -%}
+        {%- for entry in method.json -%}
+        '{{ entry.param }}': None,
+        {%- endfor -%}
         },
         {%- endif -%}
     }
 
-    client.{{ method.name }}(
-        **kwargs.get('params', {}),
-        **kwargs.get('json', {}),
-    )
+    client.{{ method.name }}(**client_kwargs)
 
     session.request.assert_called_with(
         '{{ method.method }}',
         '{{ method.path }}',
-        **kwargs,
+        **request_kwargs
     )
     session.reset_mock()
 
 
-    kwargs = {
+    client_kwargs = {
+        {%- if method.params -%}
+        {%- for entry in method.params -%}
+        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- endfor -%}
+        {%- endif -%}
+        {%- if method.json -%}
+        {%- for entry in method.json -%}
+        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- endfor -%}
+        {%- endif -%}
+    }
+
+    request_kwargs = {
         {%- if method.params -%}
         'params': {
-            {%- for (name, val) in method.params.items() -%}
-            '{{ name }}': {{ val|safe }},
+            {%- for entry in method.params -%}
+            '{{ entry.param }}': {{ entry.val|safe }},
             {%- endfor -%}
         },
         {%- endif -%}
         {%- if method.json -%}
         'json': {
-            {%- for (name, val) in method.json.items() -%}
-            '{{ name }}': {{ val|safe }},
-            {%- endfor -%}
+        {%- for entry in method.json -%}
+        '{{ entry.param }}': {{ entry.val|safe }},
+        {%- endfor -%}
         },
         {%- endif -%}
     }
 
-    client.{{ method.name }}(
-        **kwargs.get('params', {}),
-        **kwargs.get('json', {}),
-    )
+    client.{{ method.name }}(**client_kwargs)
 
     session.request.assert_called_with(
         '{{ method.method }}',
         '{{ method.path }}',
-        **kwargs,
+        **request_kwargs,
     )
 {%- endfor -%}

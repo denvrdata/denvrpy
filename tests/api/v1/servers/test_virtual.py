@@ -12,39 +12,36 @@ def test_get_servers():
     # code.
     client.get_servers()
 
-    kwargs = {
+    client_kwargs = {
+        "cluster": None,
+    }
+    request_kwargs = {
         "params": {
-            "cluster": None,
+            "Cluster": None,
         },
     }
 
-    client.get_servers(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_servers(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/servers/virtual/GetServers",
-        **kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/servers/virtual/GetServers", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "cluster": "Cluster",
+    }
+
+    request_kwargs = {
         "params": {
-            "cluster": "cluster",
+            "Cluster": "Cluster",
         },
     }
 
-    client.get_servers(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_servers(**client_kwargs)
 
     session.request.assert_called_with(
         "get",
         "/api/v1/servers/virtual/GetServers",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -57,43 +54,44 @@ def test_get_server():
     # code.
     client.get_server()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "namespace": None,
+        "cluster": None,
+    }
+    request_kwargs = {
         "params": {
-            "id": None,
-            "namespace": None,
-            "cluster": None,
+            "Id": None,
+            "Namespace": None,
+            "Cluster": None,
         },
     }
 
-    client.get_server(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_server(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/servers/virtual/GetServer",
-        **kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/servers/virtual/GetServer", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "Id",
+        "namespace": "Namespace",
+        "cluster": "Cluster",
+    }
+
+    request_kwargs = {
         "params": {
-            "id": "id",
-            "namespace": "namespace",
-            "cluster": "cluster",
+            "Id": "Id",
+            "Namespace": "Namespace",
+            "Cluster": "Cluster",
         },
     }
 
-    client.get_server(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_server(**client_kwargs)
 
     session.request.assert_called_with(
         "get",
         "/api/v1/servers/virtual/GetServer",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -106,7 +104,21 @@ def test_create_server():
     # code.
     client.create_server()
 
-    kwargs = {
+    client_kwargs = {
+        "name": None,
+        "rpool": None,
+        "vpc": None,
+        "configuration": None,
+        "cluster": None,
+        "ssh_keys": None,
+        "operating_system_image": None,
+        "personal_storage_mount_path": None,
+        "tenant_shared_additional_storage": None,
+        "persist_storage": None,
+        "direct_storage_mount_path": None,
+        "root_disk_size": None,
+    }
+    request_kwargs = {
         "json": {
             "name": None,
             "rpool": None,
@@ -114,28 +126,36 @@ def test_create_server():
             "configuration": None,
             "cluster": None,
             "ssh_keys": None,
-            "operating_system_image": None,
-            "personal_storage_mount_path": None,
-            "tenant_shared_additional_storage": None,
-            "persist_storage": None,
-            "direct_storage_mount_path": None,
-            "root_disk_size": None,
+            "operatingSystemImage": None,
+            "personalStorageMountPath": None,
+            "tenantSharedAdditionalStorage": None,
+            "persistStorage": None,
+            "directStorageMountPath": None,
+            "rootDiskSize": None,
         },
     }
 
-    client.create_server(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.create_server(**client_kwargs)
 
-    session.request.assert_called_with(
-        "post",
-        "/api/v1/servers/virtual/CreateServer",
-        **kwargs,
-    )
+    session.request.assert_called_with("post", "/api/v1/servers/virtual/CreateServer", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "name": "name",
+        "rpool": "rpool",
+        "vpc": "vpc",
+        "configuration": "configuration",
+        "cluster": "cluster",
+        "ssh_keys": [],
+        "operating_system_image": "operatingSystemImage",
+        "personal_storage_mount_path": "personalStorageMountPath",
+        "tenant_shared_additional_storage": "tenantSharedAdditionalStorage",
+        "persist_storage": True,
+        "direct_storage_mount_path": "directStorageMountPath",
+        "root_disk_size": 1,
+    }
+
+    request_kwargs = {
         "json": {
             "name": "name",
             "rpool": "rpool",
@@ -143,24 +163,21 @@ def test_create_server():
             "configuration": "configuration",
             "cluster": "cluster",
             "ssh_keys": [],
-            "operating_system_image": "operating_system_image",
-            "personal_storage_mount_path": "personal_storage_mount_path",
-            "tenant_shared_additional_storage": "tenant_shared_additional_storage",
-            "persist_storage": True,
-            "direct_storage_mount_path": "direct_storage_mount_path",
-            "root_disk_size": 1,
+            "operatingSystemImage": "operatingSystemImage",
+            "personalStorageMountPath": "personalStorageMountPath",
+            "tenantSharedAdditionalStorage": "tenantSharedAdditionalStorage",
+            "persistStorage": True,
+            "directStorageMountPath": "directStorageMountPath",
+            "rootDiskSize": 1,
         },
     }
 
-    client.create_server(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.create_server(**client_kwargs)
 
     session.request.assert_called_with(
         "post",
         "/api/v1/servers/virtual/CreateServer",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -173,7 +190,12 @@ def test_start_server():
     # code.
     client.start_server()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "namespace": None,
+        "cluster": None,
+    }
+    request_kwargs = {
         "json": {
             "id": None,
             "namespace": None,
@@ -181,19 +203,18 @@ def test_start_server():
         },
     }
 
-    client.start_server(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.start_server(**client_kwargs)
 
-    session.request.assert_called_with(
-        "post",
-        "/api/v1/servers/virtual/StartServer",
-        **kwargs,
-    )
+    session.request.assert_called_with("post", "/api/v1/servers/virtual/StartServer", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "id",
+        "namespace": "namespace",
+        "cluster": "cluster",
+    }
+
+    request_kwargs = {
         "json": {
             "id": "id",
             "namespace": "namespace",
@@ -201,15 +222,12 @@ def test_start_server():
         },
     }
 
-    client.start_server(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.start_server(**client_kwargs)
 
     session.request.assert_called_with(
         "post",
         "/api/v1/servers/virtual/StartServer",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -222,7 +240,12 @@ def test_stop_server():
     # code.
     client.stop_server()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "namespace": None,
+        "cluster": None,
+    }
+    request_kwargs = {
         "json": {
             "id": None,
             "namespace": None,
@@ -230,19 +253,18 @@ def test_stop_server():
         },
     }
 
-    client.stop_server(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.stop_server(**client_kwargs)
 
-    session.request.assert_called_with(
-        "post",
-        "/api/v1/servers/virtual/StopServer",
-        **kwargs,
-    )
+    session.request.assert_called_with("post", "/api/v1/servers/virtual/StopServer", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "id",
+        "namespace": "namespace",
+        "cluster": "cluster",
+    }
+
+    request_kwargs = {
         "json": {
             "id": "id",
             "namespace": "namespace",
@@ -250,15 +272,12 @@ def test_stop_server():
         },
     }
 
-    client.stop_server(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.stop_server(**client_kwargs)
 
     session.request.assert_called_with(
         "post",
         "/api/v1/servers/virtual/StopServer",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -271,43 +290,44 @@ def test_destroy_server():
     # code.
     client.destroy_server()
 
-    kwargs = {
+    client_kwargs = {
+        "id": None,
+        "namespace": None,
+        "cluster": None,
+    }
+    request_kwargs = {
         "params": {
-            "id": None,
-            "namespace": None,
-            "cluster": None,
+            "Id": None,
+            "Namespace": None,
+            "Cluster": None,
         },
     }
 
-    client.destroy_server(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.destroy_server(**client_kwargs)
 
-    session.request.assert_called_with(
-        "delete",
-        "/api/v1/servers/virtual/DestroyServer",
-        **kwargs,
-    )
+    session.request.assert_called_with("delete", "/api/v1/servers/virtual/DestroyServer", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "id": "Id",
+        "namespace": "Namespace",
+        "cluster": "Cluster",
+    }
+
+    request_kwargs = {
         "params": {
-            "id": "id",
-            "namespace": "namespace",
-            "cluster": "cluster",
+            "Id": "Id",
+            "Namespace": "Namespace",
+            "Cluster": "Cluster",
         },
     }
 
-    client.destroy_server(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.destroy_server(**client_kwargs)
 
     session.request.assert_called_with(
         "delete",
         "/api/v1/servers/virtual/DestroyServer",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -320,31 +340,24 @@ def test_get_configurations():
     # code.
     client.get_configurations()
 
-    kwargs = {}
+    client_kwargs = {}
+    request_kwargs = {}
 
-    client.get_configurations(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_configurations(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/servers/virtual/GetConfigurations",
-        **kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/servers/virtual/GetConfigurations", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {}
+    client_kwargs = {}
 
-    client.get_configurations(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    request_kwargs = {}
+
+    client.get_configurations(**client_kwargs)
 
     session.request.assert_called_with(
         "get",
         "/api/v1/servers/virtual/GetConfigurations",
-        **kwargs,
+        **request_kwargs,
     )
 
 
@@ -357,39 +370,38 @@ def test_get_availability():
     # code.
     client.get_availability()
 
-    kwargs = {
+    client_kwargs = {
+        "cluster": None,
+        "resource_pool": None,
+    }
+    request_kwargs = {
         "params": {
             "cluster": None,
-            "resource_pool": None,
+            "resourcePool": None,
         },
     }
 
-    client.get_availability(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_availability(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/servers/virtual/GetAvailability",
-        **kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/servers/virtual/GetAvailability", **request_kwargs)
     session.reset_mock()
 
-    kwargs = {
+    client_kwargs = {
+        "cluster": "cluster",
+        "resource_pool": "resourcePool",
+    }
+
+    request_kwargs = {
         "params": {
             "cluster": "cluster",
-            "resource_pool": "resource_pool",
+            "resourcePool": "resourcePool",
         },
     }
 
-    client.get_availability(
-        **kwargs.get("params", {}),
-        **kwargs.get("json", {}),
-    )
+    client.get_availability(**client_kwargs)
 
     session.request.assert_called_with(
         "get",
         "/api/v1/servers/virtual/GetAvailability",
-        **kwargs,
+        **request_kwargs,
     )
