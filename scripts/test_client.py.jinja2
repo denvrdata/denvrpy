@@ -1,0 +1,79 @@
+import pytest
+
+from unittest.mock import Mock
+from requests.exceptions import HTTPError
+
+from denvr.session import Session
+from denvr.{{ module }} import Client
+
+{% for method in methods %}
+def test_{{ method.name }}():
+    session = Mock()
+    client = Client(session)
+
+    # This case will fail for a real session, but
+    # might as well test that it doesn't fail on the generated
+    # code.
+    client.{{ method.name }}()
+
+    client_kwargs = {
+        {%- if method.params -%}
+        {%- for entry in method.params -%}
+        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- endfor -%}
+        {%- endif -%}
+        {%- if method.json -%}
+        {%- for entry in method.json -%}
+        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- endfor -%}
+        {%- endif -%}
+    }
+
+    request_kwargs = {
+        {%- if method.params -%}
+        'params': {
+            {%- for entry in method.params -%}
+            '{{ entry.param }}': {{ entry.val|safe }},
+            {%- endfor -%}
+        },
+        {%- endif -%}
+        {%- if method.json -%}
+        'json': {
+        {%- for entry in method.json -%}
+        '{{ entry.param }}': {{ entry.val|safe }},
+        {%- endfor -%}
+        },
+        {%- endif -%}
+    }
+
+    client.{{ method.name }}(**client_kwargs)
+
+    session.request.assert_called_with(
+        '{{ method.method }}',
+        '{{ method.path }}',
+        **request_kwargs,
+    )
+
+
+@pytest.mark.integration
+def test_integration_{{ method.name }}(mock_config):
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs = {
+        {%- if method.params -%}
+        {%- for entry in method.params -%}
+        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- endfor -%}
+        {%- endif -%}
+        {%- if method.json -%}
+        {%- for entry in method.json -%}
+        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- endfor -%}
+        {%- endif -%}
+    }
+
+    client.{{ method.name }}(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
+
+{% endfor %}

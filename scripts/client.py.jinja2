@@ -1,0 +1,47 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from denvr.session import Session
+
+class Client:
+    def __init__(self, session: Session):
+        self.session = session
+
+    {% for method in methods %}
+    def {{ method.name }}(self, {%- if method.params -%}
+        {%- for entry in method.params -%}
+        {{ entry.kwarg }}: {{ entry.type }} | None = None,
+        {%- endfor -%}
+        {%- endif -%}
+        {%- if method.json -%}
+        {%- for entry in method.json -%}
+        {{ entry.kwarg }}: {{ entry.type }} | None = None,
+        {%- endfor -%}
+        {%- endif -%}
+    ):
+        """{{ method.description }}"""
+        kwargs = {
+            {%- if method.params -%}
+            'params': {
+                {%- for entry in method.params -%}
+                '{{ entry.param }}': {{ entry.kwarg }} if {{ entry.kwarg }} else getattr(self.session.config, '{{entry.kwarg}}', None),
+                {%- endfor -%}
+            },
+            {%- endif -%}
+            {%- if method.json -%}
+            'json': {
+                {%- for entry in method.json -%}
+                '{{ entry.param }}': {{ entry.kwarg }} if {{ entry.kwarg }} else getattr(self.session.config, '{{entry.kwarg}}', None),
+                {%- endfor -%}
+            },
+            {%- endif -%}
+        }
+
+        return self.session.request(
+            '{{ method.method }}',
+            '{{ method.path }}',
+            **kwargs,
+        )
+    {% endfor %}
