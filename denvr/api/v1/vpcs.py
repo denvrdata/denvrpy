@@ -14,7 +14,12 @@ class Client:
         self,
         cluster: str | None = None,
     ):
-        """Get a list of VPCs"""
+        """
+        Get a list of VPCs
+
+        Keyword Arguments:
+            cluster (str)
+        """
         kwargs = {
             "params": {
                 "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
@@ -32,7 +37,13 @@ class Client:
         id: str | None = None,
         cluster: str | None = None,
     ):
-        """Get detailed information about a specific VPC"""
+        """
+        Get detailed information about a specific VPC
+
+        Keyword Arguments:
+            id (str): Unique identifier for a resource within the cluster (ex: vm-2024093009357617)
+            cluster (str): The cluster you're operating on (ex: Msc1)
+        """
         kwargs = {
             "params": {
                 "Id": id if id else getattr(self.session.config, "id", None),
@@ -51,7 +62,13 @@ class Client:
         id: str | None = None,
         cluster: str | None = None,
     ):
-        """Create a new VPC"""
+        """
+        Create a new VPC
+
+        Keyword Arguments:
+            id (str): Unique identifier for a resource within the cluster (ex: vm-2024093009357617)
+            cluster (str): The cluster you're operating on (ex: Msc1)
+        """
         kwargs = {
             "json": {
                 "id": id if id else getattr(self.session.config, "id", None),
@@ -70,7 +87,13 @@ class Client:
         id: str | None = None,
         cluster: str | None = None,
     ):
-        """Destroy a VPC"""
+        """
+        Destroy a VPC
+
+        Keyword Arguments:
+            id (str): Unique identifier for a resource within the cluster (ex: vm-2024093009357617)
+            cluster (str): The cluster you're operating on (ex: Msc1)
+        """
         kwargs = {
             "params": {
                 "Id": id if id else getattr(self.session.config, "id", None),

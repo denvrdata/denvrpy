@@ -14,7 +14,12 @@ class Client:
         self,
         cluster: str | None = None,
     ):
-        """Get a list of metal hosts"""
+        """
+        Get a list of bare metal hosts in a cluster
+
+        Keyword Arguments:
+            cluster (str)
+        """
         kwargs = {
             "params": {
                 "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
@@ -32,7 +37,13 @@ class Client:
         id: str | None = None,
         cluster: str | None = None,
     ):
-        """Get detailed information about a specific metal host"""
+        """
+        Get detailed information about a specific metal host
+
+        Keyword Arguments:
+            id (str): Unique identifier for a resource within the cluster (ex: vm-2024093009357617)
+            cluster (str): The cluster you're operating on (ex: Msc1)
+        """
         kwargs = {
             "params": {
                 "Id": id if id else getattr(self.session.config, "id", None),
@@ -52,7 +63,14 @@ class Client:
         cluster: str | None = None,
         vpc_id: str | None = None,
     ):
-        """Add metal host to VPC"""
+        """
+        Add metal host to VPC
+
+        Keyword Arguments:
+            id (str): The bare metal node id (ex: denvrbm-128)
+            cluster (str): The cluster where the bare metal node and vpc live (ex: Hou1)
+            vpc_id (str): The id of the VPC (ex: denvr-vpc)
+        """
         kwargs = {
             "json": {
                 "id": id if id else getattr(self.session.config, "id", None),
@@ -73,7 +91,14 @@ class Client:
         cluster: str | None = None,
         vpc_id: str | None = None,
     ):
-        """Remove metal host from VPC"""
+        """
+        Remove metal host from VPC
+
+        Keyword Arguments:
+            id (str): The bare metal node id (ex: denvrbm-128)
+            cluster (str): The cluster where the bare metal node and vpc live (ex: Hou1)
+            vpc_id (str): The id of the VPC (ex: denvr-vpc)
+        """
         kwargs = {
             "json": {
                 "id": id if id else getattr(self.session.config, "id", None),
@@ -93,7 +118,13 @@ class Client:
         id: str | None = None,
         cluster: str | None = None,
     ):
-        """Reboot the metal host"""
+        """
+        Reboot the metal host
+
+        Keyword Arguments:
+            id (str): Unique identifier for a resource within the cluster (ex: vm-2024093009357617)
+            cluster (str): The cluster you're operating on (ex: Msc1)
+        """
         kwargs = {
             "json": {
                 "id": id if id else getattr(self.session.config, "id", None),

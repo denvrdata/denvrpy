@@ -5,38 +5,55 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from denvr.session import Session
 
+
 class Client:
     def __init__(self, session: Session):
         self.session = session
 
     {% for method in methods %}
-    def {{ method.name }}(self, {%- if method.params -%}
-        {%- for entry in method.params -%}
+    def {{ method.name }}(
+        self,
+        {% if method.params %}
+        {% for entry in method.params %}
         {{ entry.kwarg }}: {{ entry.type }} | None = None,
-        {%- endfor -%}
-        {%- endif -%}
-        {%- if method.json -%}
-        {%- for entry in method.json -%}
+        {% endfor %}
+        {% endif %}
+        {% if method.json %}
+        {% for entry in method.json %}
         {{ entry.kwarg }}: {{ entry.type }} | None = None,
-        {%- endfor -%}
-        {%- endif -%}
+        {% endfor %}
+        {% endif %}
     ):
-        """{{ method.description }}"""
+        """
+        {{ method.description }}
+
+        Keyword Arguments:
+            {% if method.params %}
+            {% for entry in method.params %}
+            {{ entry.kwarg }} ({{ entry.type }}){% if entry.desc %}: {{ entry.desc|safe }}{% if entry.example %} (ex: {{ entry.example|safe }}){% endif +%}{% endif +%}
+            {% endfor %}
+            {% endif %}
+            {% if method.json %}
+            {% for entry in method.json %}
+            {{ entry.kwarg }} ({{ entry.type }}){% if entry.desc %}: {{ entry.desc|safe }}{% if entry.example %} (ex: {{ entry.example|safe }}){% endif +%}{% endif +%}
+            {% endfor %}
+            {% endif %}
+        """
         kwargs = {
-            {%- if method.params -%}
+            {% if method.params %}
             'params': {
-                {%- for entry in method.params -%}
+                {% for entry in method.params %}
                 '{{ entry.param }}': {{ entry.kwarg }} if {{ entry.kwarg }} else getattr(self.session.config, '{{entry.kwarg}}', None),
-                {%- endfor -%}
+                {% endfor %}
             },
-            {%- endif -%}
-            {%- if method.json -%}
+            {% endif %}
+            {% if method.json %}
             'json': {
-                {%- for entry in method.json -%}
+                {% for entry in method.json %}
                 '{{ entry.param }}': {{ entry.kwarg }} if {{ entry.kwarg }} else getattr(self.session.config, '{{entry.kwarg}}', None),
-                {%- endfor -%}
+                {% endfor %}
             },
-            {%- endif -%}
+            {% endif %}
         }
 
         return self.session.request(
@@ -44,4 +61,5 @@ class Client:
             '{{ method.path }}',
             **kwargs,
         )
+
     {% endfor %}

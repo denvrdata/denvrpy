@@ -13,7 +13,11 @@ class Client:
     def get_all(
         self,
     ):
-        """Get a list of allocated clusters"""
+        """
+        Get a list of allocated clusters
+
+        Keyword Arguments:
+        """
         kwargs = {}
 
         return self.session.request(

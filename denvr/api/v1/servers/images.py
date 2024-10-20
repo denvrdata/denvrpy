@@ -13,7 +13,11 @@ class Client:
     def get_operating_system_images(
         self,
     ):
-        """Get a list of operating sytem images available for the tenant"""
+        """
+        Get a list of operating sytem images available for the tenant
+
+        Keyword Arguments:
+        """
         kwargs = {}
 
         return self.session.request(

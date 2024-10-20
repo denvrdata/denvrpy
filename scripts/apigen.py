@@ -25,7 +25,7 @@ import requests
 SCRIPTS_PATH = os.path.dirname(os.path.abspath(__file__))
 DENVR_PATH = os.path.join(os.path.dirname(SCRIPTS_PATH), "denvr")
 TESTS_PATH = os.path.join(os.path.dirname(SCRIPTS_PATH), "tests")
-API_SPEC_LOCATION = "https://api.cloud.denvrdata.com/swagger/v1/swagger.json"
+API_SPEC_LOCATION = "https://api.cloud.denvrdata.dev/swagger/v1/swagger.json"
 
 # Paths to include in our SDK to identify breaking changes,
 # but supporting feature gating.
@@ -138,6 +138,8 @@ def generate(included=INCLUDED_PATHS):
     template_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(SCRIPTS_PATH),
         autoescape=True,
+        trim_blocks=True,
+        lstrip_blocks=True,
     )
     client_template = template_env.get_template("client.py.jinja2")
     test_template = template_env.get_template("test_client.py.jinja2")
@@ -205,6 +207,8 @@ def generate(included=INCLUDED_PATHS):
                             "kwarg": snakecase(param["name"]),
                             "type": TYPE_MAP[param["schema"]["type"]],
                             "val": testval(param["name"], TYPE_MAP[param["schema"]["type"]]),
+                            "desc": param.get("description", ""),
+                            "example": param.get("example", ""),
                         }
                     )
 
@@ -220,6 +224,8 @@ def generate(included=INCLUDED_PATHS):
                             "kwarg": snakecase(name),
                             "type": TYPE_MAP[val["type"]],
                             "val": testval(name, TYPE_MAP[val["type"]]),
+                            "desc": val.get("description", ""),
+                            "example": val.get("example", ""),
                         }
                     )
 
