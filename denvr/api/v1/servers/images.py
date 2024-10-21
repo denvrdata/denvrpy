@@ -16,7 +16,10 @@ class Client:
         """
         Get a list of operating sytem images available for the tenant
 
-        Keyword Arguments:
+
+        Returns:
+            (dict):
+                items (list)
         """
         kwargs = {}
 

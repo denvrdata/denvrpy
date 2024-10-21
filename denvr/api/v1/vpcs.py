@@ -19,6 +19,29 @@ class Client:
 
         Keyword Arguments:
             cluster (str)
+
+        Returns:
+            (dict):
+                id (str)
+                cluster (str)
+                hostType (str)
+                username (str)
+                tenancyName (str)
+                gpuType (str)
+                gpus (int)
+                vcpus (int)
+                vcpuType (str)
+                memory (int)
+                ip (str)
+                privateIp (str)
+                imageId (str)
+                image (str)
+                storage (int)
+                storageClass (str)
+                vpcId (str)
+                reservation (str)
+                reservationExpiry (str)
+                status (str)
         """
         kwargs = {
             "params": {
@@ -43,6 +66,29 @@ class Client:
         Keyword Arguments:
             id (str): Unique identifier for a resource within the cluster (ex: vm-2024093009357617)
             cluster (str): The cluster you're operating on (ex: Msc1)
+
+        Returns:
+            (dict):
+                id (str)
+                cluster (str)
+                hostType (str)
+                username (str)
+                tenancyName (str)
+                gpuType (str)
+                gpus (int)
+                vcpus (int)
+                vcpuType (str)
+                memory (int)
+                ip (str)
+                privateIp (str)
+                imageId (str)
+                image (str)
+                storage (int)
+                storageClass (str)
+                vpcId (str)
+                reservation (str)
+                reservationExpiry (str)
+                status (str)
         """
         kwargs = {
             "params": {
@@ -68,6 +114,29 @@ class Client:
         Keyword Arguments:
             id (str): Unique identifier for a resource within the cluster (ex: vm-2024093009357617)
             cluster (str): The cluster you're operating on (ex: Msc1)
+
+        Returns:
+            (dict):
+                id (str)
+                cluster (str)
+                hostType (str)
+                username (str)
+                tenancyName (str)
+                gpuType (str)
+                gpus (int)
+                vcpus (int)
+                vcpuType (str)
+                memory (int)
+                ip (str)
+                privateIp (str)
+                imageId (str)
+                image (str)
+                storage (int)
+                storageClass (str)
+                vpcId (str)
+                reservation (str)
+                reservationExpiry (str)
+                status (str)
         """
         kwargs = {
             "json": {
@@ -93,6 +162,29 @@ class Client:
         Keyword Arguments:
             id (str): Unique identifier for a resource within the cluster (ex: vm-2024093009357617)
             cluster (str): The cluster you're operating on (ex: Msc1)
+
+        Returns:
+            (dict):
+                id (str)
+                cluster (str)
+                hostType (str)
+                username (str)
+                tenancyName (str)
+                gpuType (str)
+                gpus (int)
+                vcpus (int)
+                vcpuType (str)
+                memory (int)
+                ip (str)
+                privateIp (str)
+                imageId (str)
+                image (str)
+                storage (int)
+                storageClass (str)
+                vpcId (str)
+                reservation (str)
+                reservationExpiry (str)
+                status (str)
         """
         kwargs = {
             "params": {

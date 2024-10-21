@@ -19,6 +19,10 @@ class Client:
 
         Keyword Arguments:
             cluster (str)
+
+        Returns:
+            (dict):
+                items (list)
         """
         kwargs = {
             "params": {
@@ -39,12 +43,34 @@ class Client:
         cluster: str | None = None,
     ):
         """
-        Get detailed information about a specific virtual machine
+                Get detailed information about a specific virtual machine
 
-        Keyword Arguments:
-            id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
-            cluster (str): The cluster you're operating on (ex: Hou1)
+                Keyword Arguments:
+                    id (str): The virtual machine id (ex: vm-2024093009357617)
+                    namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
+                    cluster (str): The cluster you're operating on (ex: Hou1)
+
+                Returns:
+                    (dict):
+                        username (str)
+                        tenancy_name (str)
+                        rpool (str)
+                        directAttachedStoragePersisted (bool)
+                        id (str)
+                        namespace (str)
+                        configuration (str)
+                        storage (int)
+                        gpu_type (str)
+                        gpus (int)
+                        vcpus (int)
+                        memory (int)
+                        ip (str)
+                        privateIp (str)
+                        image (str)
+                        cluster (str)
+                        status (str): Possible values:
+        <list type="bullet"><item><description>PLANNED - VM is in initialization phase</description></item><item><description>ONLINE - VM is up and running</description></item><item><description>OFFLINE - VM is stopped</description></item><item><description>CREATE_FAILED - VM creation failed</description></item><item><description>ADMIN_WAIT -  VM Failed</description></item><item><description>FAILED -  VM Failed</description></item><item><description>PENDING - VM is in process of transitioning to another state</description></item><item><description>PENDING_RESOURCES - VM is waiting for resources</description></item><item><description>PENDING_READINESS - VM is waiting for IP address to become available</description></item></list> (ex: ONLINE)
+                        storageType (str)
         """
         kwargs = {
             "params": {
@@ -76,21 +102,43 @@ class Client:
         root_disk_size: int | None = None,
     ):
         """
-        Create a new virtual machine using a pre-defined configuration
+                Create a new virtual machine using a pre-defined configuration
 
-        Keyword Arguments:
-            name (str): Name of virtual server to be created. If not provided, name will be auto-generated. (ex: my-denvr-vm)
-            rpool (str): Name of the pool to be used. If not provided, first pool assigned to a tenant will be used. In case of no pool assigned, 'on-demand' will be used. (ex: reserved-denvr)
-            vpc (str): Name of the VPC to be used. Usually this will match the tenant name. (ex: denvr-vpc)
-            configuration (str): Name of the configuration to be used. For possible values, refer to the otput of api/v1/servers/virtual/GetConfigurations, field 'name' DenvrDashboard.Servers.Dtos.ServerConfiguration.Name (ex: A100_40GB_PCIe_1x)
-            cluster (str): Cluster to be used. For possible values, refer to the otput of api/v1/clusters/GetAll"/> (ex: Hou1)
-            ssh_keys (list)
-            operating_system_image (str): Name of the Operating System image to be used. (ex: Ubuntu 22.04.4 LTS)
-            personal_storage_mount_path (str): Personal storage file system mount path. (ex: /home/ubuntu/personal)
-            tenant_shared_additional_storage (str): Tenant shared storage file system mount path. (ex: /home/ubuntu/tenant-shared)
-            persist_storage (bool): Whether direct attached storage should be persistant or ephemeral.
-            direct_storage_mount_path (str): Direct attached storage mount path. (ex: /home/ubuntu/direct-attached)
-            root_disk_size (int): Size of root disk to be created (Gi). (ex: 500)
+                Keyword Arguments:
+                    name (str): Name of virtual server to be created. If not provided, name will be auto-generated. (ex: my-denvr-vm)
+                    rpool (str): Name of the pool to be used. If not provided, first pool assigned to a tenant will be used. In case of no pool assigned, 'on-demand' will be used. (ex: reserved-denvr)
+                    vpc (str): Name of the VPC to be used. Usually this will match the tenant name. (ex: denvr-vpc)
+                    configuration (str): Name of the configuration to be used. For possible values, refer to the otput of api/v1/servers/virtual/GetConfigurations, field 'name' DenvrDashboard.Servers.Dtos.ServerConfiguration.Name (ex: A100_40GB_PCIe_1x)
+                    cluster (str): Cluster to be used. For possible values, refer to the otput of api/v1/clusters/GetAll"/> (ex: Hou1)
+                    ssh_keys (list)
+                    operating_system_image (str): Name of the Operating System image to be used. (ex: Ubuntu 22.04.4 LTS)
+                    personal_storage_mount_path (str): Personal storage file system mount path. (ex: /home/ubuntu/personal)
+                    tenant_shared_additional_storage (str): Tenant shared storage file system mount path. (ex: /home/ubuntu/tenant-shared)
+                    persist_storage (bool): Whether direct attached storage should be persistant or ephemeral.
+                    direct_storage_mount_path (str): Direct attached storage mount path. (ex: /home/ubuntu/direct-attached)
+                    root_disk_size (int): Size of root disk to be created (Gi). (ex: 500)
+
+                Returns:
+                    (dict):
+                        username (str)
+                        tenancy_name (str)
+                        rpool (str)
+                        directAttachedStoragePersisted (bool)
+                        id (str)
+                        namespace (str)
+                        configuration (str)
+                        storage (int)
+                        gpu_type (str)
+                        gpus (int)
+                        vcpus (int)
+                        memory (int)
+                        ip (str)
+                        privateIp (str)
+                        image (str)
+                        cluster (str)
+                        status (str): Possible values:
+        <list type="bullet"><item><description>PLANNED - VM is in initialization phase</description></item><item><description>ONLINE - VM is up and running</description></item><item><description>OFFLINE - VM is stopped</description></item><item><description>CREATE_FAILED - VM creation failed</description></item><item><description>ADMIN_WAIT -  VM Failed</description></item><item><description>FAILED -  VM Failed</description></item><item><description>PENDING - VM is in process of transitioning to another state</description></item><item><description>PENDING_RESOURCES - VM is waiting for resources</description></item><item><description>PENDING_READINESS - VM is waiting for IP address to become available</description></item></list> (ex: ONLINE)
+                        storageType (str)
         """
         kwargs = {
             "json": {
@@ -136,12 +184,34 @@ class Client:
         cluster: str | None = None,
     ):
         """
-        Start a virtual machine that has been previously set up and provisioned, but is currently OFFLINE
+                Start a virtual machine that has been previously set up and provisioned, but is currently OFFLINE
 
-        Keyword Arguments:
-            id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
-            cluster (str): The cluster you're operating on (ex: Hou1)
+                Keyword Arguments:
+                    id (str): The virtual machine id (ex: vm-2024093009357617)
+                    namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
+                    cluster (str): The cluster you're operating on (ex: Hou1)
+
+                Returns:
+                    (dict):
+                        username (str)
+                        tenancy_name (str)
+                        rpool (str)
+                        directAttachedStoragePersisted (bool)
+                        id (str)
+                        namespace (str)
+                        configuration (str)
+                        storage (int)
+                        gpu_type (str)
+                        gpus (int)
+                        vcpus (int)
+                        memory (int)
+                        ip (str)
+                        privateIp (str)
+                        image (str)
+                        cluster (str)
+                        status (str): Possible values:
+        <list type="bullet"><item><description>PLANNED - VM is in initialization phase</description></item><item><description>ONLINE - VM is up and running</description></item><item><description>OFFLINE - VM is stopped</description></item><item><description>CREATE_FAILED - VM creation failed</description></item><item><description>ADMIN_WAIT -  VM Failed</description></item><item><description>FAILED -  VM Failed</description></item><item><description>PENDING - VM is in process of transitioning to another state</description></item><item><description>PENDING_RESOURCES - VM is waiting for resources</description></item><item><description>PENDING_READINESS - VM is waiting for IP address to become available</description></item></list> (ex: ONLINE)
+                        storageType (str)
         """
         kwargs = {
             "json": {
@@ -164,12 +234,34 @@ class Client:
         cluster: str | None = None,
     ):
         """
-        Stop a virtual machine, ensuring a secure and orderly shutdown of its operations within the cloud environment
+                Stop a virtual machine, ensuring a secure and orderly shutdown of its operations within the cloud environment
 
-        Keyword Arguments:
-            id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
-            cluster (str): The cluster you're operating on (ex: Hou1)
+                Keyword Arguments:
+                    id (str): The virtual machine id (ex: vm-2024093009357617)
+                    namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
+                    cluster (str): The cluster you're operating on (ex: Hou1)
+
+                Returns:
+                    (dict):
+                        username (str)
+                        tenancy_name (str)
+                        rpool (str)
+                        directAttachedStoragePersisted (bool)
+                        id (str)
+                        namespace (str)
+                        configuration (str)
+                        storage (int)
+                        gpu_type (str)
+                        gpus (int)
+                        vcpus (int)
+                        memory (int)
+                        ip (str)
+                        privateIp (str)
+                        image (str)
+                        cluster (str)
+                        status (str): Possible values:
+        <list type="bullet"><item><description>PLANNED - VM is in initialization phase</description></item><item><description>ONLINE - VM is up and running</description></item><item><description>OFFLINE - VM is stopped</description></item><item><description>CREATE_FAILED - VM creation failed</description></item><item><description>ADMIN_WAIT -  VM Failed</description></item><item><description>FAILED -  VM Failed</description></item><item><description>PENDING - VM is in process of transitioning to another state</description></item><item><description>PENDING_RESOURCES - VM is waiting for resources</description></item><item><description>PENDING_READINESS - VM is waiting for IP address to become available</description></item></list> (ex: ONLINE)
+                        storageType (str)
         """
         kwargs = {
             "json": {
@@ -192,12 +284,34 @@ class Client:
         cluster: str | None = None,
     ):
         """
-        Permanently delete a specified virtual machine, effectively wiping all its data and freeing up resources for other uses
+                Permanently delete a specified virtual machine, effectively wiping all its data and freeing up resources for other uses
 
-        Keyword Arguments:
-            id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
-            cluster (str): The cluster you're operating on (ex: Hou1)
+                Keyword Arguments:
+                    id (str): The virtual machine id (ex: vm-2024093009357617)
+                    namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
+                    cluster (str): The cluster you're operating on (ex: Hou1)
+
+                Returns:
+                    (dict):
+                        username (str)
+                        tenancy_name (str)
+                        rpool (str)
+                        directAttachedStoragePersisted (bool)
+                        id (str)
+                        namespace (str)
+                        configuration (str)
+                        storage (int)
+                        gpu_type (str)
+                        gpus (int)
+                        vcpus (int)
+                        memory (int)
+                        ip (str)
+                        privateIp (str)
+                        image (str)
+                        cluster (str)
+                        status (str): Possible values:
+        <list type="bullet"><item><description>PLANNED - VM is in initialization phase</description></item><item><description>ONLINE - VM is up and running</description></item><item><description>OFFLINE - VM is stopped</description></item><item><description>CREATE_FAILED - VM creation failed</description></item><item><description>ADMIN_WAIT -  VM Failed</description></item><item><description>FAILED -  VM Failed</description></item><item><description>PENDING - VM is in process of transitioning to another state</description></item><item><description>PENDING_RESOURCES - VM is waiting for resources</description></item><item><description>PENDING_READINESS - VM is waiting for IP address to become available</description></item></list> (ex: ONLINE)
+                        storageType (str)
         """
         kwargs = {
             "params": {
@@ -219,7 +333,10 @@ class Client:
         """
         Get detailed information on available configurations for virtual machines
 
-        Keyword Arguments:
+
+        Returns:
+            (dict):
+                items (list)
         """
         kwargs = {}
 
@@ -240,6 +357,10 @@ class Client:
         Keyword Arguments:
             cluster (str)
             resource_pool (str)
+
+        Returns:
+            (dict):
+                items (list)
         """
         kwargs = {
             "params": {

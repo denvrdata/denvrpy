@@ -27,6 +27,7 @@ class Client:
         """
         {{ method.description }}
 
+        {% if method.params or method.json %}
         Keyword Arguments:
             {% if method.params %}
             {% for entry in method.params %}
@@ -38,6 +39,15 @@ class Client:
             {{ entry.kwarg }} ({{ entry.type }}){% if entry.desc %}: {{ entry.desc|safe }}{% if entry.example %} (ex: {{ entry.example|safe }}){% endif +%}{% endif +%}
             {% endfor %}
             {% endif %}
+        {% endif %}
+
+        {% if method.rtype %}
+        Returns:
+            ({{ method.rtype }}):
+                {% for entry in method.rprops %}
+                {{ entry.name }} ({{ entry.type }}){% if entry.desc %}: {{ entry.desc|safe }}{% if entry.example %} (ex: {{ entry.example|safe }}){% endif +%}{% endif +%}
+                {% endfor %}
+        {% endif %}
         """
         kwargs = {
             {% if method.params %}

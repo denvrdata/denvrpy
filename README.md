@@ -173,7 +173,8 @@ NOTES:
 - Composition over inheritance as that seemed easier to implement across languages.
   - We're passing a shared `Session` object into each generated independent `Client` object rather than having shared logic in an `AbstractClient` parent.
 - Namespacing over unique object names
-  - Rather
+  - Rather than having complicated names you should be able to just load the service you care about
+  - We don't wrap method input / outputs in custom object types since folks already know how `list`, `dict`, etc work.
 
 ### Session
 

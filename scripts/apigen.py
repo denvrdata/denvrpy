@@ -194,6 +194,7 @@ def generate(included=INCLUDED_PATHS):
             method["name"] = snakecase(methodname)
             method["params"] = []
             method["json"] = []
+            method["rprops"] = []
 
             # print(methodname + '( '+ http_method + ' ) -> \n' + json.dumps(path_vals) + '\n')
 
@@ -228,6 +229,35 @@ def generate(included=INCLUDED_PATHS):
                             "example": val.get("example", ""),
                         }
                     )
+
+            # TODO: Wrap this schema processing in an object which support generic path based indexing and
+            # automatic dereferencing for templates.
+            assert "responses" in path_vals
+            success = [v for (k, v) in path_vals["responses"].items() if "200" <= k < "300"]
+            assert len(success) == 1
+            assert "content" in success[0]
+            assert "application/json" in success[0]["content"]
+            assert "schema" in success[0]["content"]["application/json"]
+            resp = success[0]["content"]["application/json"]["schema"]
+
+            # TODO: Return schemas should have a description
+            if len(resp) == 1 and "$ref" in resp:
+                schema = schemas[os.path.basename(resp["$ref"])]
+                assert "type" in schema
+                assert schema["type"] == "object"
+                method["rtype"] = "dict"
+                for name, val in schema["properties"].items():
+                    method["rprops"].append(
+                        {
+                            "name": name,
+                            "type": TYPE_MAP[val["type"]],
+                            "desc": val.get("description", ""),
+                            "example": val.get("example", ""),
+                        }
+                    )
+
+            elif "type" in resp and resp["type"] == "array":
+                method["rtype"] = "list"
 
             # Add our method to
             context["methods"].append(method)

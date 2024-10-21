@@ -16,7 +16,9 @@ class Client:
         """
         Get a list of allocated clusters
 
-        Keyword Arguments:
+
+        Returns:
+            (list):
         """
         kwargs = {}
 
