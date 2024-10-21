@@ -46,10 +46,10 @@ INCLUDED_PATHS = [
     "/api/v1/servers/virtual/DestroyServer",
     "/api/v1/servers/virtual/GetConfigurations",
     "/api/v1/servers/virtual/GetAvailability",
-    "/api/v1/vpcs/GetVpcs",
-    "/api/v1/vpcs/GetVpc",
-    "/api/v1/vpcs/CreateVpc",
-    "/api/v1/vpcs/DestroyVpc",
+    # "/api/v1/vpcs/GetVpcs",
+    # "/api/v1/vpcs/GetVpc",
+    # "/api/v1/vpcs/CreateVpc",
+    # "/api/v1/vpcs/DestroyVpc",
 ]
 
 TYPE_MAP = {
