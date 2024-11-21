@@ -36,9 +36,27 @@ class Session:
 
     def request(self, method, path, **kwargs):
         url = os.path.join(self.config.server, os.path.splitroot(path)[-1])
-        resp = self.session.request(method, url, **kwargs)
+        resp = self.session.request(method, url, **_filter_none(kwargs))
         resp.raise_for_status()
         result = resp.json()
         # According to the spec we should just be return result and not {"result": result }?
         # For mock-server testing purposes we'll support both.
         return result.get("result", result) if isinstance(result, dict) else result
+
+
+def _filter_none(kwargs):
+    """
+    A utility function to remove None param or json payload values.
+    We also provide debug logging to track when these are removed.
+    """
+    result = {}
+    for kw, args in kwargs.items():
+        result[kw] = {}
+        for k, v in args.items():
+            if v is None:
+                # print("Dropping missing argument {}".format(k))
+                continue
+            else:  # noqa: RET507
+                result[kw][k] = v
+
+    return result
