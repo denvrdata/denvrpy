@@ -132,6 +132,40 @@ We can also get info about a specific vm.
 }
 ```
 
+Creating a new virtual machine works the same way:
+```python
+>>> print(json.dumps(virtual.create_server(
+...     name="api-test",
+...     rpool="on-demand",
+...     vpc="denvr",
+...     configuration="H100_80GB_SXM_8x",
+...     cluster="Hou1",
+...     ssh_keys=["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAA..."],
+...     operating_system_image="Ubuntu 22.04.4 LTS",
+...     root_disk_size=500,
+... ), indent=2))
+{
+  "username": "rory@denvrdata.com",
+  "tenancy_name": "denvr",
+  "rpool": "on-demand",
+  "directAttachedStoragePersisted": false,
+  "id": "api-test",
+  "namespace": "denvr",
+  "configuration": "H100_80GB_SXM_8x",
+  "storage": 20000,
+  "gpu_type": "nvidia.com/H100SXM480GB",
+  "gpus": 8,
+  "vcpus": 200,
+  "memory": 940,
+  "ip": "",
+  "privateIp": "172.16.0.84",
+  "image": "Ubuntu_22.04.4_LTS",
+  "cluster": "Hou1",
+  "status": "na",
+  "storageType": "na"
+}
+```
+
 ## Environment Variables
 
 These environment variables take priority over any values in the config if they exist.
