@@ -1,3 +1,4 @@
+import logging
 import os
 
 import requests
@@ -5,6 +6,8 @@ from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 
 from denvr.config import Config
+
+logger = logging.getLogger(__name__)
 
 
 class Session:
@@ -36,7 +39,9 @@ class Session:
 
     def request(self, method, path, **kwargs):
         url = os.path.join(self.config.server, os.path.splitroot(path)[-1])
-        resp = self.session.request(method, url, **_filter_none(kwargs))
+        filtered = _filter_none(kwargs)
+        logger.debug("Request: self.session.request(%s, %s, **%s", method, url, filtered)
+        resp = self.session.request(method, url, **filtered)
         resp.raise_for_status()
         result = resp.json()
         # According to the spec we should just be return result and not {"result": result }?
@@ -54,9 +59,8 @@ def _filter_none(kwargs):
         result[kw] = {}
         for k, v in args.items():
             if v is None:
-                # print("Dropping missing argument {}".format(k))
-                continue
-            else:  # noqa: RET507
+                logger.debug("Dropping missing %s argument %s", kw, k)
+            else:
                 result[kw][k] = v
 
     return result
