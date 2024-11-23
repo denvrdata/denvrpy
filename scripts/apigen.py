@@ -1,12 +1,5 @@
 """
 This file only exists to generate the other modules in this SDK.
-
-TODO:
-- Add logging
-- Create a venv for the scripts directory
-- Add a requirements.txt file for the scripts
-- Add the venv to the git ignore
-- Generate the api files
 """
 
 # /// script
@@ -15,6 +8,8 @@ TODO:
 # ///
 from __future__ import annotations
 
+import json
+import logging
 import os
 from collections import defaultdict
 
@@ -59,6 +54,8 @@ TYPE_MAP = {
     "array": "list",
     "object": "dict",
 }
+
+logger = logging.getLogger(__name__)
 
 
 def getapi(url=API_SPEC_LOCATION):
@@ -172,7 +169,7 @@ def generate(included=INCLUDED_PATHS):
             "module": os.path.splitroot(module)[-1].replace("/", "."),
             "methods": [],
         }
-        print(context)
+        logger.debug("Context: %s", context)
         for methodname in methods:
             # The dict where we'll store the current method context
             # to be inserted
@@ -196,7 +193,7 @@ def generate(included=INCLUDED_PATHS):
             method["json"] = []
             method["rprops"] = []
 
-            # print(methodname + '( '+ http_method + ' ) -> \n' + json.dumps(path_vals) + '\n')
+            logger.debug("%s(%s) -> %s", methodname, http_method, json.dumps(path_vals))
 
             # Collect the argument names and types
             # TODO: These should also have descriptions for the docstrings

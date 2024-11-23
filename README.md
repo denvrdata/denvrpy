@@ -134,16 +134,19 @@ We can also get info about a specific vm.
 
 Creating a new virtual machine works the same way:
 ```python
->>> print(json.dumps(virtual.create_server(
-...     name="api-test",
-...     rpool="on-demand",
-...     vpc="denvr",
-...     configuration="H100_80GB_SXM_8x",
-...     cluster="Hou1",
-...     ssh_keys=["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAA..."],
-...     operating_system_image="Ubuntu 22.04.4 LTS",
-...     root_disk_size=500,
-... ), indent=2))
+>>> print(json.dumps(
+    virtual.create_server(
+        name="api-test",
+        rpool="on-demand",
+        vpc="denvr",
+        configuration="H100_80GB_SXM_8x",
+        cluster="Hou1",
+        ssh_keys=["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAA..."],
+        operating_system_image="Ubuntu 22.04.4 LTS",
+        root_disk_size=500,
+    ),
+    indent=2
+))
 {
   "username": "rory@denvrdata.com",
   "tenancy_name": "denvr",
@@ -235,6 +238,62 @@ An object for handling requesting and refreshing access tokens given an initial 
 It is callable and subtypes `requests.auth.AuthBase` so that we can pass it as the `auth` keyword to `requests`
 
 NOTE: The password isn't stored in the object and will be deleted when it goes out of scope in the `Auth` and `Config` constructors.
+
+## Debugging
+
+This SDK is still in beta as we're still iterating on our REST API. Apart from loading up `pdb` we also provide some debug logs.
+
+```python
+>>> import json
+>>> import logging
+>>> from denvr.client import client
+>>> logging.basicConfig(level=logging.DEBUG)
+>>> virtual = client('servers/virtual')
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.cloud.denvrdata.com:443
+DEBUG:urllib3.connectionpool:https://api.cloud.denvrdata.com:443 "POST /api/TokenAuth/Authenticate HTTP/11" 200 None
+...
+>>> print(json.dumps(
+    virtual.create_server(
+        name="api-test",
+        rpool="on-demand",
+        vpc="denvr",
+        configuration="H100_80GB_SXM_8x",
+        cluster="Hou1",
+        ssh_keys=["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAA..."],
+        operating_system_image="Ubuntu 22.04.4 LTS",
+        root_disk_size=500,
+    ),
+    indent=2
+))
+DEBUG:denvr.session:Dropping missing json argument personalStorageMountPath
+DEBUG:denvr.session:Dropping missing json argument tenantSharedAdditionalStorage
+DEBUG:denvr.session:Dropping missing json argument persistStorage
+DEBUG:denvr.session:Dropping missing json argument directStorageMountPath
+DEBUG:denvr.session:Request: self.session.request(post, https://api.cloud.denvrdata.com/api/v1/servers/virtual/CreateServer, **{'json': {'name': 'api-test', 'rpool': 'on-dema
+nd', 'vpc': 'denvr', 'configuration': 'H100_80GB_SXM_8x', 'cluster': 'Hou1', 'ssh_keys': ['ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAA...'], 'operatingSystemImage': 'Ubuntu 22.04.4 L
+TS', 'rootDiskSize': 500}}
+DEBUG:urllib3.connectionpool:https://api.cloud.denvrdata.com:443 "POST /api/v1/servers/virtual/CreateServer HTTP/11" 202 482
+{
+  "username": "rory@denvrdata.com",
+  "tenancy_name": "denvr",
+  "rpool": "on-demand",
+  "directAttachedStoragePersisted": false,
+  "id": "api-test",
+  "namespace": "denvr",
+  "configuration": "H100_80GB_SXM_8x",
+  "storage": 20000,
+  "gpu_type": "nvidia.com/H100SXM480GB",
+  "gpus": 8,
+  "vcpus": 200,
+  "memory": 940,
+  "ip": "",
+  "privateIp": "172.16.0.2",
+  "image": "Ubuntu_22.04.4_LTS",
+  "cluster": "Hou1",
+  "status": "na",
+  "storageType": "na"
+}
+```
 
 ## License
 

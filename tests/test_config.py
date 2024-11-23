@@ -38,8 +38,6 @@ def test_config(mock_post):
         fp.write(content.encode())
         fp.close()
 
-        print(fp.name)
-        print(type(fp))
         conf = config(path=fp.name)
 
         assert conf.auth._access_token == "access1"

@@ -73,7 +73,6 @@ cov-total = "coverage report -m --format=total"
     "EM102",  # Same as above
     "S101",   # asserts are fine for now
     "S113",   # requests timeouts N/A yet
-    "T201",   # print debugging seems fine for now
     "TRY002", # we'll add custom exceptions later
     "TRY003", # again, we'll add exceptions later
 ]
