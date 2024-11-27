@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from denvr.validate import validate_kwargs
+
 if TYPE_CHECKING:
     from denvr.session import Session
 
@@ -21,7 +23,16 @@ class Client:
             (dict):
                 items (list)
         """
-        kwargs = {}
+        config = self.session.config  # noqa: F841
+
+        parameters = {}
+
+        kwargs = validate_kwargs(
+            "get",
+            "/api/v1/servers/images/GetOperatingSystemImages",
+            parameters,
+            {},
+        )
 
         return self.session.request(
             "get",

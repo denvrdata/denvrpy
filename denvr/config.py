@@ -46,6 +46,15 @@ class Config:
     def retries(self):
         return self.defaults.get("retries", 3)
 
+    def getkwarg(self, name, val):
+        """
+        Uses default value for the provided `name` if `val` is `None`.
+        """
+        if val is None:
+            return getattr(self, name, None)
+
+        return val
+
 
 def config(path=None):
     """

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from denvr.validate import validate_kwargs
+
 if TYPE_CHECKING:
     from denvr.session import Session
 
@@ -22,32 +24,41 @@ class Client:
 
         Returns:
             (dict):
-                id (str)
-                cluster (str)
-                hostType (str)
-                username (str)
-                tenancyName (str)
+                id (str): The bare metal node id (ex: denvrbm-128)
+                cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
+                hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+                username (str): The username tied to the host (ex: admin)
+                tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
                 gpuType (str)
-                gpus (int)
-                vcpus (int)
+                gpus (int): Number of GPUs attached to the host (ex: 8)
+                vcpus (int): Number of vCPUs on the host (ex: 120)
                 vcpuType (str)
-                memory (int)
-                ip (str)
-                privateIp (str)
+                memory (int): Amount of system memory available in GB (ex: 940)
+                ip (str): The public IP address of the host (ex: 123.45.67.89)
+                privateIp (str): The private IP address of the host (ex: 120.77.3.21)
                 imageId (str)
                 image (str)
-                storage (int)
+                storage (int): The amount of storage attached to the host in GB (ex: 13600)
                 storageClass (str)
                 vpcId (str)
                 reservation (str)
                 reservationExpiry (str)
-                status (str)
+                status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "params": {
-                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "Cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "get",
+            "/api/v1/servers/metal/GetHosts",
+            parameters,
+            {},
+        )
 
         return self.session.request(
             "get",
@@ -69,33 +80,42 @@ class Client:
 
         Returns:
             (dict):
-                id (str)
-                cluster (str)
-                hostType (str)
-                username (str)
-                tenancyName (str)
+                id (str): The bare metal node id (ex: denvrbm-128)
+                cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
+                hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+                username (str): The username tied to the host (ex: admin)
+                tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
                 gpuType (str)
-                gpus (int)
-                vcpus (int)
+                gpus (int): Number of GPUs attached to the host (ex: 8)
+                vcpus (int): Number of vCPUs on the host (ex: 120)
                 vcpuType (str)
-                memory (int)
-                ip (str)
-                privateIp (str)
+                memory (int): Amount of system memory available in GB (ex: 940)
+                ip (str): The public IP address of the host (ex: 123.45.67.89)
+                privateIp (str): The private IP address of the host (ex: 120.77.3.21)
                 imageId (str)
                 image (str)
-                storage (int)
+                storage (int): The amount of storage attached to the host in GB (ex: 13600)
                 storageClass (str)
                 vpcId (str)
                 reservation (str)
                 reservationExpiry (str)
-                status (str)
+                status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "params": {
-                "Id": id if id else getattr(self.session.config, "id", None),
-                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "Id": config.getkwarg("id", id),
+                "Cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "get",
+            "/api/v1/servers/metal/GetHost",
+            parameters,
+            {"Id", "Cluster"},
+        )
 
         return self.session.request(
             "get",
@@ -119,34 +139,43 @@ class Client:
 
         Returns:
             (dict):
-                id (str)
-                cluster (str)
-                hostType (str)
-                username (str)
-                tenancyName (str)
+                id (str): The bare metal node id (ex: denvrbm-128)
+                cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
+                hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+                username (str): The username tied to the host (ex: admin)
+                tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
                 gpuType (str)
-                gpus (int)
-                vcpus (int)
+                gpus (int): Number of GPUs attached to the host (ex: 8)
+                vcpus (int): Number of vCPUs on the host (ex: 120)
                 vcpuType (str)
-                memory (int)
-                ip (str)
-                privateIp (str)
+                memory (int): Amount of system memory available in GB (ex: 940)
+                ip (str): The public IP address of the host (ex: 123.45.67.89)
+                privateIp (str): The private IP address of the host (ex: 120.77.3.21)
                 imageId (str)
                 image (str)
-                storage (int)
+                storage (int): The amount of storage attached to the host in GB (ex: 13600)
                 storageClass (str)
                 vpcId (str)
                 reservation (str)
                 reservationExpiry (str)
-                status (str)
+                status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "json": {
-                "id": id if id else getattr(self.session.config, "id", None),
-                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
-                "vpcId": vpc_id if vpc_id else getattr(self.session.config, "vpc_id", None),
+                "id": config.getkwarg("id", id),
+                "cluster": config.getkwarg("cluster", cluster),
+                "vpcId": config.getkwarg("vpc_id", vpc_id),
             },
         }
+
+        kwargs = validate_kwargs(
+            "post",
+            "/api/v1/servers/metal/AddHostVpc",
+            parameters,
+            {"cluster", "id", "vpcId"},
+        )
 
         return self.session.request(
             "post",
@@ -170,34 +199,43 @@ class Client:
 
         Returns:
             (dict):
-                id (str)
-                cluster (str)
-                hostType (str)
-                username (str)
-                tenancyName (str)
+                id (str): The bare metal node id (ex: denvrbm-128)
+                cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
+                hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+                username (str): The username tied to the host (ex: admin)
+                tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
                 gpuType (str)
-                gpus (int)
-                vcpus (int)
+                gpus (int): Number of GPUs attached to the host (ex: 8)
+                vcpus (int): Number of vCPUs on the host (ex: 120)
                 vcpuType (str)
-                memory (int)
-                ip (str)
-                privateIp (str)
+                memory (int): Amount of system memory available in GB (ex: 940)
+                ip (str): The public IP address of the host (ex: 123.45.67.89)
+                privateIp (str): The private IP address of the host (ex: 120.77.3.21)
                 imageId (str)
                 image (str)
-                storage (int)
+                storage (int): The amount of storage attached to the host in GB (ex: 13600)
                 storageClass (str)
                 vpcId (str)
                 reservation (str)
                 reservationExpiry (str)
-                status (str)
+                status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "json": {
-                "id": id if id else getattr(self.session.config, "id", None),
-                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
-                "vpcId": vpc_id if vpc_id else getattr(self.session.config, "vpc_id", None),
+                "id": config.getkwarg("id", id),
+                "cluster": config.getkwarg("cluster", cluster),
+                "vpcId": config.getkwarg("vpc_id", vpc_id),
             },
         }
+
+        kwargs = validate_kwargs(
+            "post",
+            "/api/v1/servers/metal/RemoveHostVpc",
+            parameters,
+            {"cluster", "id", "vpcId"},
+        )
 
         return self.session.request(
             "post",
@@ -219,33 +257,42 @@ class Client:
 
         Returns:
             (dict):
-                id (str)
-                cluster (str)
-                hostType (str)
-                username (str)
-                tenancyName (str)
+                id (str): The bare metal node id (ex: denvrbm-128)
+                cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
+                hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+                username (str): The username tied to the host (ex: admin)
+                tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
                 gpuType (str)
-                gpus (int)
-                vcpus (int)
+                gpus (int): Number of GPUs attached to the host (ex: 8)
+                vcpus (int): Number of vCPUs on the host (ex: 120)
                 vcpuType (str)
-                memory (int)
-                ip (str)
-                privateIp (str)
+                memory (int): Amount of system memory available in GB (ex: 940)
+                ip (str): The public IP address of the host (ex: 123.45.67.89)
+                privateIp (str): The private IP address of the host (ex: 120.77.3.21)
                 imageId (str)
                 image (str)
-                storage (int)
+                storage (int): The amount of storage attached to the host in GB (ex: 13600)
                 storageClass (str)
                 vpcId (str)
                 reservation (str)
                 reservationExpiry (str)
-                status (str)
+                status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "json": {
-                "id": id if id else getattr(self.session.config, "id", None),
-                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "id": config.getkwarg("id", id),
+                "cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "post",
+            "/api/v1/servers/metal/RebootHost",
+            parameters,
+            {"cluster", "id"},
+        )
 
         return self.session.request(
             "post",

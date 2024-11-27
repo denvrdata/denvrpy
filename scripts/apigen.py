@@ -192,6 +192,7 @@ def generate(included=INCLUDED_PATHS):
             method["params"] = []
             method["json"] = []
             method["rprops"] = []
+            method["required"] = []
 
             logger.debug("%s(%s) -> %s", methodname, http_method, json.dumps(path_vals))
 
@@ -207,14 +208,18 @@ def generate(included=INCLUDED_PATHS):
                             "val": testval(param["name"], TYPE_MAP[param["schema"]["type"]]),
                             "desc": param.get("description", ""),
                             "example": param.get("example", ""),
+                            "required": param.get("required", False),
                         }
                     )
+                    if param.get("required", False):
+                        method["required"].append(param["name"])
 
             if "requestBody" in path_vals:
                 # TODO: Technically we should test for the '$ref' case first
                 schema_ref = os.path.basename(path_vals["requestBody"]["content"]["application/json"]["schema"]["$ref"])
                 schema = schemas[schema_ref]
                 assert schema["type"] == "object"
+                method["required"].extend(schema.get("required", []))
                 for name, val in schema["properties"].items():
                     method["json"].append(
                         {
