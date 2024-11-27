@@ -13,14 +13,15 @@ class Client:
     {% for method in methods %}
     def {{ method.name }}(
         self,
+        {% if method.params or method.json %}*,{% endif %}
         {% if method.params %}
         {% for entry in method.params %}
-        {{ entry.kwarg }}: {{ entry.type }} | None = None,
+        {{ entry.kwarg }}: {{ entry.type }}{% if not entry.required %} | None = None{% endif %},
         {% endfor %}
         {% endif %}
         {% if method.json %}
         {% for entry in method.json %}
-        {{ entry.kwarg }}: {{ entry.type }} | None = None,
+        {{ entry.kwarg }}: {{ entry.type }}{% if not entry.required %} | None = None{% endif %},
         {% endfor %}
         {% endif %}
     ):

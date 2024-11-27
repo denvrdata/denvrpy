@@ -12,6 +12,7 @@ class Client:
 
     def get_hosts(
         self,
+        *,
         cluster: str | None = None,
     ):
         """
@@ -22,26 +23,26 @@ class Client:
 
         Returns:
             (dict):
-                id (str)
-                cluster (str)
-                hostType (str)
-                username (str)
-                tenancyName (str)
+                id (str): The bare metal node id (ex: denvrbm-128)
+                cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
+                hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+                username (str): The username tied to the host (ex: admin)
+                tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
                 gpuType (str)
-                gpus (int)
-                vcpus (int)
+                gpus (int): Number of GPUs attached to the host (ex: 8)
+                vcpus (int): Number of vCPUs on the host (ex: 120)
                 vcpuType (str)
-                memory (int)
-                ip (str)
-                privateIp (str)
+                memory (int): Amount of system memory available in GB (ex: 940)
+                ip (str): The public IP address of the host (ex: 123.45.67.89)
+                privateIp (str): The private IP address of the host (ex: 120.77.3.21)
                 imageId (str)
                 image (str)
-                storage (int)
+                storage (int): The amount of storage attached to the host in GB (ex: 13600)
                 storageClass (str)
                 vpcId (str)
                 reservation (str)
                 reservationExpiry (str)
-                status (str)
+                status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
         kwargs = {
             "params": {
@@ -57,8 +58,9 @@ class Client:
 
     def get_host(
         self,
-        id: str | None = None,
-        cluster: str | None = None,
+        *,
+        id: str,
+        cluster: str,
     ):
         """
         Get detailed information about a specific metal host
@@ -69,26 +71,26 @@ class Client:
 
         Returns:
             (dict):
-                id (str)
-                cluster (str)
-                hostType (str)
-                username (str)
-                tenancyName (str)
+                id (str): The bare metal node id (ex: denvrbm-128)
+                cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
+                hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+                username (str): The username tied to the host (ex: admin)
+                tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
                 gpuType (str)
-                gpus (int)
-                vcpus (int)
+                gpus (int): Number of GPUs attached to the host (ex: 8)
+                vcpus (int): Number of vCPUs on the host (ex: 120)
                 vcpuType (str)
-                memory (int)
-                ip (str)
-                privateIp (str)
+                memory (int): Amount of system memory available in GB (ex: 940)
+                ip (str): The public IP address of the host (ex: 123.45.67.89)
+                privateIp (str): The private IP address of the host (ex: 120.77.3.21)
                 imageId (str)
                 image (str)
-                storage (int)
+                storage (int): The amount of storage attached to the host in GB (ex: 13600)
                 storageClass (str)
                 vpcId (str)
                 reservation (str)
                 reservationExpiry (str)
-                status (str)
+                status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
         kwargs = {
             "params": {
@@ -105,9 +107,10 @@ class Client:
 
     def add_host_vpc(
         self,
-        id: str | None = None,
-        cluster: str | None = None,
-        vpc_id: str | None = None,
+        *,
+        id: str,
+        cluster: str,
+        vpc_id: str,
     ):
         """
         Add metal host to VPC
@@ -119,26 +122,26 @@ class Client:
 
         Returns:
             (dict):
-                id (str)
-                cluster (str)
-                hostType (str)
-                username (str)
-                tenancyName (str)
+                id (str): The bare metal node id (ex: denvrbm-128)
+                cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
+                hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+                username (str): The username tied to the host (ex: admin)
+                tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
                 gpuType (str)
-                gpus (int)
-                vcpus (int)
+                gpus (int): Number of GPUs attached to the host (ex: 8)
+                vcpus (int): Number of vCPUs on the host (ex: 120)
                 vcpuType (str)
-                memory (int)
-                ip (str)
-                privateIp (str)
+                memory (int): Amount of system memory available in GB (ex: 940)
+                ip (str): The public IP address of the host (ex: 123.45.67.89)
+                privateIp (str): The private IP address of the host (ex: 120.77.3.21)
                 imageId (str)
                 image (str)
-                storage (int)
+                storage (int): The amount of storage attached to the host in GB (ex: 13600)
                 storageClass (str)
                 vpcId (str)
                 reservation (str)
                 reservationExpiry (str)
-                status (str)
+                status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
         kwargs = {
             "json": {
@@ -156,9 +159,10 @@ class Client:
 
     def remove_host_vpc(
         self,
-        id: str | None = None,
-        cluster: str | None = None,
-        vpc_id: str | None = None,
+        *,
+        id: str,
+        cluster: str,
+        vpc_id: str,
     ):
         """
         Remove metal host from VPC
@@ -170,26 +174,26 @@ class Client:
 
         Returns:
             (dict):
-                id (str)
-                cluster (str)
-                hostType (str)
-                username (str)
-                tenancyName (str)
+                id (str): The bare metal node id (ex: denvrbm-128)
+                cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
+                hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+                username (str): The username tied to the host (ex: admin)
+                tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
                 gpuType (str)
-                gpus (int)
-                vcpus (int)
+                gpus (int): Number of GPUs attached to the host (ex: 8)
+                vcpus (int): Number of vCPUs on the host (ex: 120)
                 vcpuType (str)
-                memory (int)
-                ip (str)
-                privateIp (str)
+                memory (int): Amount of system memory available in GB (ex: 940)
+                ip (str): The public IP address of the host (ex: 123.45.67.89)
+                privateIp (str): The private IP address of the host (ex: 120.77.3.21)
                 imageId (str)
                 image (str)
-                storage (int)
+                storage (int): The amount of storage attached to the host in GB (ex: 13600)
                 storageClass (str)
                 vpcId (str)
                 reservation (str)
                 reservationExpiry (str)
-                status (str)
+                status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
         kwargs = {
             "json": {
@@ -207,8 +211,9 @@ class Client:
 
     def reboot_host(
         self,
-        id: str | None = None,
-        cluster: str | None = None,
+        *,
+        id: str,
+        cluster: str,
     ):
         """
         Reboot the metal host
@@ -219,26 +224,26 @@ class Client:
 
         Returns:
             (dict):
-                id (str)
-                cluster (str)
-                hostType (str)
-                username (str)
-                tenancyName (str)
+                id (str): The bare metal node id (ex: denvrbm-128)
+                cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
+                hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+                username (str): The username tied to the host (ex: admin)
+                tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
                 gpuType (str)
-                gpus (int)
-                vcpus (int)
+                gpus (int): Number of GPUs attached to the host (ex: 8)
+                vcpus (int): Number of vCPUs on the host (ex: 120)
                 vcpuType (str)
-                memory (int)
-                ip (str)
-                privateIp (str)
+                memory (int): Amount of system memory available in GB (ex: 940)
+                ip (str): The public IP address of the host (ex: 123.45.67.89)
+                privateIp (str): The private IP address of the host (ex: 120.77.3.21)
                 imageId (str)
                 image (str)
-                storage (int)
+                storage (int): The amount of storage attached to the host in GB (ex: 13600)
                 storageClass (str)
                 vpcId (str)
                 reservation (str)
                 reservationExpiry (str)
-                status (str)
+                status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
         kwargs = {
             "json": {

@@ -207,6 +207,7 @@ def generate(included=INCLUDED_PATHS):
                             "val": testval(param["name"], TYPE_MAP[param["schema"]["type"]]),
                             "desc": param.get("description", ""),
                             "example": param.get("example", ""),
+                            "required": param.get("required", False),
                         }
                     )
 
@@ -215,6 +216,7 @@ def generate(included=INCLUDED_PATHS):
                 schema_ref = os.path.basename(path_vals["requestBody"]["content"]["application/json"]["schema"]["$ref"])
                 schema = schemas[schema_ref]
                 assert schema["type"] == "object"
+                required = set(schema.get("required", []))
                 for name, val in schema["properties"].items():
                     method["json"].append(
                         {
@@ -224,6 +226,7 @@ def generate(included=INCLUDED_PATHS):
                             "val": testval(name, TYPE_MAP[val["type"]]),
                             "desc": val.get("description", ""),
                             "example": val.get("example", ""),
+                            "required": name in required,
                         }
                     )
 
