@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from denvr.validate import validate_kwargs
+
 if TYPE_CHECKING:
     from denvr.session import Session
 
@@ -20,7 +22,16 @@ class Client:
         Returns:
             (list):
         """
-        kwargs = {}
+        config = self.session.config  # noqa: F841
+
+        parameters = {}
+
+        kwargs = validate_kwargs(
+            "get",
+            "/api/v1/clusters/GetAll",
+            parameters,
+            {},
+        )
 
         return self.session.request(
             "get",

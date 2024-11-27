@@ -3,16 +3,17 @@ from unittest.mock import Mock
 import pytest
 
 from denvr.api.v1.clusters import Client
+from denvr.config import Config
 from denvr.session import Session
 
 
 def test_get_all():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
     client.get_all()
 
     client_kwargs = {}

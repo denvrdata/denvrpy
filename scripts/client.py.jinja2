@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+from denvr.validate import validate_kwargs
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from denvr.session import Session
+
 
 
 class Client:
@@ -13,15 +16,14 @@ class Client:
     {% for method in methods %}
     def {{ method.name }}(
         self,
-        {% if method.params or method.json %}*,{% endif %}
         {% if method.params %}
         {% for entry in method.params %}
-        {{ entry.kwarg }}: {{ entry.type }}{% if not entry.required %} | None = None{% endif %},
+        {{ entry.kwarg }}: {{ entry.type }} | None = None,
         {% endfor %}
         {% endif %}
         {% if method.json %}
         {% for entry in method.json %}
-        {{ entry.kwarg }}: {{ entry.type }}{% if not entry.required %} | None = None{% endif %},
+        {{ entry.kwarg }}: {{ entry.type }} | None = None,
         {% endfor %}
         {% endif %}
     ):
@@ -50,22 +52,31 @@ class Client:
                 {% endfor %}
         {% endif %}
         """
-        kwargs = {
+        config = self.session.config  # noqa: F841
+
+        parameters = {
             {% if method.params %}
             'params': {
                 {% for entry in method.params %}
-                '{{ entry.param }}': {{ entry.kwarg }} if {{ entry.kwarg }} else getattr(self.session.config, '{{entry.kwarg}}', None),
+                '{{ entry.param }}': config.getkwarg('{{ entry.kwarg }}', {{ entry.kwarg }}),
                 {% endfor %}
             },
             {% endif %}
             {% if method.json %}
             'json': {
                 {% for entry in method.json %}
-                '{{ entry.param }}': {{ entry.kwarg }} if {{ entry.kwarg }} else getattr(self.session.config, '{{entry.kwarg}}', None),
+                '{{ entry.param }}': config.getkwarg('{{ entry.kwarg }}', {{ entry.kwarg }}),
                 {% endfor %}
             },
             {% endif %}
         }
+
+        kwargs = validate_kwargs(
+            '{{ method.method }}',
+            '{{ method.path }}',
+            parameters,
+            { {% if method.required %}"{{ method.required | join('", "') | safe }}"{% endif %} },
+        )
 
         return self.session.request(
             '{{ method.method }}',

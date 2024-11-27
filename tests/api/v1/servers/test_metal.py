@@ -3,16 +3,17 @@ from unittest.mock import Mock
 import pytest
 
 from denvr.api.v1.servers.metal import Client
+from denvr.config import Config
 from denvr.session import Session
 
 
 def test_get_hosts():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
     client.get_hosts()
 
     client_kwargs = {
@@ -48,13 +49,18 @@ def test_integration_get_hosts(mock_config):
 
 
 def test_get_host():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
-    client.get_host()
+    # Check that missing required arguments without a default should through a TypeError
+    if any(getattr(config, k, None) is None for k in ["Id", "Cluster"]):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.get_host()
+    else:
+        client.get_host()
 
     client_kwargs = {
         "id": "Id",
@@ -92,13 +98,18 @@ def test_integration_get_host(mock_config):
 
 
 def test_add_host_vpc():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
-    client.add_host_vpc()
+    # Check that missing required arguments without a default should through a TypeError
+    if any(getattr(config, k, None) is None for k in ["cluster", "id", "vpcId"]):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.add_host_vpc()
+    else:
+        client.add_host_vpc()
 
     client_kwargs = {
         "id": "id",
@@ -139,13 +150,18 @@ def test_integration_add_host_vpc(mock_config):
 
 
 def test_remove_host_vpc():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
-    client.remove_host_vpc()
+    # Check that missing required arguments without a default should through a TypeError
+    if any(getattr(config, k, None) is None for k in ["cluster", "id", "vpcId"]):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.remove_host_vpc()
+    else:
+        client.remove_host_vpc()
 
     client_kwargs = {
         "id": "id",
@@ -186,13 +202,18 @@ def test_integration_remove_host_vpc(mock_config):
 
 
 def test_reboot_host():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
-    client.reboot_host()
+    # Check that missing required arguments without a default should through a TypeError
+    if any(getattr(config, k, None) is None for k in ["cluster", "id"]):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.reboot_host()
+    else:
+        client.reboot_host()
 
     client_kwargs = {
         "id": "id",

@@ -3,16 +3,17 @@ from unittest.mock import Mock
 import pytest
 
 from denvr.api.v1.servers.virtual import Client
+from denvr.config import Config
 from denvr.session import Session
 
 
 def test_get_servers():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
     client.get_servers()
 
     client_kwargs = {
@@ -48,13 +49,18 @@ def test_integration_get_servers(mock_config):
 
 
 def test_get_server():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
-    client.get_server()
+    # Check that missing required arguments without a default should through a TypeError
+    if any(getattr(config, k, None) is None for k in ["Id", "Namespace", "Cluster"]):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.get_server()
+    else:
+        client.get_server()
 
     client_kwargs = {
         "id": "Id",
@@ -95,13 +101,18 @@ def test_integration_get_server(mock_config):
 
 
 def test_create_server():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
-    client.create_server()
+    # Check that missing required arguments without a default should through a TypeError
+    if any(getattr(config, k, None) is None for k in ["cluster", "configuration", "ssh_keys", "vpc"]):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.create_server()
+    else:
+        client.create_server()
 
     client_kwargs = {
         "name": "name",
@@ -169,13 +180,18 @@ def test_integration_create_server(mock_config):
 
 
 def test_start_server():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
-    client.start_server()
+    # Check that missing required arguments without a default should through a TypeError
+    if any(getattr(config, k, None) is None for k in ["cluster", "id", "namespace"]):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.start_server()
+    else:
+        client.start_server()
 
     client_kwargs = {
         "id": "id",
@@ -216,13 +232,18 @@ def test_integration_start_server(mock_config):
 
 
 def test_stop_server():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
-    client.stop_server()
+    # Check that missing required arguments without a default should through a TypeError
+    if any(getattr(config, k, None) is None for k in ["cluster", "id", "namespace"]):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.stop_server()
+    else:
+        client.stop_server()
 
     client_kwargs = {
         "id": "id",
@@ -263,13 +284,18 @@ def test_integration_stop_server(mock_config):
 
 
 def test_destroy_server():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
-    client.destroy_server()
+    # Check that missing required arguments without a default should through a TypeError
+    if any(getattr(config, k, None) is None for k in ["Id", "Namespace", "Cluster"]):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.destroy_server()
+    else:
+        client.destroy_server()
 
     client_kwargs = {
         "id": "Id",
@@ -310,12 +336,12 @@ def test_integration_destroy_server(mock_config):
 
 
 def test_get_configurations():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
     client.get_configurations()
 
     client_kwargs = {}
@@ -343,13 +369,18 @@ def test_integration_get_configurations(mock_config):
 
 
 def test_get_availability():
+    config = Config(defaults={}, auth=None)
+
     session = Mock()
+    session.config = config
     client = Client(session)
 
-    # This case will fail for a real session, but
-    # might as well test that it doesn't fail on the generated
-    # code.
-    client.get_availability()
+    # Check that missing required arguments without a default should through a TypeError
+    if any(getattr(config, k, None) is None for k in ["cluster"]):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.get_availability()
+    else:
+        client.get_availability()
 
     client_kwargs = {
         "cluster": "cluster",

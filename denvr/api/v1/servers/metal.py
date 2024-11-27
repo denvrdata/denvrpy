@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from denvr.validate import validate_kwargs
+
 if TYPE_CHECKING:
     from denvr.session import Session
 
@@ -12,7 +14,6 @@ class Client:
 
     def get_hosts(
         self,
-        *,
         cluster: str | None = None,
     ):
         """
@@ -44,11 +45,20 @@ class Client:
                 reservationExpiry (str)
                 status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "params": {
-                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "Cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "get",
+            "/api/v1/servers/metal/GetHosts",
+            parameters,
+            {},
+        )
 
         return self.session.request(
             "get",
@@ -58,9 +68,8 @@ class Client:
 
     def get_host(
         self,
-        *,
-        id: str,
-        cluster: str,
+        id: str | None = None,
+        cluster: str | None = None,
     ):
         """
         Get detailed information about a specific metal host
@@ -92,12 +101,21 @@ class Client:
                 reservationExpiry (str)
                 status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "params": {
-                "Id": id if id else getattr(self.session.config, "id", None),
-                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "Id": config.getkwarg("id", id),
+                "Cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "get",
+            "/api/v1/servers/metal/GetHost",
+            parameters,
+            {"Id", "Cluster"},
+        )
 
         return self.session.request(
             "get",
@@ -107,10 +125,9 @@ class Client:
 
     def add_host_vpc(
         self,
-        *,
-        id: str,
-        cluster: str,
-        vpc_id: str,
+        id: str | None = None,
+        cluster: str | None = None,
+        vpc_id: str | None = None,
     ):
         """
         Add metal host to VPC
@@ -143,13 +160,22 @@ class Client:
                 reservationExpiry (str)
                 status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "json": {
-                "id": id if id else getattr(self.session.config, "id", None),
-                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
-                "vpcId": vpc_id if vpc_id else getattr(self.session.config, "vpc_id", None),
+                "id": config.getkwarg("id", id),
+                "cluster": config.getkwarg("cluster", cluster),
+                "vpcId": config.getkwarg("vpc_id", vpc_id),
             },
         }
+
+        kwargs = validate_kwargs(
+            "post",
+            "/api/v1/servers/metal/AddHostVpc",
+            parameters,
+            {"cluster", "id", "vpcId"},
+        )
 
         return self.session.request(
             "post",
@@ -159,10 +185,9 @@ class Client:
 
     def remove_host_vpc(
         self,
-        *,
-        id: str,
-        cluster: str,
-        vpc_id: str,
+        id: str | None = None,
+        cluster: str | None = None,
+        vpc_id: str | None = None,
     ):
         """
         Remove metal host from VPC
@@ -195,13 +220,22 @@ class Client:
                 reservationExpiry (str)
                 status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "json": {
-                "id": id if id else getattr(self.session.config, "id", None),
-                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
-                "vpcId": vpc_id if vpc_id else getattr(self.session.config, "vpc_id", None),
+                "id": config.getkwarg("id", id),
+                "cluster": config.getkwarg("cluster", cluster),
+                "vpcId": config.getkwarg("vpc_id", vpc_id),
             },
         }
+
+        kwargs = validate_kwargs(
+            "post",
+            "/api/v1/servers/metal/RemoveHostVpc",
+            parameters,
+            {"cluster", "id", "vpcId"},
+        )
 
         return self.session.request(
             "post",
@@ -211,9 +245,8 @@ class Client:
 
     def reboot_host(
         self,
-        *,
-        id: str,
-        cluster: str,
+        id: str | None = None,
+        cluster: str | None = None,
     ):
         """
         Reboot the metal host
@@ -245,12 +278,21 @@ class Client:
                 reservationExpiry (str)
                 status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "json": {
-                "id": id if id else getattr(self.session.config, "id", None),
-                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "id": config.getkwarg("id", id),
+                "cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "post",
+            "/api/v1/servers/metal/RebootHost",
+            parameters,
+            {"cluster", "id"},
+        )
 
         return self.session.request(
             "post",

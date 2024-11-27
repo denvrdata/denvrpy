@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from denvr.validate import validate_kwargs
+
 if TYPE_CHECKING:
     from denvr.session import Session
 
@@ -12,7 +14,6 @@ class Client:
 
     def get_servers(
         self,
-        *,
         cluster: str | None = None,
     ):
         """
@@ -25,11 +26,20 @@ class Client:
             (dict):
                 items (list)
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "params": {
-                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "Cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "get",
+            "/api/v1/servers/virtual/GetServers",
+            parameters,
+            {},
+        )
 
         return self.session.request(
             "get",
@@ -39,10 +49,9 @@ class Client:
 
     def get_server(
         self,
-        *,
-        id: str,
-        namespace: str,
-        cluster: str,
+        id: str | None = None,
+        namespace: str | None = None,
+        cluster: str | None = None,
     ):
         """
         Get detailed information about a specific virtual machine
@@ -73,13 +82,22 @@ class Client:
                 status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
                 storageType (str)
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "params": {
-                "Id": id if id else getattr(self.session.config, "id", None),
-                "Namespace": namespace if namespace else getattr(self.session.config, "namespace", None),
-                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "Id": config.getkwarg("id", id),
+                "Namespace": config.getkwarg("namespace", namespace),
+                "Cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "get",
+            "/api/v1/servers/virtual/GetServer",
+            parameters,
+            {"Id", "Namespace", "Cluster"},
+        )
 
         return self.session.request(
             "get",
@@ -89,13 +107,12 @@ class Client:
 
     def create_server(
         self,
-        *,
         name: str | None = None,
         rpool: str | None = None,
-        vpc: str,
-        configuration: str,
-        cluster: str,
-        ssh_keys: list,
+        vpc: str | None = None,
+        configuration: str | None = None,
+        cluster: str | None = None,
+        ssh_keys: list | None = None,
         operating_system_image: str | None = None,
         personal_storage_mount_path: str | None = None,
         tenant_shared_additional_storage: str | None = None,
@@ -141,36 +158,33 @@ class Client:
                 status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
                 storageType (str)
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "json": {
-                "name": name if name else getattr(self.session.config, "name", None),
-                "rpool": rpool if rpool else getattr(self.session.config, "rpool", None),
-                "vpc": vpc if vpc else getattr(self.session.config, "vpc", None),
-                "configuration": configuration
-                if configuration
-                else getattr(self.session.config, "configuration", None),
-                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
-                "ssh_keys": ssh_keys if ssh_keys else getattr(self.session.config, "ssh_keys", None),
-                "operatingSystemImage": operating_system_image
-                if operating_system_image
-                else getattr(self.session.config, "operating_system_image", None),
-                "personalStorageMountPath": personal_storage_mount_path
-                if personal_storage_mount_path
-                else getattr(self.session.config, "personal_storage_mount_path", None),
-                "tenantSharedAdditionalStorage": tenant_shared_additional_storage
-                if tenant_shared_additional_storage
-                else getattr(self.session.config, "tenant_shared_additional_storage", None),
-                "persistStorage": persist_storage
-                if persist_storage
-                else getattr(self.session.config, "persist_storage", None),
-                "directStorageMountPath": direct_storage_mount_path
-                if direct_storage_mount_path
-                else getattr(self.session.config, "direct_storage_mount_path", None),
-                "rootDiskSize": root_disk_size
-                if root_disk_size
-                else getattr(self.session.config, "root_disk_size", None),
+                "name": config.getkwarg("name", name),
+                "rpool": config.getkwarg("rpool", rpool),
+                "vpc": config.getkwarg("vpc", vpc),
+                "configuration": config.getkwarg("configuration", configuration),
+                "cluster": config.getkwarg("cluster", cluster),
+                "ssh_keys": config.getkwarg("ssh_keys", ssh_keys),
+                "operatingSystemImage": config.getkwarg("operating_system_image", operating_system_image),
+                "personalStorageMountPath": config.getkwarg("personal_storage_mount_path", personal_storage_mount_path),
+                "tenantSharedAdditionalStorage": config.getkwarg(
+                    "tenant_shared_additional_storage", tenant_shared_additional_storage
+                ),
+                "persistStorage": config.getkwarg("persist_storage", persist_storage),
+                "directStorageMountPath": config.getkwarg("direct_storage_mount_path", direct_storage_mount_path),
+                "rootDiskSize": config.getkwarg("root_disk_size", root_disk_size),
             },
         }
+
+        kwargs = validate_kwargs(
+            "post",
+            "/api/v1/servers/virtual/CreateServer",
+            parameters,
+            {"cluster", "configuration", "ssh_keys", "vpc"},
+        )
 
         return self.session.request(
             "post",
@@ -180,10 +194,9 @@ class Client:
 
     def start_server(
         self,
-        *,
-        id: str,
-        namespace: str,
-        cluster: str,
+        id: str | None = None,
+        namespace: str | None = None,
+        cluster: str | None = None,
     ):
         """
         Start a virtual machine that has been previously set up and provisioned, but is currently OFFLINE
@@ -214,13 +227,22 @@ class Client:
                 status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
                 storageType (str)
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "json": {
-                "id": id if id else getattr(self.session.config, "id", None),
-                "namespace": namespace if namespace else getattr(self.session.config, "namespace", None),
-                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "id": config.getkwarg("id", id),
+                "namespace": config.getkwarg("namespace", namespace),
+                "cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "post",
+            "/api/v1/servers/virtual/StartServer",
+            parameters,
+            {"cluster", "id", "namespace"},
+        )
 
         return self.session.request(
             "post",
@@ -230,10 +252,9 @@ class Client:
 
     def stop_server(
         self,
-        *,
-        id: str,
-        namespace: str,
-        cluster: str,
+        id: str | None = None,
+        namespace: str | None = None,
+        cluster: str | None = None,
     ):
         """
         Stop a virtual machine, ensuring a secure and orderly shutdown of its operations within the cloud environment
@@ -264,13 +285,22 @@ class Client:
                 status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
                 storageType (str)
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "json": {
-                "id": id if id else getattr(self.session.config, "id", None),
-                "namespace": namespace if namespace else getattr(self.session.config, "namespace", None),
-                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "id": config.getkwarg("id", id),
+                "namespace": config.getkwarg("namespace", namespace),
+                "cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "post",
+            "/api/v1/servers/virtual/StopServer",
+            parameters,
+            {"cluster", "id", "namespace"},
+        )
 
         return self.session.request(
             "post",
@@ -280,10 +310,9 @@ class Client:
 
     def destroy_server(
         self,
-        *,
-        id: str,
-        namespace: str,
-        cluster: str,
+        id: str | None = None,
+        namespace: str | None = None,
+        cluster: str | None = None,
     ):
         """
         Permanently delete a specified virtual machine, effectively wiping all its data and freeing up resources for other uses
@@ -314,13 +343,22 @@ class Client:
                 status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
                 storageType (str)
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "params": {
-                "Id": id if id else getattr(self.session.config, "id", None),
-                "Namespace": namespace if namespace else getattr(self.session.config, "namespace", None),
-                "Cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
+                "Id": config.getkwarg("id", id),
+                "Namespace": config.getkwarg("namespace", namespace),
+                "Cluster": config.getkwarg("cluster", cluster),
             },
         }
+
+        kwargs = validate_kwargs(
+            "delete",
+            "/api/v1/servers/virtual/DestroyServer",
+            parameters,
+            {"Id", "Namespace", "Cluster"},
+        )
 
         return self.session.request(
             "delete",
@@ -339,7 +377,16 @@ class Client:
             (dict):
                 items (list)
         """
-        kwargs = {}
+        config = self.session.config  # noqa: F841
+
+        parameters = {}
+
+        kwargs = validate_kwargs(
+            "get",
+            "/api/v1/servers/virtual/GetConfigurations",
+            parameters,
+            {},
+        )
 
         return self.session.request(
             "get",
@@ -349,8 +396,7 @@ class Client:
 
     def get_availability(
         self,
-        *,
-        cluster: str,
+        cluster: str | None = None,
         resource_pool: str | None = None,
     ):
         """
@@ -364,12 +410,21 @@ class Client:
             (dict):
                 items (list)
         """
-        kwargs = {
+        config = self.session.config
+
+        parameters = {
             "params": {
-                "cluster": cluster if cluster else getattr(self.session.config, "cluster", None),
-                "resourcePool": resource_pool if resource_pool else getattr(self.session.config, "resource_pool", None),
+                "cluster": config.getkwarg("cluster", cluster),
+                "resourcePool": config.getkwarg("resource_pool", resource_pool),
             },
         }
+
+        kwargs = validate_kwargs(
+            "get",
+            "/api/v1/servers/virtual/GetAvailability",
+            parameters,
+            {"cluster"},
+        )
 
         return self.session.request(
             "get",
