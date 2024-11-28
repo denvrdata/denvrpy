@@ -56,6 +56,7 @@ test = "coverage run --data-file .coverage -m pytest tests"
 cov-combine = "coverage combine"
 cov-report = "coverage report -m"
 cov-total = "coverage report -m --format=total"
+cov-lcov = "coverage lcov"
 
 [tool.ruff.lint.per-file-ignores]
 "denvr/api/*" = ["A002"] # shadowing likely in generated code

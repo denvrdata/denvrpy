@@ -39,6 +39,10 @@ jobs:
       # TODO: use cov-total to update a coverage badge.
       # - name: Report Coverage
       #   run: hatch run integration:cov-total
+      - name: Report Coverage
+        run: hatch run integration:cov-lcov
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v2.3.4
     services:
       # Run a mock-server for our integration tests
       mock-server:
