@@ -1,7 +1,7 @@
 # denvr
 
 ![CI](https://github.com/denvrdata/denvrpy/actions/workflows/CI.yml/badge.svg?branch=main)
-
+![Coverage](https://coveralls.io/repos/github/denvrdata/denvrpy/badge.svg?branch=main)
 -----
 
 ## Table of Contents
