@@ -26,7 +26,7 @@ class Client:
         {{ entry.kwarg }}: {{ entry.type }} | None = None,
         {% endfor %}
         {% endif %}
-    ):
+    ){% if method.rtype %} -> {{ method.rtype }}{% endif %}:
         """
         {{ method.description }}
 
@@ -44,12 +44,11 @@ class Client:
             {% endif %}
         {% endif %}
 
-        {% if method.rtype %}
+        {% if method.rtype and method.rprops %}
         Returns:
-            ({{ method.rtype }}):
-                {% for entry in method.rprops %}
-                {{ entry.name }} ({{ entry.type }}){% if entry.desc %}: {{ entry.desc|safe }}{% if entry.example %} (ex: {{ entry.example|safe }}){% endif +%}{% endif +%}
-                {% endfor %}
+            {% for entry in method.rprops %}
+            {{ entry.name }} ({{ entry.type }}):{% if entry.desc %} {{ entry.desc|safe }}{% if entry.example %} (ex: {{ entry.example|safe }}){% endif +%}{% endif +%}
+            {% endfor %}
         {% endif %}
         """
         config = self.session.config  # noqa: F841

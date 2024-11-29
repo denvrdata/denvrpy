@@ -15,7 +15,7 @@ class Client:
     def get_servers(
         self,
         cluster: str | None = None,
-    ):
+    ) -> dict:
         """
         Get a list of virtual machines
 
@@ -23,8 +23,7 @@ class Client:
             cluster (str)
 
         Returns:
-            (dict):
-                items (list)
+            items (list):
         """
         config = self.session.config
 
@@ -52,7 +51,7 @@ class Client:
         id: str | None = None,
         namespace: str | None = None,
         cluster: str | None = None,
-    ):
+    ) -> dict:
         """
         Get detailed information about a specific virtual machine
 
@@ -62,25 +61,24 @@ class Client:
             cluster (str): The cluster you're operating on (ex: Hou1)
 
         Returns:
-            (dict):
-                username (str): The user that creatd the vm (ex: john@acme.com)
-                tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
-                rpool (str): Resource pool where the VM has been created (ex: on-demand)
-                directAttachedStoragePersisted (bool)
-                id (str): The name of the virtual machine (ex: my-denvr-vm)
-                namespace (str)
-                configuration (str): A VM configuration ID (ex: 15)
-                storage (int): The amount of storage attached to the VM in GB (ex: 13600)
-                gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
-                gpus (int): Number of GPUs attached to the VM (ex: 8)
-                vcpus (int): Number of vCPUs available to the VM (ex: 120)
-                memory (int): Amount of system memory available in GB (ex: 940)
-                ip (str): The public IP address of the VM (ex: 123.45.67.89)
-                privateIp (str): The private IP address of the VM (ex: 120.77.3.21)
-                image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
-                cluster (str): The cluster where the VM is allocated (ex: Msc1)
-                status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
-                storageType (str)
+            username (str): The user that creatd the vm (ex: john@acme.com)
+            tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
+            rpool (str): Resource pool where the VM has been created (ex: on-demand)
+            directAttachedStoragePersisted (bool):
+            id (str): The name of the virtual machine (ex: my-denvr-vm)
+            namespace (str):
+            configuration (str): A VM configuration ID (ex: 15)
+            storage (int): The amount of storage attached to the VM in GB (ex: 13600)
+            gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
+            gpus (int): Number of GPUs attached to the VM (ex: 8)
+            vcpus (int): Number of vCPUs available to the VM (ex: 120)
+            memory (int): Amount of system memory available in GB (ex: 940)
+            ip (str): The public IP address of the VM (ex: 123.45.67.89)
+            privateIp (str): The private IP address of the VM (ex: 120.77.3.21)
+            image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
+            cluster (str): The cluster where the VM is allocated (ex: Msc1)
+            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
+            storageType (str):
         """
         config = self.session.config
 
@@ -119,7 +117,7 @@ class Client:
         persist_storage: bool | None = None,
         direct_storage_mount_path: str | None = None,
         root_disk_size: int | None = None,
-    ):
+    ) -> dict:
         """
         Create a new virtual machine using a pre-defined configuration
 
@@ -138,25 +136,24 @@ class Client:
             root_disk_size (int): Size of root disk to be created (Gi). (ex: 500)
 
         Returns:
-            (dict):
-                username (str): The user that creatd the vm (ex: john@acme.com)
-                tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
-                rpool (str): Resource pool where the VM has been created (ex: on-demand)
-                directAttachedStoragePersisted (bool)
-                id (str): The name of the virtual machine (ex: my-denvr-vm)
-                namespace (str)
-                configuration (str): A VM configuration ID (ex: 15)
-                storage (int): The amount of storage attached to the VM in GB (ex: 13600)
-                gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
-                gpus (int): Number of GPUs attached to the VM (ex: 8)
-                vcpus (int): Number of vCPUs available to the VM (ex: 120)
-                memory (int): Amount of system memory available in GB (ex: 940)
-                ip (str): The public IP address of the VM (ex: 123.45.67.89)
-                privateIp (str): The private IP address of the VM (ex: 120.77.3.21)
-                image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
-                cluster (str): The cluster where the VM is allocated (ex: Msc1)
-                status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
-                storageType (str)
+            username (str): The user that creatd the vm (ex: john@acme.com)
+            tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
+            rpool (str): Resource pool where the VM has been created (ex: on-demand)
+            directAttachedStoragePersisted (bool):
+            id (str): The name of the virtual machine (ex: my-denvr-vm)
+            namespace (str):
+            configuration (str): A VM configuration ID (ex: 15)
+            storage (int): The amount of storage attached to the VM in GB (ex: 13600)
+            gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
+            gpus (int): Number of GPUs attached to the VM (ex: 8)
+            vcpus (int): Number of vCPUs available to the VM (ex: 120)
+            memory (int): Amount of system memory available in GB (ex: 940)
+            ip (str): The public IP address of the VM (ex: 123.45.67.89)
+            privateIp (str): The private IP address of the VM (ex: 120.77.3.21)
+            image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
+            cluster (str): The cluster where the VM is allocated (ex: Msc1)
+            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
+            storageType (str):
         """
         config = self.session.config
 
@@ -197,7 +194,7 @@ class Client:
         id: str | None = None,
         namespace: str | None = None,
         cluster: str | None = None,
-    ):
+    ) -> dict:
         """
         Start a virtual machine that has been previously set up and provisioned, but is currently OFFLINE
 
@@ -207,25 +204,24 @@ class Client:
             cluster (str): The cluster you're operating on (ex: Hou1)
 
         Returns:
-            (dict):
-                username (str): The user that creatd the vm (ex: john@acme.com)
-                tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
-                rpool (str): Resource pool where the VM has been created (ex: on-demand)
-                directAttachedStoragePersisted (bool)
-                id (str): The name of the virtual machine (ex: my-denvr-vm)
-                namespace (str)
-                configuration (str): A VM configuration ID (ex: 15)
-                storage (int): The amount of storage attached to the VM in GB (ex: 13600)
-                gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
-                gpus (int): Number of GPUs attached to the VM (ex: 8)
-                vcpus (int): Number of vCPUs available to the VM (ex: 120)
-                memory (int): Amount of system memory available in GB (ex: 940)
-                ip (str): The public IP address of the VM (ex: 123.45.67.89)
-                privateIp (str): The private IP address of the VM (ex: 120.77.3.21)
-                image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
-                cluster (str): The cluster where the VM is allocated (ex: Msc1)
-                status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
-                storageType (str)
+            username (str): The user that creatd the vm (ex: john@acme.com)
+            tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
+            rpool (str): Resource pool where the VM has been created (ex: on-demand)
+            directAttachedStoragePersisted (bool):
+            id (str): The name of the virtual machine (ex: my-denvr-vm)
+            namespace (str):
+            configuration (str): A VM configuration ID (ex: 15)
+            storage (int): The amount of storage attached to the VM in GB (ex: 13600)
+            gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
+            gpus (int): Number of GPUs attached to the VM (ex: 8)
+            vcpus (int): Number of vCPUs available to the VM (ex: 120)
+            memory (int): Amount of system memory available in GB (ex: 940)
+            ip (str): The public IP address of the VM (ex: 123.45.67.89)
+            privateIp (str): The private IP address of the VM (ex: 120.77.3.21)
+            image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
+            cluster (str): The cluster where the VM is allocated (ex: Msc1)
+            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
+            storageType (str):
         """
         config = self.session.config
 
@@ -255,7 +251,7 @@ class Client:
         id: str | None = None,
         namespace: str | None = None,
         cluster: str | None = None,
-    ):
+    ) -> dict:
         """
         Stop a virtual machine, ensuring a secure and orderly shutdown of its operations within the cloud environment
 
@@ -265,25 +261,24 @@ class Client:
             cluster (str): The cluster you're operating on (ex: Hou1)
 
         Returns:
-            (dict):
-                username (str): The user that creatd the vm (ex: john@acme.com)
-                tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
-                rpool (str): Resource pool where the VM has been created (ex: on-demand)
-                directAttachedStoragePersisted (bool)
-                id (str): The name of the virtual machine (ex: my-denvr-vm)
-                namespace (str)
-                configuration (str): A VM configuration ID (ex: 15)
-                storage (int): The amount of storage attached to the VM in GB (ex: 13600)
-                gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
-                gpus (int): Number of GPUs attached to the VM (ex: 8)
-                vcpus (int): Number of vCPUs available to the VM (ex: 120)
-                memory (int): Amount of system memory available in GB (ex: 940)
-                ip (str): The public IP address of the VM (ex: 123.45.67.89)
-                privateIp (str): The private IP address of the VM (ex: 120.77.3.21)
-                image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
-                cluster (str): The cluster where the VM is allocated (ex: Msc1)
-                status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
-                storageType (str)
+            username (str): The user that creatd the vm (ex: john@acme.com)
+            tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
+            rpool (str): Resource pool where the VM has been created (ex: on-demand)
+            directAttachedStoragePersisted (bool):
+            id (str): The name of the virtual machine (ex: my-denvr-vm)
+            namespace (str):
+            configuration (str): A VM configuration ID (ex: 15)
+            storage (int): The amount of storage attached to the VM in GB (ex: 13600)
+            gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
+            gpus (int): Number of GPUs attached to the VM (ex: 8)
+            vcpus (int): Number of vCPUs available to the VM (ex: 120)
+            memory (int): Amount of system memory available in GB (ex: 940)
+            ip (str): The public IP address of the VM (ex: 123.45.67.89)
+            privateIp (str): The private IP address of the VM (ex: 120.77.3.21)
+            image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
+            cluster (str): The cluster where the VM is allocated (ex: Msc1)
+            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
+            storageType (str):
         """
         config = self.session.config
 
@@ -313,7 +308,7 @@ class Client:
         id: str | None = None,
         namespace: str | None = None,
         cluster: str | None = None,
-    ):
+    ) -> dict:
         """
         Permanently delete a specified virtual machine, effectively wiping all its data and freeing up resources for other uses
 
@@ -323,25 +318,24 @@ class Client:
             cluster (str): The cluster you're operating on (ex: Hou1)
 
         Returns:
-            (dict):
-                username (str): The user that creatd the vm (ex: john@acme.com)
-                tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
-                rpool (str): Resource pool where the VM has been created (ex: on-demand)
-                directAttachedStoragePersisted (bool)
-                id (str): The name of the virtual machine (ex: my-denvr-vm)
-                namespace (str)
-                configuration (str): A VM configuration ID (ex: 15)
-                storage (int): The amount of storage attached to the VM in GB (ex: 13600)
-                gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
-                gpus (int): Number of GPUs attached to the VM (ex: 8)
-                vcpus (int): Number of vCPUs available to the VM (ex: 120)
-                memory (int): Amount of system memory available in GB (ex: 940)
-                ip (str): The public IP address of the VM (ex: 123.45.67.89)
-                privateIp (str): The private IP address of the VM (ex: 120.77.3.21)
-                image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
-                cluster (str): The cluster where the VM is allocated (ex: Msc1)
-                status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
-                storageType (str)
+            username (str): The user that creatd the vm (ex: john@acme.com)
+            tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
+            rpool (str): Resource pool where the VM has been created (ex: on-demand)
+            directAttachedStoragePersisted (bool):
+            id (str): The name of the virtual machine (ex: my-denvr-vm)
+            namespace (str):
+            configuration (str): A VM configuration ID (ex: 15)
+            storage (int): The amount of storage attached to the VM in GB (ex: 13600)
+            gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
+            gpus (int): Number of GPUs attached to the VM (ex: 8)
+            vcpus (int): Number of vCPUs available to the VM (ex: 120)
+            memory (int): Amount of system memory available in GB (ex: 940)
+            ip (str): The public IP address of the VM (ex: 123.45.67.89)
+            privateIp (str): The private IP address of the VM (ex: 120.77.3.21)
+            image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
+            cluster (str): The cluster where the VM is allocated (ex: Msc1)
+            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
+            storageType (str):
         """
         config = self.session.config
 
@@ -368,14 +362,13 @@ class Client:
 
     def get_configurations(
         self,
-    ):
+    ) -> dict:
         """
         Get detailed information on available configurations for virtual machines
 
 
         Returns:
-            (dict):
-                items (list)
+            items (list):
         """
         config = self.session.config  # noqa: F841
 
@@ -398,7 +391,7 @@ class Client:
         self,
         cluster: str | None = None,
         resource_pool: str | None = None,
-    ):
+    ) -> dict:
         """
         Get information about the current availability of different virtual machine configurations
 
@@ -407,8 +400,7 @@ class Client:
             resource_pool (str)
 
         Returns:
-            (dict):
-                items (list)
+            items (list):
         """
         config = self.session.config
 

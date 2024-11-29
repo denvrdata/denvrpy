@@ -1,0 +1,18 @@
+site_name: denvrpy
+extra_css:
+  - stylesheets/extra.css
+theme:
+  name: material
+  palette:
+    primary: custom
+plugins:
+  - mkdocstrings
+markdown_extensions:
+  - pymdownx.snippets
+nav:
+  - Quickstart: index.md
+  - Architecture: architecture.md
+  - Configuration: configuration.md
+  - Contributing: contributing.md
+  - API: api.md
+  - License: license.md

@@ -14,13 +14,11 @@ class Client:
 
     def get_all(
         self,
-    ):
+    ) -> list:
         """
         Get a list of allocated clusters
 
 
-        Returns:
-            (list):
         """
         config = self.session.config  # noqa: F841
 

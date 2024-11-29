@@ -44,6 +44,18 @@ extra-dependencies = ["mypy>=1.0.0"]
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:denvr tests}"
 
+[tool.hatch.envs.docs]
+dependencies = [
+    "mkdocs",
+    "mkdocstrings[python]",
+    "mkdocs-material",
+    "pymdown-extensions",
+]
+[tool.hatch.envs.docs.scripts]
+build = "mkdocs build --clean"
+serve = "mkdocs serve --dev-addr localhost:8000"
+deploy = "mkdocs gh-deploy --force"
+
 # By default don't run integration tests
 [tool.hatch.envs.hatch-test]
 extra-args = ["-m", "not integration"]
