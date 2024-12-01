@@ -1,0 +1,743 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../configuration/">
+      
+      
+        <link rel="next" href="../api/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
+    
+    
+      
+        <title>Contributing - denvrpy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#contributing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="denvrpy" class="md-header__button md-logo" aria-label="denvrpy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            denvrpy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contributing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="denvrpy" class="md-nav__button md-logo" aria-label="denvrpy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    denvrpy
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issues
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-requests-prs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Requests (PRs)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Generation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issues
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-requests-prs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Requests (PRs)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Generation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="contributing">Contributing</h1>
+<p><a href="LICENSE.txt"><img alt="License" src="https://img.shields.io/badge/License-MIT-%234493c5?style=flat" /></a>
+<a href="CODEOFCONDUCT.md"><img alt="Contributor Covenant" src="https://img.shields.io/badge/Contributor_Covenant-2.1-%234493c5?style=flat" /></a></p>
+<p>Requirements:</p>
+<ul>
+<li><a href="https://github.com/join">GitHub Account</a></li>
+<li><a href="https://wiki.python.org/moin/BeginnersGuide/Download">Python</a></li>
+<li><a href="">Git</a></li>
+<li><a href="https://github.com/denvrdata/denvrpy">denvrpy</a></li>
+</ul>
+<p>The <a href="https://docs.github.com/en/get-started">GitHub docs</a> already have a lot of useful info to help you get started
+creating an account, using <code>git</code>, and making issues/pull requests.</p>
+<h2 id="issues">Issues</h2>
+<p>The easiest way to help the denvrpy project is to open <a href="https://github.com/denvrdata/denvrpy/issues/new/choose">issues</a>.
+That being said, here is a list of common details we recommend including:</p>
+<ul>
+<li>Objective</li>
+<li>Code snippets</li>
+<li>Logs</li>
+<li>Stacktrace</li>
+<li>Settings</li>
+<li>Environments (e.g., docker container)</li>
+</ul>
+<h2 id="pull-requests-prs">Pull Requests (PRs)</h2>
+<p>Our primary workflow for making changes to <code>denvrpy</code> is with pull requests (PRs).
+This process involves:</p>
+<ol>
+<li>Forking the original repo (from the browser)</li>
+<li>Clone your fork with <code>git clone</code></li>
+<li>Make your changes locally</li>
+<li>Add your modified files with <code>git add</code></li>
+<li>Commit your changes with a descriptive message <code>git commit</code></li>
+<li>Push your change back up to your fork <code>git push</code></li>
+<li>Open a pull request on the original repository (from the browser)</li>
+</ol>
+<p>Again, the <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">GitHub docs</a> already have a detailed summary of this workflow.</p>
+<p>When opening a pull request it's best to:</p>
+<ol>
+<li>Summarize what you're changing and why</li>
+<li>Keep you changes minimial</li>
+<li>Include any needed tests and docs</li>
+<li>Ensure all tests, linting and coverage checks pass</li>
+</ol>
+<h2 id="development">Development</h2>
+<p>We currently use <a href="https://hatch.pypa.io/1.12/">hatch</a> as our Python project manager.
+This one tool serves as our:</p>
+<ol>
+<li>Build and publishing system</li>
+<li>Environment manager (ie: virtualenv)</li>
+<li>Shared env aware runner for tests, docs and scripts</li>
+</ol>
+<h3 id="environment">Environment</h3>
+<p>To get started with the default development virtualenv just run:</p>
+<pre><code class="language-shell">hatch shell
+</code></pre>
+<p>This will sync all the dependencies for you.
+You can just type <code>exit</code> to return to your default shell environment.</p>
+<h3 id="debugging">Debugging</h3>
+<p>This SDK is still in beta as we're still iterating on our REST API. Apart from loading up <code>pdb</code> we also provide some debug logs.</p>
+<pre><code class="language-python">&gt;&gt;&gt; import json
+&gt;&gt;&gt; import logging
+&gt;&gt;&gt; from denvr.client import client
+&gt;&gt;&gt; logging.basicConfig(level=logging.DEBUG)
+&gt;&gt;&gt; virtual = client('servers/virtual')
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.cloud.denvrdata.com:443
+DEBUG:urllib3.connectionpool:https://api.cloud.denvrdata.com:443 &quot;POST /api/TokenAuth/Authenticate HTTP/11&quot; 200 None
+...
+&gt;&gt;&gt; print(json.dumps(
+    virtual.create_server(
+        name=&quot;api-test&quot;,
+        rpool=&quot;on-demand&quot;,
+        vpc=&quot;denvr&quot;,
+        configuration=&quot;H100_80GB_SXM_8x&quot;,
+        cluster=&quot;Hou1&quot;,
+        ssh_keys=[&quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAA...&quot;],
+        operating_system_image=&quot;Ubuntu 22.04.4 LTS&quot;,
+        root_disk_size=500,
+    ),
+    indent=2
+))
+DEBUG:denvr.session:Dropping missing json argument personalStorageMountPath
+DEBUG:denvr.session:Dropping missing json argument tenantSharedAdditionalStorage
+DEBUG:denvr.session:Dropping missing json argument persistStorage
+DEBUG:denvr.session:Dropping missing json argument directStorageMountPath
+DEBUG:denvr.session:Request: self.session.request(post, https://api.cloud.denvrdata.com/api/v1/servers/virtual/CreateServer, **{'json': {'name': 'api-test', 'rpool': 'on-dema
+nd', 'vpc': 'denvr', 'configuration': 'H100_80GB_SXM_8x', 'cluster': 'Hou1', 'ssh_keys': ['ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAA...'], 'operatingSystemImage': 'Ubuntu 22.04.4 L
+TS', 'rootDiskSize': 500}}
+DEBUG:urllib3.connectionpool:https://api.cloud.denvrdata.com:443 &quot;POST /api/v1/servers/virtual/CreateServer HTTP/11&quot; 202 482
+{
+  &quot;username&quot;: &quot;rory@denvrdata.com&quot;,
+  &quot;tenancy_name&quot;: &quot;denvr&quot;,
+  &quot;rpool&quot;: &quot;on-demand&quot;,
+  &quot;direct_attached_storage_persisted&quot;: false,
+  &quot;id&quot;: &quot;api-test&quot;,
+  &quot;namespace&quot;: &quot;denvr&quot;,
+  &quot;configuration&quot;: &quot;H100_80GB_SXM_8x&quot;,
+  &quot;storage&quot;: 20000,
+  &quot;gpu_type&quot;: &quot;nvidia.com/H100SXM480GB&quot;,
+  &quot;gpus&quot;: 8,
+  &quot;vcpus&quot;: 200,
+  &quot;memory&quot;: 940,
+  &quot;ip&quot;: &quot;&quot;,
+  &quot;private_ip&quot;: &quot;172.16.0.2&quot;,
+  &quot;image&quot;: &quot;Ubuntu_22.04.4_LTS&quot;,
+  &quot;cluster&quot;: &quot;Hou1&quot;,
+  &quot;status&quot;: &quot;na&quot;,
+  &quot;storage_type&quot;: &quot;na&quot;
+}
+</code></pre>
+<h3 id="testing">Testing</h3>
+<p>For quickly running unit tests you can just use:</p>
+<pre><code class="language-shell">&gt; hatch test
+</code></pre>
+<p>However, for full integration tests we run mockserver against our open api spec.</p>
+<pre><code class="language-shell">&gt; docker run -d --rm -p 1080:1080 mockserver/mockserver
+&gt; hatch run integration:test
+</code></pre>
+<h3 id="docs">Docs</h3>
+<p>To run the local mkdocs server:</p>
+<pre><code class="language-shell">&gt; hatch run docs:serve
+</code></pre>
+<h3 id="linting">Linting</h3>
+<p>To help keep our code well formatted and following best practices we use <a href="https://docs.astral.sh/ruff/formatter/">ruff</a>.</p>
+<p>To just check for issues run:</p>
+<pre><code class="language-shell">&gt; hatch fmt --check
+</code></pre>
+<p>However, to fix the issues and format your code run:</p>
+<pre><code class="language-shell">&gt; hatch fmt
+</code></pre>
+<p>If you disagree with <code>ruff</code> you can choose to either globally add the exception to the <code>pyproject.toml</code>:</p>
+<pre><code class="language-toml">...
+[tool.ruff.lint.per-file-ignores]
+&quot;denvr/api/*&quot; = [&quot;A002&quot;] # shadowing likely in generated code
+...
+</code></pre>
+<p>or preferably specific inline instances with a <code># noqa: ...</code> comment:</p>
+<pre><code class="language-python">...
+config = self.session.config  # noqa: F841
+
+parameters = {}
+...
+</code></pre>
+<h3 id="api-generation">API Generation</h3>
+<p>To make changes to any files within the <code>api/</code> directory you'll need to modify the files in <code>scripts/</code>.
+The <code>apigen.py</code> pulls down and processes our open api spec.
+The <code>client.py.jinja2</code> and <code>test_client.py.jinja2</code> files are used to populate the API service clients and corresponding tests.</p>
+<p>To regenerate the <code>api/</code> and <code>tests/api/</code> files run:</p>
+<pre><code class="language-shell">&gt; hatch run scripts/apigen.py
+</code></pre>
+<p>You'll also want to rerun the formatter to fix any consistency or linting issues in the generated files.</p>
+<pre><code class="language-shell">&gt; hatch fmt
+</code></pre>
+<p>TODO: Run the linter inside <code>apigen.py</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

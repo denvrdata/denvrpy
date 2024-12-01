@@ -1,0 +1,587 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="architecture/">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
+    
+    
+      
+        <title>denvrpy</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#denvr" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="denvrpy" class="md-header__button md-logo" aria-label="denvrpy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            denvrpy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quickstart
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="denvrpy" class="md-nav__button md-logo" aria-label="denvrpy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    denvrpy
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quickstart
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quickstart
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quickstart
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="denvr">denvr</h1>
+<p>A Python SDK for interacting with Denvr Cloud.</p>
+<p><a href="https://github.com/denvrdata/denvrpy/actions/workflows/CI.yml"><img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/denvrdata/denvrpy/CI.yml" /></a>
+<a href="https://coveralls.io/github/denvrdata/denvrpy?branch=main"><img alt="Coveralls" src="https://img.shields.io/coverallsCoverage/github/denvrdata/denvrpy" /></a>
+<a href="https://api.cloud.denvrdata.com/swagger/index.html"><img alt="Swagger Validator" src="https://img.shields.io/swagger/valid/3.0?specUrl=https%3A%2F%2Fapi.cloud.denvrdata.com%2Fswagger%2Fv1%2Fswagger.json" /></a>
+<a href="https://denvrdata.github.io/denvrpy/"><img alt="Denvrpy Docs" src="https://img.shields.io/badge/denvrpy-docs-%234493c5?style=flat" /></a>
+<a href="https://docs.denvrdata.com/docs"><img alt="Denvr Dataworks Docs" src="https://img.shields.io/badge/denvr_cloud-docs-%234493c5?style=flat" /></a>
+<a href="https://console.cloud.denvrdata.com/account/register-tenant"><img alt="Denvr Dataworks Registration" src="https://img.shields.io/badge/denvr_cloud-registration-%234493c5?style=flat" /></a></p>
+<hr />
+<p>This package is largely autogenerated from our <a href="https://api.cloud.denvrdata.com/swagger/v1/swagger.json">Denvr Cloud API Spec</a></p>
+<h2 id="installation">Installation</h2>
+<pre><code class="language-console">pip install -e git+https://github.com/denvrdata/denvrpy.git
+</code></pre>
+<h2 id="quickstart">Quickstart</h2>
+<p>Getting started with the <code>denvr</code> python sdk just involves loading and calling the <code>client</code> builder function, which returns a <code>Client</code> object for each denvr service (e.g., <code>clusters</code>, <code>vpcs</code>, <code>servers/virtual</code>).</p>
+<pre><code class="language-python">&gt;&gt;&gt; import json
+&gt;&gt;&gt; from denvr.client import client
+&gt;&gt;&gt; virtual = client('servers/virtual')
+</code></pre>
+<p>Lets start by fetching some of Denvr's VM configurations.
+We'll use <code>json.dumps</code> to make the output a bit easier to read.</p>
+<pre><code class="language-python">&gt;&gt;&gt; print(json.dumps(virtual.get_configurations(), indent=2))
+{
+  &quot;items&quot;: [
+    {
+      &quot;id&quot;: 5,
+      &quot;user_friendly_name&quot;: &quot;A100_40GB_PCIe_1x&quot;,
+      &quot;name&quot;: &quot;A100_40GB_PCIe_1x&quot;,
+      &quot;description&quot;: null,
+      &quot;os_version&quot;: &quot;20.04&quot;,
+      &quot;os_type&quot;: &quot;Ubuntu&quot;,
+      &quot;storage&quot;: 1700,
+      &quot;gpu_type&quot;: &quot;nvidia.com/A100PCIE40GB&quot;,
+      &quot;gpu_family&quot;: &quot;NVIDIA A100&quot;,
+      &quot;gpu_brand&quot;: &quot;Nvidia&quot;,
+      &quot;gpu_name&quot;: &quot;A100 40GB PCIe&quot;,
+      &quot;type&quot;: &quot;nvidia.com/A100PCIE40GB&quot;,
+      &quot;brand_family&quot;: &quot;NVIDIA A100&quot;,
+      &quot;brand&quot;: &quot;Nvidia&quot;,
+      &quot;text_name&quot;: &quot;A100 40GB PCIe&quot;,
+      &quot;gpus&quot;: 1,
+      &quot;vcpus&quot;: 14,
+      &quot;memory&quot;: 112,
+      &quot;price&quot;: 2.05,
+      &quot;compute_network&quot;: null,
+      &quot;is_gpu_platform&quot;: true,
+      &quot;clusters&quot;: [
+        &quot;Hou1&quot;,
+        &quot;Msc1&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: 6,
+      &quot;user_friendly_name&quot;: &quot;A100_40GB_PCIe_2x&quot;,
+      &quot;name&quot;: &quot;A100_40GB_PCIe_2x&quot;,
+      &quot;description&quot;: null,
+      &quot;os_version&quot;: &quot;20.04&quot;,
+      &quot;os_type&quot;: &quot;Ubuntu&quot;,
+      &quot;storage&quot;: 3400,
+      &quot;gpu_type&quot;: &quot;nvidia.com/A100PCIE40GB&quot;,
+      &quot;gpu_family&quot;: &quot;NVIDIA A100&quot;,
+      &quot;gpu_brand&quot;: &quot;Nvidia&quot;,
+      &quot;gpu_name&quot;: &quot;A100 40GB PCIe&quot;,
+      &quot;type&quot;: &quot;nvidia.com/A100PCIE40GB&quot;,
+      &quot;brand_family&quot;: &quot;NVIDIA A100&quot;,
+      &quot;brand&quot;: &quot;Nvidia&quot;,
+      &quot;text_name&quot;: &quot;A100 40GB PCIe&quot;,
+      &quot;gpus&quot;: 2,
+      &quot;vcpus&quot;: 28,
+      &quot;memory&quot;: 224,
+      &quot;price&quot;: 4.1,
+      &quot;compute_network&quot;: null,
+      &quot;is_gpu_platform&quot;: true,
+      &quot;clusters&quot;: [
+        &quot;Hou1&quot;,
+        &quot;Msc1&quot;
+      ]
+    },
+    ...
+</code></pre>
+<p>Next we'll try Creating a new virtual machine:</p>
+<pre><code class="language-python">&gt;&gt;&gt; print(json.dumps(
+    virtual.create_server(
+        name=&quot;api-test&quot;,
+        rpool=&quot;on-demand&quot;,
+        vpc=&quot;denvr&quot;,
+        configuration=&quot;H100_80GB_SXM_8x&quot;,
+        cluster=&quot;Hou1&quot;,
+        ssh_keys=[&quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAA...&quot;],
+        operating_system_image=&quot;Ubuntu 22.04.4 LTS&quot;,
+        root_disk_size=500,
+    ),
+    indent=2
+))
+{
+  &quot;username&quot;: &quot;rory@denvrdata.com&quot;,
+  &quot;tenancy_name&quot;: &quot;denvr&quot;,
+  &quot;rpool&quot;: &quot;on-demand&quot;,
+  &quot;direct_attached_storage_persisted&quot;: false,
+  &quot;id&quot;: &quot;api-test&quot;,
+  &quot;namespace&quot;: &quot;denvr&quot;,
+  &quot;configuration&quot;: &quot;H100_80GB_SXM_8x&quot;,
+  &quot;storage&quot;: 20000,
+  &quot;gpu_type&quot;: &quot;nvidia.com/H100SXM480GB&quot;,
+  &quot;gpus&quot;: 8,
+  &quot;vcpus&quot;: 200,
+  &quot;memory&quot;: 940,
+  &quot;ip&quot;: &quot;&quot;,
+  &quot;private_ip&quot;: &quot;172.16.0.84&quot;,
+  &quot;image&quot;: &quot;Ubuntu_22.04.4_LTS&quot;,
+  &quot;cluster&quot;: &quot;Hou1&quot;,
+  &quot;status&quot;: &quot;na&quot;,
+  &quot;storage_type&quot;: &quot;na&quot;
+}
+</code></pre>
+<p>Similarly, we can also fetch info about a specific vm.</p>
+<pre><code class="language-python">&gt;&gt;&gt; print(json.dumps(virtual.get_server(id='rofinn-intel-dev', namespace='denvr', cluster='Hou1'), indent=2))
+{
+  &quot;username&quot;: &quot;rory@denvrdata.com&quot;,
+  &quot;tenancy_name&quot;: &quot;denvr&quot;,
+  &quot;rpool&quot;: &quot;reserved-denvr&quot;,
+  &quot;direct_attached_storage_persisted&quot;: false,
+  &quot;id&quot;: &quot;rofinn-intel-dev&quot;,
+  &quot;namespace&quot;: &quot;denvr&quot;,
+  &quot;configuration&quot;: &quot;15&quot;,
+  &quot;storage&quot;: 27000,
+  &quot;gpu_type&quot;: &quot;intel/GAUDI2&quot;,
+  &quot;gpus&quot;: 8,
+  &quot;vcpus&quot;: 152,
+  &quot;memory&quot;: 940,
+  ...
+  &quot;image&quot;: &quot;habana-1.16.2&quot;,
+  &quot;cluster&quot;: &quot;Hou1&quot;,
+  &quot;status&quot;: &quot;ONLINE&quot;,
+  &quot;storage_type&quot;: &quot;na&quot;
+}
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>
