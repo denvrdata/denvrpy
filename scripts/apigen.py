@@ -12,7 +12,6 @@ import json
 import logging
 import os
 import sys
-
 from collections import defaultdict
 
 import jinja2
@@ -26,7 +25,7 @@ API_SPEC_LOCATION = "https://api.cloud.denvrdata.dev/swagger/v1/swagger.json"
 
 # Add the denvr module to our search path, so we can load a few utility functions from it.
 sys.path.append(DENVR_PATH)
-from utils import snakecase
+from utils import snakecase  # noqa: E402
 
 # Paths to include in our SDK to identify breaking changes,
 # but supporting feature gating.
