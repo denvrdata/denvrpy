@@ -110,7 +110,7 @@ Next we'll try Creating a new virtual machine:
   "username": "rory@denvrdata.com",
   "tenancy_name": "denvr",
   "rpool": "on-demand",
-  "directAttachedStoragePersisted": false,
+  "direct_attached_storage_persisted": false,
   "id": "api-test",
   "namespace": "denvr",
   "configuration": "H100_80GB_SXM_8x",
@@ -120,11 +120,11 @@ Next we'll try Creating a new virtual machine:
   "vcpus": 200,
   "memory": 940,
   "ip": "",
-  "privateIp": "172.16.0.84",
+  "private_ip": "172.16.0.84",
   "image": "Ubuntu_22.04.4_LTS",
   "cluster": "Hou1",
   "status": "na",
-  "storageType": "na"
+  "storage_type": "na"
 }
 ```
 
@@ -135,6 +135,7 @@ Similarly, we can also fetch info about a specific vm.
   "username": "rory@denvrdata.com",
   "tenancy_name": "denvr",
   "rpool": "reserved-denvr",
+  "direct_attached_storage_persisted": false,
   "id": "rofinn-intel-dev",
   "namespace": "denvr",
   "configuration": "15",
@@ -147,6 +148,6 @@ Similarly, we can also fetch info about a specific vm.
   "image": "habana-1.16.2",
   "cluster": "Hou1",
   "status": "ONLINE",
-  "storageType": "na"
+  "storage_type": "na"
 }
 ```

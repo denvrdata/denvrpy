@@ -6,6 +6,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 
 from denvr.config import Config
+from denvr.utils import snakecase
 
 logger = logging.getLogger(__name__)
 
@@ -43,6 +44,12 @@ class Session:
         resp = self.session.request(method, url, **kwargs)
         resp.raise_for_status()
         result = resp.json()
+        logger.debug("Response: resp.json() -> %s", result)
         # According to the spec we should just be return result and not {"result": result }?
         # For mock-server testing purposes we'll support both.
-        return result.get("result", result) if isinstance(result, dict) else result
+        result = result.get("result", result) if isinstance(result, dict) else result
+        # Standardize the response keys to snakecase if it's a dict'
+        if isinstance(result, dict):
+            return {snakecase(k): v for k, v in result.items()}
+
+        return result

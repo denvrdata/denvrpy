@@ -103,7 +103,7 @@ DEBUG:urllib3.connectionpool:https://api.cloud.denvrdata.com:443 "POST /api/v1/s
   "username": "rory@denvrdata.com",
   "tenancy_name": "denvr",
   "rpool": "on-demand",
-  "directAttachedStoragePersisted": false,
+  "direct_attached_storage_persisted": false,
   "id": "api-test",
   "namespace": "denvr",
   "configuration": "H100_80GB_SXM_8x",
@@ -113,11 +113,11 @@ DEBUG:urllib3.connectionpool:https://api.cloud.denvrdata.com:443 "POST /api/v1/s
   "vcpus": 200,
   "memory": 940,
   "ip": "",
-  "privateIp": "172.16.0.2",
+  "private_ip": "172.16.0.2",
   "image": "Ubuntu_22.04.4_LTS",
   "cluster": "Hou1",
   "status": "na",
-  "storageType": "na"
+  "storage_type": "na"
 }
 ```
 
