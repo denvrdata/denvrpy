@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import sys
 from collections import defaultdict
 
 import jinja2
@@ -21,6 +22,10 @@ SCRIPTS_PATH = os.path.dirname(os.path.abspath(__file__))
 DENVR_PATH = os.path.join(os.path.dirname(SCRIPTS_PATH), "denvr")
 TESTS_PATH = os.path.join(os.path.dirname(SCRIPTS_PATH), "tests")
 API_SPEC_LOCATION = "https://api.cloud.denvrdata.dev/swagger/v1/swagger.json"
+
+# Add the denvr module to our search path, so we can load a few utility functions from it.
+sys.path.append(DENVR_PATH)
+from utils import snakecase  # noqa: E402
 
 # Paths to include in our SDK to identify breaking changes,
 # but supporting feature gating.
@@ -83,19 +88,6 @@ def splitpaths(paths: list[str]) -> defaultdict[str, list]:
         result[k].append(v)
 
     return result
-
-
-def snakecase(text: str) -> str:
-    """
-    Convert camelcase and titlecase strings to snakecase.
-
-    Args:
-        str (str): The string to convert.
-
-    Returns:
-        str: The converted string.
-    """
-    return "".join(["_" + i.lower() if i.isupper() else i for i in text]).lstrip("_")
 
 
 def makepaths(path: str):
