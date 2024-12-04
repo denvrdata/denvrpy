@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
@@ -26,20 +26,17 @@ jobs:
         uses: pypa/hatch@install
       - name: Lint
         run: hatch fmt --check
-      # Run just the unit tests
-      # - name: Test
-      #   run: hatch test
-      - name: Integration Tests
-        run: hatch run integration:test
+      - name: Tests
+        run: hatch run +py=${{ matrix.python-version }} integration:test
       - name: Combine Coverage
-        run: hatch run integration:cov-combine
+        run: hatch run +py=${{ matrix.python-version }} integration:cov-combine
       - name: Report Coverage
-        run: hatch run integration:cov-report
+        run: hatch run +py=${{ matrix.python-version }} integration:cov-report
       # TODO: use cov-total to update a coverage badge.
       # - name: Report Coverage
       #   run: hatch run integration:cov-total
       - name: Report Coverage
-        run: hatch run integration:cov-lcov
+        run: hatch run +py=${{ matrix.python-version }} integration:cov-lcov
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2.3.4
     services:
