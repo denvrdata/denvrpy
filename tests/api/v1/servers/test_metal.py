@@ -5,6 +5,7 @@ import pytest
 from denvr.api.v1.servers.metal import Client
 from denvr.config import Config
 from denvr.session import Session
+from denvr.validate import validate_kwargs
 
 
 def test_get_hosts():
@@ -20,11 +21,16 @@ def test_get_hosts():
         "cluster": "Cluster",
     }
 
-    request_kwargs = {
-        "params": {
-            "Cluster": "Cluster",
+    request_kwargs = validate_kwargs(
+        "get",
+        "/api/v1/servers/metal/GetHosts",
+        {
+            "params": {
+                "Cluster": "Cluster",
+            },
         },
-    }
+        {},
+    )
 
     client.get_hosts(**client_kwargs)
 
@@ -67,12 +73,17 @@ def test_get_host():
         "cluster": "Cluster",
     }
 
-    request_kwargs = {
-        "params": {
-            "Id": "Id",
-            "Cluster": "Cluster",
+    request_kwargs = validate_kwargs(
+        "get",
+        "/api/v1/servers/metal/GetHost",
+        {
+            "params": {
+                "Id": "Id",
+                "Cluster": "Cluster",
+            },
         },
-    }
+        {"Id", "Cluster"},
+    )
 
     client.get_host(**client_kwargs)
 
@@ -117,13 +128,18 @@ def test_add_host_vpc():
         "vpc_id": "vpcId",
     }
 
-    request_kwargs = {
-        "json": {
-            "id": "id",
-            "cluster": "cluster",
-            "vpcId": "vpcId",
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/metal/AddHostVpc",
+        {
+            "json": {
+                "id": "id",
+                "cluster": "cluster",
+                "vpcId": "vpcId",
+            },
         },
-    }
+        {"cluster", "id", "vpcId"},
+    )
 
     client.add_host_vpc(**client_kwargs)
 
@@ -169,13 +185,18 @@ def test_remove_host_vpc():
         "vpc_id": "vpcId",
     }
 
-    request_kwargs = {
-        "json": {
-            "id": "id",
-            "cluster": "cluster",
-            "vpcId": "vpcId",
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/metal/RemoveHostVpc",
+        {
+            "json": {
+                "id": "id",
+                "cluster": "cluster",
+                "vpcId": "vpcId",
+            },
         },
-    }
+        {"cluster", "id", "vpcId"},
+    )
 
     client.remove_host_vpc(**client_kwargs)
 
@@ -220,12 +241,17 @@ def test_reboot_host():
         "cluster": "cluster",
     }
 
-    request_kwargs = {
-        "json": {
-            "id": "id",
-            "cluster": "cluster",
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/metal/RebootHost",
+        {
+            "json": {
+                "id": "id",
+                "cluster": "cluster",
+            },
         },
-    }
+        {"cluster", "id"},
+    )
 
     client.reboot_host(**client_kwargs)
 

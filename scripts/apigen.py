@@ -243,7 +243,7 @@ def generate(included=INCLUDED_PATHS):
                 for name, val in schema["properties"].items():
                     method["rprops"].append(
                         {
-                            "name": name,
+                            "name": snakecase(name),
                             "type": TYPE_MAP[val["type"]],
                             "desc": val.get("description", ""),
                             "example": val.get("example", ""),

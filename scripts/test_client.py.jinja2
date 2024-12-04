@@ -6,6 +6,7 @@ from requests.exceptions import HTTPError
 from denvr.config import Config
 from denvr.session import Session
 from denvr.{{ module }} import Client
+from denvr.validate import validate_kwargs
 
 {% for method in methods %}
 def test_{{ method.name }}():
@@ -39,22 +40,27 @@ def test_{{ method.name }}():
         {%- endif -%}
     }
 
-    request_kwargs = {
-        {%- if method.params -%}
-        'params': {
-            {%- for entry in method.params -%}
+    request_kwargs = validate_kwargs(
+        '{{ method.method }}',
+        '{{ method.path }}',
+        {
+            {%- if method.params -%}
+            'params': {
+                {%- for entry in method.params -%}
+                '{{ entry.param }}': {{ entry.val|safe }},
+                {%- endfor -%}
+            },
+            {%- endif -%}
+            {%- if method.json -%}
+            'json': {
+            {%- for entry in method.json -%}
             '{{ entry.param }}': {{ entry.val|safe }},
             {%- endfor -%}
+            },
+            {%- endif -%}
         },
-        {%- endif -%}
-        {%- if method.json -%}
-        'json': {
-        {%- for entry in method.json -%}
-        '{{ entry.param }}': {{ entry.val|safe }},
-        {%- endfor -%}
-        },
-        {%- endif -%}
-    }
+        { {% if method.required %}"{{ method.required | join('", "') | safe }}"{% endif %} },
+    )
 
     client.{{ method.name }}(**client_kwargs)
 

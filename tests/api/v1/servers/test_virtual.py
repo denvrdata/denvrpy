@@ -5,6 +5,7 @@ import pytest
 from denvr.api.v1.servers.virtual import Client
 from denvr.config import Config
 from denvr.session import Session
+from denvr.validate import validate_kwargs
 
 
 def test_get_servers():
@@ -20,11 +21,16 @@ def test_get_servers():
         "cluster": "Cluster",
     }
 
-    request_kwargs = {
-        "params": {
-            "Cluster": "Cluster",
+    request_kwargs = validate_kwargs(
+        "get",
+        "/api/v1/servers/virtual/GetServers",
+        {
+            "params": {
+                "Cluster": "Cluster",
+            },
         },
-    }
+        {},
+    )
 
     client.get_servers(**client_kwargs)
 
@@ -68,13 +74,18 @@ def test_get_server():
         "cluster": "Cluster",
     }
 
-    request_kwargs = {
-        "params": {
-            "Id": "Id",
-            "Namespace": "Namespace",
-            "Cluster": "Cluster",
+    request_kwargs = validate_kwargs(
+        "get",
+        "/api/v1/servers/virtual/GetServer",
+        {
+            "params": {
+                "Id": "Id",
+                "Namespace": "Namespace",
+                "Cluster": "Cluster",
+            },
         },
-    }
+        {"Id", "Namespace", "Cluster"},
+    )
 
     client.get_server(**client_kwargs)
 
@@ -129,22 +140,27 @@ def test_create_server():
         "root_disk_size": 1,
     }
 
-    request_kwargs = {
-        "json": {
-            "name": "name",
-            "rpool": "rpool",
-            "vpc": "vpc",
-            "configuration": "configuration",
-            "cluster": "cluster",
-            "ssh_keys": ["foo"],
-            "operatingSystemImage": "operatingSystemImage",
-            "personalStorageMountPath": "personalStorageMountPath",
-            "tenantSharedAdditionalStorage": "tenantSharedAdditionalStorage",
-            "persistStorage": True,
-            "directStorageMountPath": "directStorageMountPath",
-            "rootDiskSize": 1,
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/virtual/CreateServer",
+        {
+            "json": {
+                "name": "name",
+                "rpool": "rpool",
+                "vpc": "vpc",
+                "configuration": "configuration",
+                "cluster": "cluster",
+                "ssh_keys": ["foo"],
+                "operatingSystemImage": "operatingSystemImage",
+                "personalStorageMountPath": "personalStorageMountPath",
+                "tenantSharedAdditionalStorage": "tenantSharedAdditionalStorage",
+                "persistStorage": True,
+                "directStorageMountPath": "directStorageMountPath",
+                "rootDiskSize": 1,
+            },
         },
-    }
+        {"cluster", "configuration", "ssh_keys", "vpc"},
+    )
 
     client.create_server(**client_kwargs)
 
@@ -199,13 +215,18 @@ def test_start_server():
         "cluster": "cluster",
     }
 
-    request_kwargs = {
-        "json": {
-            "id": "id",
-            "namespace": "namespace",
-            "cluster": "cluster",
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/virtual/StartServer",
+        {
+            "json": {
+                "id": "id",
+                "namespace": "namespace",
+                "cluster": "cluster",
+            },
         },
-    }
+        {"cluster", "id", "namespace"},
+    )
 
     client.start_server(**client_kwargs)
 
@@ -251,13 +272,18 @@ def test_stop_server():
         "cluster": "cluster",
     }
 
-    request_kwargs = {
-        "json": {
-            "id": "id",
-            "namespace": "namespace",
-            "cluster": "cluster",
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/virtual/StopServer",
+        {
+            "json": {
+                "id": "id",
+                "namespace": "namespace",
+                "cluster": "cluster",
+            },
         },
-    }
+        {"cluster", "id", "namespace"},
+    )
 
     client.stop_server(**client_kwargs)
 
@@ -303,13 +329,18 @@ def test_destroy_server():
         "cluster": "Cluster",
     }
 
-    request_kwargs = {
-        "params": {
-            "Id": "Id",
-            "Namespace": "Namespace",
-            "Cluster": "Cluster",
+    request_kwargs = validate_kwargs(
+        "delete",
+        "/api/v1/servers/virtual/DestroyServer",
+        {
+            "params": {
+                "Id": "Id",
+                "Namespace": "Namespace",
+                "Cluster": "Cluster",
+            },
         },
-    }
+        {"Id", "Namespace", "Cluster"},
+    )
 
     client.destroy_server(**client_kwargs)
 
@@ -346,7 +377,12 @@ def test_get_configurations():
 
     client_kwargs = {}
 
-    request_kwargs = {}
+    request_kwargs = validate_kwargs(
+        "get",
+        "/api/v1/servers/virtual/GetConfigurations",
+        {},
+        {},
+    )
 
     client.get_configurations(**client_kwargs)
 
@@ -385,14 +421,21 @@ def test_get_availability():
     client_kwargs = {
         "cluster": "cluster",
         "resource_pool": "resourcePool",
+        "report_nodes": True,
     }
 
-    request_kwargs = {
-        "params": {
-            "cluster": "cluster",
-            "resourcePool": "resourcePool",
+    request_kwargs = validate_kwargs(
+        "get",
+        "/api/v1/servers/virtual/GetAvailability",
+        {
+            "params": {
+                "cluster": "cluster",
+                "resourcePool": "resourcePool",
+                "reportNodes": True,
+            },
         },
-    }
+        {"cluster"},
+    )
 
     client.get_availability(**client_kwargs)
 
@@ -411,6 +454,7 @@ def test_integration_get_availability(mock_config):
     client_kwargs = {
         "cluster": "cluster",
         "resource_pool": "resourcePool",
+        "report_nodes": True,
     }
 
     client.get_availability(**client_kwargs)
