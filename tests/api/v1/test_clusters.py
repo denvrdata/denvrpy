@@ -5,6 +5,7 @@ import pytest
 from denvr.api.v1.clusters import Client
 from denvr.config import Config
 from denvr.session import Session
+from denvr.validate import validate_kwargs
 
 
 def test_get_all():
@@ -18,7 +19,12 @@ def test_get_all():
 
     client_kwargs = {}
 
-    request_kwargs = {}
+    request_kwargs = validate_kwargs(
+        "get",
+        "/api/v1/clusters/GetAll",
+        {},
+        {},
+    )
 
     client.get_all(**client_kwargs)
 

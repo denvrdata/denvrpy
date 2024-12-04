@@ -1,3 +1,4 @@
+import json
 import logging
 
 logger = logging.getLogger(__name__)
@@ -16,6 +17,9 @@ def validate_kwargs(method, path, kwargs, required):
                     raise TypeError(f"Required {kw} parameter {k} is missing for {method} request to {path}")
 
                 logger.debug("Dropping missing %s argument %s", kw, k)
+            elif kw == "params" and isinstance(v, bool):
+                # Handle converting True to 'true' for boolean params
+                result[kw][k] = json.dumps(v)
             else:
                 result[kw][k] = v
 
