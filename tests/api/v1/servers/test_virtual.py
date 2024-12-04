@@ -385,12 +385,14 @@ def test_get_availability():
     client_kwargs = {
         "cluster": "cluster",
         "resource_pool": "resourcePool",
+        "report_nodes": True,
     }
 
     request_kwargs = {
         "params": {
             "cluster": "cluster",
             "resourcePool": "resourcePool",
+            "reportNodes": True,
         },
     }
 
@@ -411,6 +413,7 @@ def test_integration_get_availability(mock_config):
     client_kwargs = {
         "cluster": "cluster",
         "resource_pool": "resourcePool",
+        "report_nodes": True,
     }
 
     client.get_availability(**client_kwargs)

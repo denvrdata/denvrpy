@@ -25,23 +25,23 @@ class Client:
         Returns:
             id (str): The bare metal node id (ex: denvrbm-128)
             cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
-            hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+            host_type (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
             username (str): The username tied to the host (ex: admin)
-            tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
-            gpuType (str):
+            tenancy_name (str): Name of the tenant where the node has been allocated (ex: denvr)
+            gpu_type (str):
             gpus (int): Number of GPUs attached to the host (ex: 8)
             vcpus (int): Number of vCPUs on the host (ex: 120)
-            vcpuType (str):
+            vcpu_type (str):
             memory (int): Amount of system memory available in GB (ex: 940)
             ip (str): The public IP address of the host (ex: 123.45.67.89)
-            privateIp (str): The private IP address of the host (ex: 120.77.3.21)
-            imageId (str):
+            private_ip (str): The private IP address of the host (ex: 120.77.3.21)
+            image_id (str):
             image (str):
             storage (int): The amount of storage attached to the host in GB (ex: 13600)
-            storageClass (str):
-            vpcId (str):
+            storage_class (str):
+            vpc_id (str):
             reservation (str):
-            reservationExpiry (str):
+            reservation_expiry (str):
             status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
         config = self.session.config
@@ -80,23 +80,23 @@ class Client:
         Returns:
             id (str): The bare metal node id (ex: denvrbm-128)
             cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
-            hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+            host_type (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
             username (str): The username tied to the host (ex: admin)
-            tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
-            gpuType (str):
+            tenancy_name (str): Name of the tenant where the node has been allocated (ex: denvr)
+            gpu_type (str):
             gpus (int): Number of GPUs attached to the host (ex: 8)
             vcpus (int): Number of vCPUs on the host (ex: 120)
-            vcpuType (str):
+            vcpu_type (str):
             memory (int): Amount of system memory available in GB (ex: 940)
             ip (str): The public IP address of the host (ex: 123.45.67.89)
-            privateIp (str): The private IP address of the host (ex: 120.77.3.21)
-            imageId (str):
+            private_ip (str): The private IP address of the host (ex: 120.77.3.21)
+            image_id (str):
             image (str):
             storage (int): The amount of storage attached to the host in GB (ex: 13600)
-            storageClass (str):
-            vpcId (str):
+            storage_class (str):
+            vpc_id (str):
             reservation (str):
-            reservationExpiry (str):
+            reservation_expiry (str):
             status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
         config = self.session.config
@@ -138,23 +138,23 @@ class Client:
         Returns:
             id (str): The bare metal node id (ex: denvrbm-128)
             cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
-            hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+            host_type (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
             username (str): The username tied to the host (ex: admin)
-            tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
-            gpuType (str):
+            tenancy_name (str): Name of the tenant where the node has been allocated (ex: denvr)
+            gpu_type (str):
             gpus (int): Number of GPUs attached to the host (ex: 8)
             vcpus (int): Number of vCPUs on the host (ex: 120)
-            vcpuType (str):
+            vcpu_type (str):
             memory (int): Amount of system memory available in GB (ex: 940)
             ip (str): The public IP address of the host (ex: 123.45.67.89)
-            privateIp (str): The private IP address of the host (ex: 120.77.3.21)
-            imageId (str):
+            private_ip (str): The private IP address of the host (ex: 120.77.3.21)
+            image_id (str):
             image (str):
             storage (int): The amount of storage attached to the host in GB (ex: 13600)
-            storageClass (str):
-            vpcId (str):
+            storage_class (str):
+            vpc_id (str):
             reservation (str):
-            reservationExpiry (str):
+            reservation_expiry (str):
             status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
         config = self.session.config
@@ -197,23 +197,23 @@ class Client:
         Returns:
             id (str): The bare metal node id (ex: denvrbm-128)
             cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
-            hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+            host_type (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
             username (str): The username tied to the host (ex: admin)
-            tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
-            gpuType (str):
+            tenancy_name (str): Name of the tenant where the node has been allocated (ex: denvr)
+            gpu_type (str):
             gpus (int): Number of GPUs attached to the host (ex: 8)
             vcpus (int): Number of vCPUs on the host (ex: 120)
-            vcpuType (str):
+            vcpu_type (str):
             memory (int): Amount of system memory available in GB (ex: 940)
             ip (str): The public IP address of the host (ex: 123.45.67.89)
-            privateIp (str): The private IP address of the host (ex: 120.77.3.21)
-            imageId (str):
+            private_ip (str): The private IP address of the host (ex: 120.77.3.21)
+            image_id (str):
             image (str):
             storage (int): The amount of storage attached to the host in GB (ex: 13600)
-            storageClass (str):
-            vpcId (str):
+            storage_class (str):
+            vpc_id (str):
             reservation (str):
-            reservationExpiry (str):
+            reservation_expiry (str):
             status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
         config = self.session.config
@@ -254,23 +254,23 @@ class Client:
         Returns:
             id (str): The bare metal node id (ex: denvrbm-128)
             cluster (str): The cluster where the bare metal host is allocated (ex: Msc1)
-            hostType (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
+            host_type (str): The specific host node type (ex: nvidia.com/A100PCIE40GB)
             username (str): The username tied to the host (ex: admin)
-            tenancyName (str): Name of the tenant where the node has been allocated (ex: denvr)
-            gpuType (str):
+            tenancy_name (str): Name of the tenant where the node has been allocated (ex: denvr)
+            gpu_type (str):
             gpus (int): Number of GPUs attached to the host (ex: 8)
             vcpus (int): Number of vCPUs on the host (ex: 120)
-            vcpuType (str):
+            vcpu_type (str):
             memory (int): Amount of system memory available in GB (ex: 940)
             ip (str): The public IP address of the host (ex: 123.45.67.89)
-            privateIp (str): The private IP address of the host (ex: 120.77.3.21)
-            imageId (str):
+            private_ip (str): The private IP address of the host (ex: 120.77.3.21)
+            image_id (str):
             image (str):
             storage (int): The amount of storage attached to the host in GB (ex: 13600)
-            storageClass (str):
-            vpcId (str):
+            storage_class (str):
+            vpc_id (str):
             reservation (str):
-            reservationExpiry (str):
+            reservation_expiry (str):
             status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
         config = self.session.config
