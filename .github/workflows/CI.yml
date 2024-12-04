@@ -15,7 +15,20 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Hatch
+        uses: pypa/hatch@install
+      - name: Test
+        run: hatch test
+  linting:
+    runs-on: ubuntu-latest
+    needs: test
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
@@ -26,9 +39,16 @@ jobs:
         uses: pypa/hatch@install
       - name: Lint
         run: hatch fmt --check
-      # Run just the unit tests
-      # - name: Test
-      #   run: hatch test
+  integration:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - name: Install Hatch
+        uses: pypa/hatch@install
       - name: Integration Tests
         run: hatch run integration:test
       - name: Combine Coverage
