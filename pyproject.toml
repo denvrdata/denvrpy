@@ -67,8 +67,7 @@ dependencies = ["coverage", "pytest", "pytest-cov"]
 [[tool.hatch.envs.integration.matrix]]
 python = ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
 [tool.hatch.envs.integration.scripts]
-# test = "python{matrix:python} -m coverage run --data-file .coverage -m pytest tests"
-test = 'pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=pkg --cov=tests'
+test = "coverage run --data-file .coverage -m pytest tests"
 cov-combine = "coverage combine"
 cov-report = "coverage report -m"
 cov-total = "coverage report -m --format=total"
