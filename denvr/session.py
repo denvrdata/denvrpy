@@ -39,7 +39,7 @@ class Session:
         )
 
     def request(self, method, path, **kwargs):
-        url = os.path.join(self.config.server, *filter(None, path.split('/')))
+        url = os.path.join(self.config.server, *filter(None, path.split("/")))
         logger.debug("Request: self.session.request(%s, %s, **%s", method, url, kwargs)
         resp = self.session.request(method, url, **kwargs)
         resp.raise_for_status()
