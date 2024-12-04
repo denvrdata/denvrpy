@@ -1,4 +1,5 @@
 # We just need to mock the Auth object
+import sys
 import tempfile
 from unittest.mock import Mock, patch
 
@@ -34,7 +35,8 @@ def test_config(mock_post):
     username = "test@foobar.com"
     password = "test.foo.bar.baz"
     """
-    with tempfile.NamedTemporaryFile(delete_on_close=False) as fp:
+    kwargs = {'delete_on_close': False } if sys.version_info >=(3, 12) else {'delete': False}
+    with tempfile.NamedTemporaryFile(**kwargs) as fp:
         fp.write(content.encode())
         fp.close()
 

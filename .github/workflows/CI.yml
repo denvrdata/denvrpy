@@ -15,20 +15,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install Hatch
-        uses: pypa/hatch@install
-      - name: Test
-        run: hatch test -i py=${{ matrix.python-version }}
-  linting:
-    runs-on: ubuntu-latest
-    needs: test
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
@@ -39,18 +26,8 @@ jobs:
         uses: pypa/hatch@install
       - name: Lint
         run: hatch fmt --check
-  integration:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: 3.x
-      - name: Install Hatch
-        uses: pypa/hatch@install
-      - name: Integration Tests
-        run: hatch run integration:test
+      - name: Tests
+        run: hatch run +py=${{ matrix.python-version }} integration:test
       - name: Combine Coverage
         run: hatch run integration:cov-combine
       - name: Report Coverage
