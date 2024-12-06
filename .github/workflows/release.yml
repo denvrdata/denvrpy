@@ -97,6 +97,7 @@ jobs:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
     needs:
       - build
+    if: github.ref == 'refs/heads/main' # Change to only run on the main branch
     runs-on: ubuntu-latest
 
     environment:
@@ -116,4 +117,4 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
-          skip-existing: true
+          skip-existing: true # Change to not cause CI to fail if we don't update the version on every push to 'main''
