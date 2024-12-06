@@ -1,9 +1,11 @@
 """
 This file only exists to generate the other modules in this SDK.
+
+WARNING: May not work correctly on Windows.
 """
 
 # /// script
-# requires-python = ">=3.10"
+# requires-python = ">=3.12"
 # dependencies = ["jinja2", "requests"]
 # ///
 from __future__ import annotations

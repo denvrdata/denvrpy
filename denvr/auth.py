@@ -17,7 +17,7 @@ class Auth(AuthBase):
         # Requests an initial authorization token
         # storing the username, password, token / refresh tokens and when they expire
         resp = requests.post(
-            os.path.join(server, "api", "TokenAuth", "Authenticate"),
+            "/".join([server, "api", "TokenAuth", "Authenticate"]),
             headers={"Content-type": "application/json"},
             json={"userNameOrEmailAddress": username, "password": password},
         )
@@ -37,7 +37,7 @@ class Auth(AuthBase):
 
         if time.time() > self._access_expires:
             resp = requests.get(
-                os.path.join(self._server, "api", "TokenAuth", "RefreshToken"),
+                "/".join([self._server, "api", "TokenAuth", "RefreshToken"]),
                 params={"refreshToken": self._refresh_token},
             )
             resp.raise_for_status()
