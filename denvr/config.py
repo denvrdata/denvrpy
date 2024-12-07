@@ -61,19 +61,19 @@ def config(path=None):
     Construct a Config object from the provide config file path.
     """
     config_path = path if path else os.getenv("DENVR_CONFIG", DEFAULT_CONFIG_PATH)
-    config = toml.load(config_path)
-    defaults = config["defaults"]
-    credentials = config["credentials"]
+    config = toml.load(config_path) if os.path.exists(config_path) else {}
+    defaults = config.get("defaults", {})
+    credentials = config.get("credentials", {})
     server = defaults.get("server", "https://api.cloud.denvrdata.com")
 
-    username = os.getenv("DENVR_USERNAME", credentials["username"])
-    if "DENVR_PASSWORD" in os.environ:
-        password = os.getenv("DENVR_PASSWORD")
-    elif "password" in credentials:
-        password = credentials["password"]
-    else:
-        raise Exception('Could not find password in "DENVR_PASSWORD", keyring or ' + config_path)
+    username = os.getenv("DENVR_USERNAME", credentials.get("username", ""))
+    if not username:
+        raise Exception('Could not find username in "DENVR_USERNAME" or ' + config_path)
+
+    password = os.getenv("DENVR_PASSWORD", credentials.get("password", ""))
+    if not password:
+        raise Exception('Could not find password in "DENVR_PASSWORD" or ' + config_path)
 
     # NOTE: We're intentionally letting the loaded username/password go out of scope for security reasons.
     # The auth object should be able to handle everything from here onward.
-    return Config(defaults=config["defaults"], auth=Auth(server, username, password))
+    return Config(defaults=defaults, auth=Auth(server, username, password))
