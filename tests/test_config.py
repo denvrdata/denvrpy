@@ -2,25 +2,12 @@
 import os
 import sys
 import tempfile
-from contextlib import contextmanager
 from unittest.mock import Mock, patch
 
 import pytest
 
 from denvr.config import config
-
-
-@contextmanager
-def temp_env():
-    """
-    Really simple context manager to simplify the config environment variable tests.
-    """
-    _environ = dict(os.environ)
-    try:
-        yield
-    finally:
-        os.environ.clear()
-        os.environ.update(_environ)
+from tests.utils import temp_env
 
 
 @patch("requests.post")
