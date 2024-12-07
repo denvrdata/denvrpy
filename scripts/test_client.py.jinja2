@@ -2,6 +2,8 @@ import pytest
 
 from unittest.mock import Mock
 from requests.exceptions import HTTPError
+from pytest_httpserver import HTTPServer
+from pytest_httpserver.httpserver import UNDEFINED
 
 from denvr.config import Config
 from denvr.session import Session
@@ -10,6 +12,9 @@ from denvr.validate import validate_kwargs
 
 {% for method in methods %}
 def test_{{ method.name }}():
+    """
+    Unit test default input/output behaviour when mocking the internal Session object.
+    """
     config = Config(defaults={}, auth=None)
 
     session = Mock()
@@ -70,9 +75,68 @@ def test_{{ method.name }}():
         **request_kwargs,
     )
 
+def test_{{ method.name }}_httpserver(httpserver: HTTPServer):
+    """
+    Test we're producing valid session HTTP requests
+    """
+    config = Config(
+        defaults={"server": httpserver.url_for("/")},
+        auth=None,
+    )
+
+    session = Session(config)
+    client = Client(session)
+
+    client_kwargs = {
+        {%- if method.params -%}
+        {%- for entry in method.params -%}
+        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- endfor -%}
+        {%- endif -%}
+        {%- if method.json -%}
+        {%- for entry in method.json -%}
+        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- endfor -%}
+        {%- endif -%}
+    }
+
+    request_kwargs = validate_kwargs(
+        '{{ method.method }}',
+        '{{ method.path }}',
+        {
+            {%- if method.params -%}
+            'params': {
+                {%- for entry in method.params -%}
+                '{{ entry.param }}': {{ entry.val|safe }},
+                {%- endfor -%}
+            },
+            {%- endif -%}
+            {%- if method.json -%}
+            'json': {
+            {%- for entry in method.json -%}
+            '{{ entry.param }}': {{ entry.val|safe }},
+            {%- endfor -%}
+            },
+            {%- endif -%}
+        },
+        { {% if method.required %}"{{ method.required | join('", "') | safe }}"{% endif %} },
+    )
+
+    # TODO: The request_kwargs response may break if we add schema validation on results.
+    httpserver.expect_request(
+        '{{ method.path }}',
+        method='{{ method.method }}',
+        query_string=request_kwargs.get("params", None),
+        json=request_kwargs.get("json", UNDEFINED),
+    ).respond_with_json(request_kwargs)
+    assert client.{{ method.name }}(**client_kwargs) == request_kwargs
+
 
 @pytest.mark.integration
-def test_integration_{{ method.name }}(mock_config):
+def test_{{ method.name }}_mockserver(mock_config):
+    """
+    Test our requests/responses match the open api spec with mockserver.
+    """
     session = Session(mock_config)
     client = Client(session)
 

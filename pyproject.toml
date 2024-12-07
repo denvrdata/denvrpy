@@ -59,11 +59,12 @@ deploy = "mkdocs gh-deploy --force"
 
 # By default don't run integration tests
 [tool.hatch.envs.hatch-test]
+extra-dependencies = ["pytest-httpserver"]
 extra-args = ["-m", "not integration"]
 
 # Run full tests including integration
 [tool.hatch.envs.integration]
-dependencies = ["coverage", "pytest", "pytest-cov"]
+dependencies = ["coverage", "pytest", "pytest-cov", "pytest-httpserver"]
 [[tool.hatch.envs.integration.matrix]]
 python = ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
 [tool.hatch.envs.integration.scripts]
@@ -104,7 +105,12 @@ denvr = ["denvr"]
 tests = ["tests"]
 
 [tool.coverage.report]
-exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+exclude_lines = [
+    "no cov",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "mock_config",
+]
 
 [tool.pyright]
 venvPath = "."

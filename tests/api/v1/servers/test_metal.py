@@ -1,6 +1,8 @@
 from unittest.mock import Mock
 
 import pytest
+from pytest_httpserver import HTTPServer
+from pytest_httpserver.httpserver import UNDEFINED
 
 from denvr.api.v1.servers.metal import Client
 from denvr.config import Config
@@ -9,6 +11,9 @@ from denvr.validate import validate_kwargs
 
 
 def test_get_hosts():
+    """
+    Unit test default input/output behaviour when mocking the internal Session object.
+    """
     config = Config(defaults={}, auth=None)
 
     session = Mock()
@@ -41,8 +46,48 @@ def test_get_hosts():
     )
 
 
+def test_get_hosts_httpserver(httpserver: HTTPServer):
+    """
+    Test we're producing valid session HTTP requests
+    """
+    config = Config(
+        defaults={"server": httpserver.url_for("/")},
+        auth=None,
+    )
+
+    session = Session(config)
+    client = Client(session)
+
+    client_kwargs = {
+        "cluster": "Cluster",
+    }
+
+    request_kwargs = validate_kwargs(
+        "get",
+        "/api/v1/servers/metal/GetHosts",
+        {
+            "params": {
+                "Cluster": "Cluster",
+            },
+        },
+        {},
+    )
+
+    # TODO: The request_kwargs response may break if we add schema validation on results.
+    httpserver.expect_request(
+        "/api/v1/servers/metal/GetHosts",
+        method="get",
+        query_string=request_kwargs.get("params", None),
+        json=request_kwargs.get("json", UNDEFINED),
+    ).respond_with_json(request_kwargs)
+    assert client.get_hosts(**client_kwargs) == request_kwargs
+
+
 @pytest.mark.integration
-def test_integration_get_hosts(mock_config):
+def test_get_hosts_mockserver(mock_config):
+    """
+    Test our requests/responses match the open api spec with mockserver.
+    """
     session = Session(mock_config)
     client = Client(session)
 
@@ -55,6 +100,9 @@ def test_integration_get_hosts(mock_config):
 
 
 def test_get_host():
+    """
+    Unit test default input/output behaviour when mocking the internal Session object.
+    """
     config = Config(defaults={}, auth=None)
 
     session = Mock()
@@ -94,8 +142,50 @@ def test_get_host():
     )
 
 
+def test_get_host_httpserver(httpserver: HTTPServer):
+    """
+    Test we're producing valid session HTTP requests
+    """
+    config = Config(
+        defaults={"server": httpserver.url_for("/")},
+        auth=None,
+    )
+
+    session = Session(config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "Id",
+        "cluster": "Cluster",
+    }
+
+    request_kwargs = validate_kwargs(
+        "get",
+        "/api/v1/servers/metal/GetHost",
+        {
+            "params": {
+                "Id": "Id",
+                "Cluster": "Cluster",
+            },
+        },
+        {"Id", "Cluster"},
+    )
+
+    # TODO: The request_kwargs response may break if we add schema validation on results.
+    httpserver.expect_request(
+        "/api/v1/servers/metal/GetHost",
+        method="get",
+        query_string=request_kwargs.get("params", None),
+        json=request_kwargs.get("json", UNDEFINED),
+    ).respond_with_json(request_kwargs)
+    assert client.get_host(**client_kwargs) == request_kwargs
+
+
 @pytest.mark.integration
-def test_integration_get_host(mock_config):
+def test_get_host_mockserver(mock_config):
+    """
+    Test our requests/responses match the open api spec with mockserver.
+    """
     session = Session(mock_config)
     client = Client(session)
 
@@ -109,6 +199,9 @@ def test_integration_get_host(mock_config):
 
 
 def test_add_host_vpc():
+    """
+    Unit test default input/output behaviour when mocking the internal Session object.
+    """
     config = Config(defaults={}, auth=None)
 
     session = Mock()
@@ -150,8 +243,52 @@ def test_add_host_vpc():
     )
 
 
+def test_add_host_vpc_httpserver(httpserver: HTTPServer):
+    """
+    Test we're producing valid session HTTP requests
+    """
+    config = Config(
+        defaults={"server": httpserver.url_for("/")},
+        auth=None,
+    )
+
+    session = Session(config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "id",
+        "cluster": "cluster",
+        "vpc_id": "vpcId",
+    }
+
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/metal/AddHostVpc",
+        {
+            "json": {
+                "id": "id",
+                "cluster": "cluster",
+                "vpcId": "vpcId",
+            },
+        },
+        {"cluster", "id", "vpcId"},
+    )
+
+    # TODO: The request_kwargs response may break if we add schema validation on results.
+    httpserver.expect_request(
+        "/api/v1/servers/metal/AddHostVpc",
+        method="post",
+        query_string=request_kwargs.get("params", None),
+        json=request_kwargs.get("json", UNDEFINED),
+    ).respond_with_json(request_kwargs)
+    assert client.add_host_vpc(**client_kwargs) == request_kwargs
+
+
 @pytest.mark.integration
-def test_integration_add_host_vpc(mock_config):
+def test_add_host_vpc_mockserver(mock_config):
+    """
+    Test our requests/responses match the open api spec with mockserver.
+    """
     session = Session(mock_config)
     client = Client(session)
 
@@ -166,6 +303,9 @@ def test_integration_add_host_vpc(mock_config):
 
 
 def test_remove_host_vpc():
+    """
+    Unit test default input/output behaviour when mocking the internal Session object.
+    """
     config = Config(defaults={}, auth=None)
 
     session = Mock()
@@ -207,8 +347,52 @@ def test_remove_host_vpc():
     )
 
 
+def test_remove_host_vpc_httpserver(httpserver: HTTPServer):
+    """
+    Test we're producing valid session HTTP requests
+    """
+    config = Config(
+        defaults={"server": httpserver.url_for("/")},
+        auth=None,
+    )
+
+    session = Session(config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "id",
+        "cluster": "cluster",
+        "vpc_id": "vpcId",
+    }
+
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/metal/RemoveHostVpc",
+        {
+            "json": {
+                "id": "id",
+                "cluster": "cluster",
+                "vpcId": "vpcId",
+            },
+        },
+        {"cluster", "id", "vpcId"},
+    )
+
+    # TODO: The request_kwargs response may break if we add schema validation on results.
+    httpserver.expect_request(
+        "/api/v1/servers/metal/RemoveHostVpc",
+        method="post",
+        query_string=request_kwargs.get("params", None),
+        json=request_kwargs.get("json", UNDEFINED),
+    ).respond_with_json(request_kwargs)
+    assert client.remove_host_vpc(**client_kwargs) == request_kwargs
+
+
 @pytest.mark.integration
-def test_integration_remove_host_vpc(mock_config):
+def test_remove_host_vpc_mockserver(mock_config):
+    """
+    Test our requests/responses match the open api spec with mockserver.
+    """
     session = Session(mock_config)
     client = Client(session)
 
@@ -223,6 +407,9 @@ def test_integration_remove_host_vpc(mock_config):
 
 
 def test_reboot_host():
+    """
+    Unit test default input/output behaviour when mocking the internal Session object.
+    """
     config = Config(defaults={}, auth=None)
 
     session = Mock()
@@ -262,8 +449,50 @@ def test_reboot_host():
     )
 
 
+def test_reboot_host_httpserver(httpserver: HTTPServer):
+    """
+    Test we're producing valid session HTTP requests
+    """
+    config = Config(
+        defaults={"server": httpserver.url_for("/")},
+        auth=None,
+    )
+
+    session = Session(config)
+    client = Client(session)
+
+    client_kwargs = {
+        "id": "id",
+        "cluster": "cluster",
+    }
+
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/metal/RebootHost",
+        {
+            "json": {
+                "id": "id",
+                "cluster": "cluster",
+            },
+        },
+        {"cluster", "id"},
+    )
+
+    # TODO: The request_kwargs response may break if we add schema validation on results.
+    httpserver.expect_request(
+        "/api/v1/servers/metal/RebootHost",
+        method="post",
+        query_string=request_kwargs.get("params", None),
+        json=request_kwargs.get("json", UNDEFINED),
+    ).respond_with_json(request_kwargs)
+    assert client.reboot_host(**client_kwargs) == request_kwargs
+
+
 @pytest.mark.integration
-def test_integration_reboot_host(mock_config):
+def test_reboot_host_mockserver(mock_config):
+    """
+    Test our requests/responses match the open api spec with mockserver.
+    """
     session = Session(mock_config)
     client = Client(session)
 
