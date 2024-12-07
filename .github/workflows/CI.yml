@@ -49,16 +49,16 @@ jobs:
       - name: Install Hatch
         uses: pypa/hatch@install
       - name: Tests
-        run: hatch run +py=${{ matrix.python-version }} integration:test
+        run: hatch run integration:test
       - name: Combine Coverage
-        run: hatch run +py=${{ matrix.python-version }} integration:cov-combine
+        run: hatch run +py=3.12 integration:cov-combine
       - name: Report Coverage
-        run: hatch run +py=${{ matrix.python-version }} integration:cov-report
+        run: hatch run +py=3.12 integration:cov-report
       # TODO: use cov-total to update a coverage badge.
       # - name: Report Coverage
       #   run: hatch run integration:cov-total
       - name: Report Coverage
-        run: hatch run +py=${{ matrix.python-version }} integration:cov-lcov
+        run: hatch run +py=3.12 integration:cov-lcov
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2.3.4
     services:
