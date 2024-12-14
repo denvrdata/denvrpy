@@ -35,6 +35,15 @@ from utils import snakecase  # noqa: E402
 INCLUDED_PATHS = [
     "/api/v1/clusters/GetAll",
     "/api/v1/servers/images/GetOperatingSystemImages",
+    "/api/v1/servers/applications/GetApplications",
+    "/api/v1/servers/applications/GetApplicationDetails",
+    "/api/v1/servers/applications/GetConfigurations",
+    "/api/v1/servers/applications/GetAvailability",
+    "/api/v1/servers/applications/GetApplicationCatalogItems",
+    "/api/v1/servers/applications/CreateApplication",
+    "/api/v1/servers/applications/StartApplication",
+    "/api/v1/servers/applications/StopApplication",
+    "/api/v1/servers/applications/DestroyApplication",
     "/api/v1/servers/metal/GetHosts",
     "/api/v1/servers/metal/GetHost",
     "/api/v1/servers/metal/AddHostVpc",
@@ -62,6 +71,7 @@ TYPE_MAP = {
     "object": "dict",
 }
 
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
@@ -220,7 +230,7 @@ def generate(included=INCLUDED_PATHS):
                             "param": name,
                             "kwarg": snakecase(name),
                             "type": TYPE_MAP[val["type"]],
-                            "val": testval(name, TYPE_MAP[val["type"]]),
+                            "val": testval(name, TYPE_MAP[val.get("type", "object")]),
                             "desc": val.get("description", ""),
                             "example": val.get("example", ""),
                         }
@@ -243,10 +253,11 @@ def generate(included=INCLUDED_PATHS):
                 assert schema["type"] == "object"
                 method["rtype"] = "dict"
                 for name, val in schema["properties"].items():
+                    logger.debug("%s : %s", name, val)
                     method["rprops"].append(
                         {
                             "name": snakecase(name),
-                            "type": TYPE_MAP[val["type"]],
+                            "type": TYPE_MAP[val.get("type", "object")],
                             "desc": val.get("description", ""),
                             "example": val.get("example", ""),
                         }

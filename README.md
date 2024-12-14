@@ -151,3 +151,60 @@ Similarly, we can also fetch info about a specific vm.
   "storage_type": "na"
 }
 ```
+
+A different example using our applications service.
+```python
+>>> print(json.dumps(
+...     app.create_application(
+...         name="api-test",
+...         cluster="Msc1",
+...         hardware_package_name="g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
+...         application_catalog_item_name="jupyter-notebook",
+...         application_catalog_item_version="python-3.11.9",
+...         resource_pool="on-demand",
+...         jupyter_token="abc123"
+...     ),
+...     indent=2
+... ))
+{
+  "id": "api-test",
+  "cluster": "Msc1",
+  "status": null,
+  "tenant": "denvr",
+  "created_by": "rory@denvrdata.com",
+  "private_ip": "172.16.0.180",
+  "public_ip": "",
+  "resource_pool": "on-demand",
+  "dns": "",
+  "ssh_username": "",
+  "application_catalog_item_name": "jupyter-notebook",
+  "application_catalog_item_version_name": "python-3.11.9",
+  "hardware_package_name": "g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
+  "persisted_direct_attached_storage": false,
+  "personal_shared_storage": false,
+  "tenant_shared_storage": false
+}
+>>> print(json.dumps(app.get_applications(), indent=2))
+{
+  "items": [
+    {
+      "id": "api-test",
+      "cluster": "Msc1",
+      "status": "ONLINE",
+      "tenant": "denvr",
+      "createdBy": "rory@denvrdata.com",
+      "privateIp": "172.16.0.180",
+      "publicIp": "130.250.171.126",
+      "resourcePool": "on-demand",
+      "dns": "https://YYC-130-250-171-126.cloud.denvrdata.com/",
+      "sshUsername": "",
+      "applicationCatalogItemName": "jupyter-notebook",
+      "applicationCatalogItemVersionName": "python-3.11.9",
+      "hardwarePackageName": "g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
+      "persistedDirectAttachedStorage": false,
+      "personalSharedStorage": false,
+      "tenantSharedStorage": false
+    }
+  ]
+}
+```
