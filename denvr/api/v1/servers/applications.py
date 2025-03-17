@@ -249,7 +249,9 @@ class Client:
             "json": {
                 "name": config.getkwarg("name", name),
                 "cluster": config.getkwarg("cluster", cluster),
-                "hardwarePackageName": config.getkwarg("hardware_package_name", hardware_package_name),
+                "hardwarePackageName": config.getkwarg(
+                    "hardware_package_name", hardware_package_name
+                ),
                 "applicationCatalogItemName": config.getkwarg(
                     "application_catalog_item_name", application_catalog_item_name
                 ),
@@ -261,8 +263,12 @@ class Client:
                 "persistDirectAttachedStorage": config.getkwarg(
                     "persist_direct_attached_storage", persist_direct_attached_storage
                 ),
-                "personalSharedStorage": config.getkwarg("personal_shared_storage", personal_shared_storage),
-                "tenantSharedStorage": config.getkwarg("tenant_shared_storage", tenant_shared_storage),
+                "personalSharedStorage": config.getkwarg(
+                    "personal_shared_storage", personal_shared_storage
+                ),
+                "tenantSharedStorage": config.getkwarg(
+                    "tenant_shared_storage", tenant_shared_storage
+                ),
                 "jupyterToken": config.getkwarg("jupyter_token", jupyter_token),
             },
         }
@@ -271,7 +277,13 @@ class Client:
             "post",
             "/api/v1/servers/applications/CreateApplication",
             parameters,
-            {"applicationCatalogItemName", "applicationCatalogItemVersion", "cluster", "hardwarePackageName", "name"},
+            {
+                "applicationCatalogItemName",
+                "applicationCatalogItemVersion",
+                "cluster",
+                "hardwarePackageName",
+                "name",
+            },
         )
 
         return self.session.request(

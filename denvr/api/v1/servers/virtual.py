@@ -165,13 +165,19 @@ class Client:
                 "configuration": config.getkwarg("configuration", configuration),
                 "cluster": config.getkwarg("cluster", cluster),
                 "ssh_keys": config.getkwarg("ssh_keys", ssh_keys),
-                "operatingSystemImage": config.getkwarg("operating_system_image", operating_system_image),
-                "personalStorageMountPath": config.getkwarg("personal_storage_mount_path", personal_storage_mount_path),
+                "operatingSystemImage": config.getkwarg(
+                    "operating_system_image", operating_system_image
+                ),
+                "personalStorageMountPath": config.getkwarg(
+                    "personal_storage_mount_path", personal_storage_mount_path
+                ),
                 "tenantSharedAdditionalStorage": config.getkwarg(
                     "tenant_shared_additional_storage", tenant_shared_additional_storage
                 ),
                 "persistStorage": config.getkwarg("persist_storage", persist_storage),
-                "directStorageMountPath": config.getkwarg("direct_storage_mount_path", direct_storage_mount_path),
+                "directStorageMountPath": config.getkwarg(
+                    "direct_storage_mount_path", direct_storage_mount_path
+                ),
                 "rootDiskSize": config.getkwarg("root_disk_size", root_disk_size),
             },
         }

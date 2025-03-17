@@ -214,7 +214,10 @@ def test_create_server():
     client = Client(session)
 
     # Check that missing required arguments without a default should through a TypeError
-    if any(getattr(config, k, None) is None for k in ["cluster", "configuration", "ssh_keys", "vpc"]):
+    if any(
+        getattr(config, k, None) is None
+        for k in ["cluster", "configuration", "ssh_keys", "vpc"]
+    ):
         with pytest.raises(TypeError, match=r"^Required"):
             client.create_server()
     else:

@@ -220,7 +220,9 @@ def generate(included=INCLUDED_PATHS):
 
             if "requestBody" in path_vals:
                 # TODO: Technically we should test for the '$ref' case first
-                schema_ref = os.path.basename(path_vals["requestBody"]["content"]["application/json"]["schema"]["$ref"])
+                schema_ref = os.path.basename(
+                    path_vals["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+                )
                 schema = schemas[schema_ref]
                 assert schema["type"] == "object"
                 method["required"].extend(schema.get("required", []))

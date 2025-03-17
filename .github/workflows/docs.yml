@@ -24,6 +24,6 @@ jobs:
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - name: Install Hatch
-        uses: pypa/hatch@install
-      - run: hatch run docs:deploy
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v5
+      - run: uv run --group docs mkdocs gh-deploy --force

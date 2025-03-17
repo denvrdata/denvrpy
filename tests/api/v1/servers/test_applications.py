@@ -491,7 +491,13 @@ def test_create_application():
                 "jupyterToken": "jupyterToken",
             },
         },
-        {"applicationCatalogItemName", "applicationCatalogItemVersion", "cluster", "hardwarePackageName", "name"},
+        {
+            "applicationCatalogItemName",
+            "applicationCatalogItemVersion",
+            "cluster",
+            "hardwarePackageName",
+            "name",
+        },
     )
 
     client.create_application(**client_kwargs)
@@ -547,7 +553,13 @@ def test_create_application_httpserver(httpserver: HTTPServer):
                 "jupyterToken": "jupyterToken",
             },
         },
-        {"applicationCatalogItemName", "applicationCatalogItemVersion", "cluster", "hardwarePackageName", "name"},
+        {
+            "applicationCatalogItemName",
+            "applicationCatalogItemVersion",
+            "cluster",
+            "hardwarePackageName",
+            "name",
+        },
     )
 
     # TODO: The request_kwargs response may break if we add schema validation on results.
