@@ -1,12 +1,12 @@
-from unittest.mock import Mock
-
 import pytest
+
+from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
 
-from denvr.api.v1.servers.virtual import Client
 from denvr.config import Config
 from denvr.session import Session
+from denvr.api.v1.servers.virtual import Client
 from denvr.validate import validate_kwargs
 
 

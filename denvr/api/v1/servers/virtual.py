@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from denvr.validate import validate_kwargs
+
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from denvr.session import Session
@@ -25,7 +25,7 @@ class Client:
         Returns:
             items (list):
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "params": {
@@ -57,7 +57,7 @@ class Client:
 
         Keyword Arguments:
             id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
+            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name. (ex: denvr)
             cluster (str): The cluster you're operating on (ex: Hou1)
 
         Returns:
@@ -80,7 +80,7 @@ class Client:
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
             storage_type (str):
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "params": {
@@ -155,7 +155,7 @@ class Client:
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
             storage_type (str):
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "json": {
@@ -206,7 +206,7 @@ class Client:
 
         Keyword Arguments:
             id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
+            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name. (ex: denvr)
             cluster (str): The cluster you're operating on (ex: Hou1)
 
         Returns:
@@ -229,7 +229,7 @@ class Client:
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
             storage_type (str):
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "json": {
@@ -263,7 +263,7 @@ class Client:
 
         Keyword Arguments:
             id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
+            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name. (ex: denvr)
             cluster (str): The cluster you're operating on (ex: Hou1)
 
         Returns:
@@ -286,7 +286,7 @@ class Client:
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
             storage_type (str):
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "json": {
@@ -320,7 +320,7 @@ class Client:
 
         Keyword Arguments:
             id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace where the virtual machine lives. This is usually just the tenant name. (ex: denvr)
+            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name. (ex: denvr)
             cluster (str): The cluster you're operating on (ex: Hou1)
 
         Returns:
@@ -343,7 +343,7 @@ class Client:
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
             storage_type (str):
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "params": {
@@ -405,12 +405,12 @@ class Client:
         Keyword Arguments:
             cluster (str)
             resource_pool (str)
-            report_nodes (bool): controls if nodes_available and nodes_max_capacity is calculated and returned in the response. If they are not needed, use 'false' to improve response time of thie endpoint.
+            report_nodes (bool): controls if Count and MaxCount is calculated and returned in the response. If they are not needed, use 'false' to improve response time of the endpoint.
 
         Returns:
             items (list):
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "params": {
