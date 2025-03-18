@@ -7,7 +7,7 @@ Requirements:
 
 - [GitHub Account](https://github.com/join)
 - [Python](https://wiki.python.org/moin/BeginnersGuide/Download)
-- [Git]()
+- [Git](https://git-scm.com/)
 - [denvrpy](https://github.com/denvrdata/denvrpy)
 
 The [GitHub docs](https://docs.github.com/en/get-started) already have a lot of useful info to help you get started
@@ -49,21 +49,22 @@ When opening a pull request it's best to:
 
 ## Development
 
-We currently use [hatch](https://hatch.pypa.io/1.12/) as our Python project manager.
-This one tool serves as our:
-
-1. Build and publishing system
-2. Environment manager (ie: virtualenv)
-3. Shared env aware runner for tests, docs and scripts
+We currently use [uv](https://docs.astral.sh/uv/) as our Python package and project manager.
+This tool helps us manage package and dev dependencies in virtual environments:
 
 ### Environment
 
-To get started with the default development virtualenv just run:
+
+To get started with the default development just run:
 ```shell
-hatch shell
+uv sync
 ```
-This will sync all the dependencies for you.
-You can just type `exit` to return to your default shell environment.
+This will handle setting up a python `.venv` directory the necessary python and package version to get started contibuting.
+You can activate the `.venv` directory like any other virtual env.
+```shell
+source .venv/bin/activate.fish
+python
+```
 
 ### Debugging
 
@@ -123,17 +124,19 @@ DEBUG:urllib3.connectionpool:https://api.cloud.denvrdata.com:443 "POST /api/v1/s
 
 ### Testing
 
-For quickly running unit tests you can just use:
+For quickly running unit tests you can use the following:
 
 ```shell
-> hatch test
+> uv run --only-group test pytest -m "not integration" --cov=denvr tests/
 ```
+
+NOTE: `scripts/test` is essentially an alias for quickly running linting, autoformatting and unit testings.
 
 However, for full integration tests we run mockserver against our open api spec.
 
 ```shell
 > docker run -d --rm -p 1080:1080 mockserver/mockserver
-> hatch run integration:test
+> uv run --only-group test pytest --cov=denvr tests/
 ```
 
 ### Docs
@@ -141,7 +144,7 @@ However, for full integration tests we run mockserver against our open api spec.
 To run the local mkdocs server:
 
 ```shell
-> hatch run docs:serve
+> uv run --only-group docs mkdocs serve --dev-addr localhost:8000
 ```
 
 ### Linting
@@ -150,12 +153,12 @@ To help keep our code well formatted and following best practices we use [ruff](
 
 To just check for issues run:
 ```shell
-> hatch fmt --check
+> uv run --only-group lint ruff check
 ```
 
 However, to fix the issues and format your code run:
 ```shell
-> hatch fmt
+> uv run --only-group lint ruff format
 ```
 
 If you disagree with `ruff` you can choose to either globally add the exception to the `pyproject.toml`:
@@ -183,12 +186,12 @@ The `client.py.jinja2` and `test_client.py.jinja2` files are used to populate th
 To regenerate the `api/` and `tests/api/` files run:
 
 ```shell
-> hatch run scripts/apigen.py
+> uv run scripts/apigen.py
 ```
 
 You'll also want to rerun the formatter to fix any consistency or linting issues in the generated files.
 ```shell
-> hatch fmt
+> uv run --only-group lint ruff format
 ```
 
 TODO: Run the linter inside `apigen.py`

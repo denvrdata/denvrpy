@@ -1,12 +1,12 @@
-from unittest.mock import Mock
-
 import pytest
+
+from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
 
-from denvr.api.v1.servers.virtual import Client
 from denvr.config import Config
 from denvr.session import Session
+from denvr.api.v1.servers.virtual import Client
 from denvr.validate import validate_kwargs
 
 
@@ -214,7 +214,10 @@ def test_create_server():
     client = Client(session)
 
     # Check that missing required arguments without a default should through a TypeError
-    if any(getattr(config, k, None) is None for k in ["cluster", "configuration", "ssh_keys", "vpc"]):
+    if any(
+        getattr(config, k, None) is None
+        for k in ["cluster", "configuration", "ssh_keys", "vpc"]
+    ):
         with pytest.raises(TypeError, match=r"^Required"):
             client.create_server()
     else:

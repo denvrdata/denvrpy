@@ -36,43 +36,22 @@ allow-direct-references = true
 [tool.hatch.version]
 path = "denvr/__about__.py"
 
-[tool.hatch.envs.default]
-dependencies = ["jinja2", "requests", "toml"]
-# path = "venv"
-
-[tool.hatch.envs.types]
-extra-dependencies = ["mypy>=1.0.0"]
-[tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:denvr tests}"
-
-[tool.hatch.envs.docs]
-dependencies = [
-    "mkdocs",
-    "mkdocstrings[python]",
-    "mkdocs-material",
-    "pymdown-extensions",
+[dependency-groups]
+cov = ["coverage>=7.6.1"]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.8",
+    "mkdocstrings[python]>=0.26.1",
+    "pymdown-extensions>=10.14.3",
 ]
-[tool.hatch.envs.docs.scripts]
-build = "mkdocs build --clean"
-serve = "mkdocs serve --dev-addr localhost:8000"
-deploy = "mkdocs gh-deploy --force"
+lint = ["mypy>=1.14.1", "ruff>=0.11.0"]
+test = ["pytest>=8.3.5", "pytest-cov>=5.0.0", "pytest-httpserver>=1.1.1"]
 
-# By default don't run integration tests
-[tool.hatch.envs.hatch-test]
-extra-dependencies = ["pytest-httpserver"]
-extra-args = ["-m", "not integration"]
+[tool.uv]
+default-groups = ["cov", "docs", "lint", "test"]
 
-# Run full tests including integration
-[tool.hatch.envs.integration]
-dependencies = ["coverage", "pytest", "pytest-cov", "pytest-httpserver"]
-[[tool.hatch.envs.integration.matrix]]
-python = ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
-[tool.hatch.envs.integration.scripts]
-test = "coverage run --data-file .coverage -m pytest tests"
-cov-combine = "coverage combine"
-cov-report = "coverage report -m"
-cov-total = "coverage report -m --format=total"
-cov-lcov = "coverage lcov"
+[tool.ruff]
+line-length = 96
 
 [tool.ruff.lint.per-file-ignores]
 "denvr/api/*" = ["A002"] # shadowing likely in generated code
@@ -120,3 +99,41 @@ venv = "venv"
 markers = [
     "integration: Test against mock-server at localhost:1080 (deselect with '-m \"not integration\"')",
 ]
+
+# [tool.hatch.envs.default]
+# dependencies = ["jinja2", "requests", "toml"]
+# # path = "venv"
+
+# [tool.hatch.envs.types]
+# extra-dependencies = ["mypy>=1.0.0"]
+# [tool.hatch.envs.types.scripts]
+# check = "mypy --install-types --non-interactive {args:denvr tests}"
+
+# [tool.hatch.envs.docs]
+# dependencies = [
+#     "mkdocs",
+#     "mkdocstrings[python]",
+#     "mkdocs-material",
+#     "pymdown-extensions",
+# ]
+# [tool.hatch.envs.docs.scripts]
+# build = "mkdocs build --clean"
+# serve = "mkdocs serve --dev-addr localhost:8000"
+# deploy = "mkdocs gh-deploy --force"
+
+# # By default don't run integration tests
+# [tool.hatch.envs.hatch-test]
+# extra-dependencies = ["pytest-httpserver"]
+# extra-args = ["-m", "not integration"]
+
+# # Run full tests including integration
+# [tool.hatch.envs.integration]
+# dependencies = ["coverage", "pytest", "pytest-cov", "pytest-httpserver"]
+# [[tool.hatch.envs.integration.matrix]]
+# python = ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+# [tool.hatch.envs.integration.scripts]
+# test = "coverage run --data-file .coverage -m pytest tests"
+# cov-combine = "coverage combine"
+# cov-report = "coverage report -m"
+# cov-total = "coverage report -m --format=total"
+# cov-lcov = "coverage lcov"

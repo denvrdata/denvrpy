@@ -14,7 +14,9 @@ def validate_kwargs(method, path, kwargs, required):
         for k, v in args.items():
             if v is None:
                 if k in required:
-                    raise TypeError(f"Required {kw} parameter {k} is missing for {method} request to {path}")
+                    raise TypeError(
+                        f"Required {kw} parameter {k} is missing for {method} request to {path}"
+                    )
 
                 logger.debug("Dropping missing %s argument %s", kw, k)
             elif kw == "params" and isinstance(v, bool):

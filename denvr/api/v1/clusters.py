@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from denvr.validate import validate_kwargs
+
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from denvr.session import Session

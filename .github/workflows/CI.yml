@@ -16,6 +16,7 @@ jobs:
       fail-fast: true
       matrix:
         # Run all support python version on linux
+        # We're doing this at the CI level to make reporting a bit clearer
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
         os: ["ubuntu-latest"]
         include:
@@ -30,12 +31,15 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Hatch
-        uses: pypa/hatch@install
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v5
+      # TODO: Enable mypy type checking
+      # - name: typecheck
+      #   run: uv run --only-group lint mypy --install-types --non-interactive denvr tests
       - name: Lint
-        run: hatch fmt --check
+        run: uv run --group lint ruff check
       - name: Tests
-        run: hatch test -i py=${{ matrix.python-version }}
+        run: uv run --group test pytest -m "not integration" --cov=denvr tests/
   # Run more detailed integration tests on all supported versions of python
   integration:
     runs-on: ubuntu-latest
@@ -46,19 +50,14 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
-      - name: Install Hatch
-        uses: pypa/hatch@install
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v5
       - name: Tests
-        run: hatch run integration:test
-      - name: Combine Coverage
-        run: hatch run +py=3.12 integration:cov-combine
+        run: uv run --group test pytest --cov=denvr tests/
       - name: Report Coverage
-        run: hatch run +py=3.12 integration:cov-report
-      # TODO: use cov-total to update a coverage badge.
-      # - name: Report Coverage
-      #   run: hatch run integration:cov-total
-      - name: Report Coverage
-        run: hatch run +py=3.12 integration:cov-lcov
+        run: uv run --group cov coverage report -m
+      - name: Report Coverage (lcov)
+        run: uv run --group cov coverage lcov
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2.3.4
     services:
@@ -75,6 +74,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - name: Install Hatch
-        uses: pypa/hatch@install
-      - run: hatch run docs:build
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v5
+      - run: uv run --group docs mkdocs build --clean

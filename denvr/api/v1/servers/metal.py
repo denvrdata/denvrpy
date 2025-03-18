@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from denvr.validate import validate_kwargs
+
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from denvr.session import Session
@@ -44,7 +44,7 @@ class Client:
             reservation_expiry (str):
             status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "params": {
@@ -74,7 +74,7 @@ class Client:
         Get detailed information about a specific metal host
 
         Keyword Arguments:
-            id (str): Unique identifier for a resource within the cluster (ex: vm-2024093009357617)
+            id (str): Unique identifier for a resource within the cluster
             cluster (str): The cluster you're operating on (ex: Msc1)
 
         Returns:
@@ -99,7 +99,7 @@ class Client:
             reservation_expiry (str):
             status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "params": {
@@ -157,7 +157,7 @@ class Client:
             reservation_expiry (str):
             status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "json": {
@@ -216,7 +216,7 @@ class Client:
             reservation_expiry (str):
             status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "json": {
@@ -248,7 +248,7 @@ class Client:
         Reboot the metal host
 
         Keyword Arguments:
-            id (str): Unique identifier for a resource within the cluster (ex: vm-2024093009357617)
+            id (str): Unique identifier for a resource within the cluster
             cluster (str): The cluster you're operating on (ex: Msc1)
 
         Returns:
@@ -273,7 +273,7 @@ class Client:
             reservation_expiry (str):
             status (str): The host status code (e.g., 'offline', 'pending', 'online'
         """
-        config = self.session.config
+        config = self.session.config  # noqa: F841
 
         parameters = {
             "json": {
