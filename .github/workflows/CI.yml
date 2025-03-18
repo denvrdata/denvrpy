@@ -33,9 +33,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v5
-      # TODO: Enable mypy type checking
-      # - name: typecheck
-      #   run: uv run --only-group lint mypy --install-types --non-interactive denvr tests
+      - name: typecheck
+        run: uv run --group lint mypy --check-untyped-defs denvr tests
       - name: Lint
         run: uv run --group lint ruff check
       - name: Tests

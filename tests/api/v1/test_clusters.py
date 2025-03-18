@@ -1,5 +1,7 @@
 import pytest
 
+from typing import Any, Dict
+
 from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
@@ -22,7 +24,7 @@ def test_get_all():
 
     client.get_all()
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
         "get",
@@ -52,7 +54,7 @@ def test_get_all_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
         "get",
@@ -79,7 +81,7 @@ def test_get_all_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     client.get_all(**client_kwargs)
     # TODO: Test return type once we add support for that in our genapi script.

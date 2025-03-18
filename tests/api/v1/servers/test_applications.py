@@ -1,5 +1,7 @@
 import pytest
 
+from typing import Any, Dict
+
 from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
@@ -22,7 +24,7 @@ def test_get_applications():
 
     client.get_applications()
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
         "get",
@@ -52,7 +54,7 @@ def test_get_applications_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
         "get",
@@ -79,7 +81,7 @@ def test_get_applications_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     client.get_applications(**client_kwargs)
     # TODO: Test return type once we add support for that in our genapi script.
@@ -102,7 +104,7 @@ def test_get_application_details():
     else:
         client.get_application_details()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "cluster": "Cluster",
     }
@@ -140,7 +142,7 @@ def test_get_application_details_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "cluster": "Cluster",
     }
@@ -175,7 +177,7 @@ def test_get_application_details_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "cluster": "Cluster",
     }
@@ -196,7 +198,7 @@ def test_get_configurations():
 
     client.get_configurations()
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
         "get",
@@ -226,7 +228,7 @@ def test_get_configurations_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
         "get",
@@ -253,7 +255,7 @@ def test_get_configurations_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     client.get_configurations(**client_kwargs)
     # TODO: Test return type once we add support for that in our genapi script.
@@ -276,7 +278,7 @@ def test_get_availability():
     else:
         client.get_availability()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "cluster",
         "resource_pool": "resourcePool",
     }
@@ -314,7 +316,7 @@ def test_get_availability_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "cluster",
         "resource_pool": "resourcePool",
     }
@@ -349,7 +351,7 @@ def test_get_availability_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "cluster",
         "resource_pool": "resourcePool",
     }
@@ -370,7 +372,7 @@ def test_get_application_catalog_items():
 
     client.get_application_catalog_items()
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
         "get",
@@ -400,7 +402,7 @@ def test_get_application_catalog_items_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
         "get",
@@ -427,7 +429,7 @@ def test_get_application_catalog_items_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     client.get_application_catalog_items(**client_kwargs)
     # TODO: Test return type once we add support for that in our genapi script.
@@ -450,7 +452,7 @@ def test_start_application():
     else:
         client.start_application()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
     }
@@ -488,7 +490,7 @@ def test_start_application_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
     }
@@ -523,7 +525,7 @@ def test_start_application_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
     }
@@ -549,7 +551,7 @@ def test_stop_application():
     else:
         client.stop_application()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
     }
@@ -587,7 +589,7 @@ def test_stop_application_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
     }
@@ -622,7 +624,7 @@ def test_stop_application_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
     }
@@ -648,7 +650,7 @@ def test_destroy_application():
     else:
         client.destroy_application()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "cluster": "Cluster",
     }
@@ -686,7 +688,7 @@ def test_destroy_application_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "cluster": "Cluster",
     }
@@ -721,7 +723,7 @@ def test_destroy_application_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "cluster": "Cluster",
     }

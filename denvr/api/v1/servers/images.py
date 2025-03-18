@@ -24,7 +24,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {}
+        parameters: dict[str, dict] = {}
 
         kwargs = validate_kwargs(
             "get",

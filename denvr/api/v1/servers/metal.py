@@ -46,7 +46,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "params": {
                 "Cluster": config.getkwarg("cluster", cluster),
             },
@@ -101,7 +101,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "params": {
                 "Id": config.getkwarg("id", id),
                 "Cluster": config.getkwarg("cluster", cluster),
@@ -159,7 +159,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "json": {
                 "id": config.getkwarg("id", id),
                 "cluster": config.getkwarg("cluster", cluster),
@@ -218,7 +218,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "json": {
                 "id": config.getkwarg("id", id),
                 "cluster": config.getkwarg("cluster", cluster),
@@ -275,7 +275,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "json": {
                 "id": config.getkwarg("id", id),
                 "cluster": config.getkwarg("cluster", cluster),

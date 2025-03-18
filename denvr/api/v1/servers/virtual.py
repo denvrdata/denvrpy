@@ -27,7 +27,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "params": {
                 "Cluster": config.getkwarg("cluster", cluster),
             },
@@ -82,7 +82,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "params": {
                 "Id": config.getkwarg("id", id),
                 "Namespace": config.getkwarg("namespace", namespace),
@@ -157,7 +157,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "json": {
                 "name": config.getkwarg("name", name),
                 "rpool": config.getkwarg("rpool", rpool),
@@ -231,7 +231,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "json": {
                 "id": config.getkwarg("id", id),
                 "namespace": config.getkwarg("namespace", namespace),
@@ -288,7 +288,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "json": {
                 "id": config.getkwarg("id", id),
                 "namespace": config.getkwarg("namespace", namespace),
@@ -345,7 +345,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "params": {
                 "Id": config.getkwarg("id", id),
                 "Namespace": config.getkwarg("namespace", namespace),
@@ -378,7 +378,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {}
+        parameters: dict[str, dict] = {}
 
         kwargs = validate_kwargs(
             "get",
@@ -412,7 +412,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters: dict[str, dict] = {
             "params": {
                 "cluster": config.getkwarg("cluster", cluster),
                 "resourcePool": config.getkwarg("resource_pool", resource_pool),
