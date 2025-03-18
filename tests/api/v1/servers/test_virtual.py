@@ -1,5 +1,7 @@
 import pytest
 
+from typing import Any, Dict
+
 from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
@@ -22,7 +24,7 @@ def test_get_servers():
 
     client.get_servers()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "Cluster",
     }
 
@@ -58,7 +60,7 @@ def test_get_servers_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "Cluster",
     }
 
@@ -91,7 +93,7 @@ def test_get_servers_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "Cluster",
     }
 
@@ -116,7 +118,7 @@ def test_get_server():
     else:
         client.get_server()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "namespace": "Namespace",
         "cluster": "Cluster",
@@ -156,7 +158,7 @@ def test_get_server_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "namespace": "Namespace",
         "cluster": "Cluster",
@@ -193,7 +195,7 @@ def test_get_server_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "namespace": "Namespace",
         "cluster": "Cluster",
@@ -223,7 +225,7 @@ def test_create_server():
     else:
         client.create_server()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "name": "name",
         "rpool": "rpool",
         "vpc": "vpc",
@@ -281,7 +283,7 @@ def test_create_server_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "name": "name",
         "rpool": "rpool",
         "vpc": "vpc",
@@ -336,7 +338,7 @@ def test_create_server_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "name": "name",
         "rpool": "rpool",
         "vpc": "vpc",
@@ -372,7 +374,7 @@ def test_start_server():
     else:
         client.start_server()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "namespace": "namespace",
         "cluster": "cluster",
@@ -412,7 +414,7 @@ def test_start_server_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "namespace": "namespace",
         "cluster": "cluster",
@@ -449,7 +451,7 @@ def test_start_server_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "namespace": "namespace",
         "cluster": "cluster",
@@ -476,7 +478,7 @@ def test_stop_server():
     else:
         client.stop_server()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "namespace": "namespace",
         "cluster": "cluster",
@@ -516,7 +518,7 @@ def test_stop_server_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "namespace": "namespace",
         "cluster": "cluster",
@@ -553,7 +555,7 @@ def test_stop_server_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "namespace": "namespace",
         "cluster": "cluster",
@@ -580,7 +582,7 @@ def test_destroy_server():
     else:
         client.destroy_server()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "namespace": "Namespace",
         "cluster": "Cluster",
@@ -620,7 +622,7 @@ def test_destroy_server_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "namespace": "Namespace",
         "cluster": "Cluster",
@@ -657,7 +659,7 @@ def test_destroy_server_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "namespace": "Namespace",
         "cluster": "Cluster",
@@ -679,7 +681,7 @@ def test_get_configurations():
 
     client.get_configurations()
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
         "get",
@@ -709,7 +711,7 @@ def test_get_configurations_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
         "get",
@@ -736,7 +738,7 @@ def test_get_configurations_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {}
+    client_kwargs: Dict[str, Any] = {}
 
     client.get_configurations(**client_kwargs)
     # TODO: Test return type once we add support for that in our genapi script.
@@ -759,7 +761,7 @@ def test_get_availability():
     else:
         client.get_availability()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "cluster",
         "resource_pool": "resourcePool",
         "report_nodes": True,
@@ -799,7 +801,7 @@ def test_get_availability_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "cluster",
         "resource_pool": "resourcePool",
         "report_nodes": True,
@@ -836,7 +838,7 @@ def test_get_availability_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "cluster",
         "resource_pool": "resourcePool",
         "report_nodes": True,

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Running type checker..."
+uv run --group lint mypy --check-untyped-defs denvr tests
+
 echo "Running ruff linter check..."
 uv run --group lint ruff check
 

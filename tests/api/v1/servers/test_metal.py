@@ -1,5 +1,7 @@
 import pytest
 
+from typing import Any, Dict
+
 from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
@@ -22,7 +24,7 @@ def test_get_hosts():
 
     client.get_hosts()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "Cluster",
     }
 
@@ -58,7 +60,7 @@ def test_get_hosts_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "Cluster",
     }
 
@@ -91,7 +93,7 @@ def test_get_hosts_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "cluster": "Cluster",
     }
 
@@ -116,7 +118,7 @@ def test_get_host():
     else:
         client.get_host()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "cluster": "Cluster",
     }
@@ -154,7 +156,7 @@ def test_get_host_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "cluster": "Cluster",
     }
@@ -189,7 +191,7 @@ def test_get_host_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "Id",
         "cluster": "Cluster",
     }
@@ -215,7 +217,7 @@ def test_add_host_vpc():
     else:
         client.add_host_vpc()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
         "vpc_id": "vpcId",
@@ -255,7 +257,7 @@ def test_add_host_vpc_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
         "vpc_id": "vpcId",
@@ -292,7 +294,7 @@ def test_add_host_vpc_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
         "vpc_id": "vpcId",
@@ -319,7 +321,7 @@ def test_remove_host_vpc():
     else:
         client.remove_host_vpc()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
         "vpc_id": "vpcId",
@@ -359,7 +361,7 @@ def test_remove_host_vpc_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
         "vpc_id": "vpcId",
@@ -396,7 +398,7 @@ def test_remove_host_vpc_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
         "vpc_id": "vpcId",
@@ -423,7 +425,7 @@ def test_reboot_host():
     else:
         client.reboot_host()
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
     }
@@ -461,7 +463,7 @@ def test_reboot_host_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
     }
@@ -496,7 +498,7 @@ def test_reboot_host_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs: Dict[str, Any] = {
         "id": "id",
         "cluster": "cluster",
     }

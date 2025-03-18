@@ -40,7 +40,7 @@ def test_config(mock_post):
     password = "test.foo.bar.baz"
     """
     kwargs = {"delete_on_close": False} if sys.version_info >= (3, 12) else {"delete": False}
-    with tempfile.NamedTemporaryFile(**kwargs) as fp:
+    with tempfile.NamedTemporaryFile(**kwargs) as fp:  # type: ignore
         fp.write(content.encode())
         fp.close()
 

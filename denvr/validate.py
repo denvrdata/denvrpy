@@ -1,6 +1,8 @@
 import json
 import logging
 
+from typing import Dict
+
 logger = logging.getLogger(__name__)
 
 
@@ -8,7 +10,7 @@ def validate_kwargs(method, path, kwargs, required):
     """
     For `None` values in `kwargs` error if they are in `required` or drop them.
     """
-    result = {}
+    result: Dict[str, Dict] = {}
     for kw, args in kwargs.items():
         result[kw] = {}
         for k, v in args.items():

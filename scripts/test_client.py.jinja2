@@ -1,5 +1,7 @@
 import pytest
 
+from typing import Any, Dict
+
 from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
@@ -31,7 +33,7 @@ def test_{{ method.name }}():
     client.{{ method.name }}()
     {% endif %}
 
-    client_kwargs = {
+    client_kwargs : Dict[str, Any] = {
         {%- if method.params -%}
         {%- for entry in method.params -%}
         '{{ entry.kwarg }}': {{ entry.val|safe }},
@@ -86,7 +88,7 @@ def test_{{ method.name }}_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs : Dict[str, Any] = {
         {%- if method.params -%}
         {%- for entry in method.params -%}
         '{{ entry.kwarg }}': {{ entry.val|safe }},
@@ -139,7 +141,7 @@ def test_{{ method.name }}_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs = {
+    client_kwargs : Dict[str, Any] = {
         {%- if method.params -%}
         {%- for entry in method.params -%}
         '{{ entry.kwarg }}': {{ entry.val|safe }},

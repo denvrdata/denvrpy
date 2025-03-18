@@ -50,6 +50,10 @@ test = ["pytest>=8.3.5", "pytest-cov>=5.0.0", "pytest-httpserver>=1.1.1"]
 [tool.uv]
 default-groups = ["cov", "docs", "lint", "test"]
 
+[[tool.mypy.overrides]]
+module = ["requests.*", "toml.*"]
+follow_untyped_imports = true
+
 [tool.ruff]
 line-length = 96
 

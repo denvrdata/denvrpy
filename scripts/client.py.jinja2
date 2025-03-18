@@ -51,7 +51,7 @@ class Client:
         """
         config = self.session.config  # noqa: F841
 
-        parameters = {
+        parameters : dict[str, dict] = {
             {% if method.params %}
             'params': {
                 {% for entry in method.params %}
