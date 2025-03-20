@@ -435,6 +435,171 @@ def test_get_application_catalog_items_mockserver(mock_config):
     # TODO: Test return type once we add support for that in our genapi script.
 
 
+def test_create_catalog_application():
+    """
+    Unit test default input/output behaviour when mocking the internal Session object.
+    """
+    config = Config(defaults={}, auth=None)
+
+    session = Mock()
+    session.config = config
+    client = Client(session)
+
+    # Check that missing required arguments without a default should through a TypeError
+    if any(
+        getattr(config, k, None) is None
+        for k in [
+            "applicationCatalogItemName",
+            "applicationCatalogItemVersion",
+            "cluster",
+            "hardwarePackageName",
+            "name",
+        ]
+    ):
+        with pytest.raises(TypeError, match=r"^Required"):
+            client.create_catalog_application()
+    else:
+        client.create_catalog_application()
+
+    client_kwargs: Dict[str, Any] = {
+        "name": "name",
+        "cluster": "cluster",
+        "hardware_package_name": "hardwarePackageName",
+        "application_catalog_item_name": "applicationCatalogItemName",
+        "application_catalog_item_version": "applicationCatalogItemVersion",
+        "resource_pool": "resourcePool",
+        "ssh_keys": ["foo"],
+        "persist_direct_attached_storage": True,
+        "personal_shared_storage": True,
+        "tenant_shared_storage": True,
+        "jupyter_token": "jupyterToken",
+    }
+
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/applications/CreateCatalogApplication",
+        {
+            "json": {
+                "name": "name",
+                "cluster": "cluster",
+                "hardwarePackageName": "hardwarePackageName",
+                "applicationCatalogItemName": "applicationCatalogItemName",
+                "applicationCatalogItemVersion": "applicationCatalogItemVersion",
+                "resourcePool": "resourcePool",
+                "sshKeys": ["foo"],
+                "persistDirectAttachedStorage": True,
+                "personalSharedStorage": True,
+                "tenantSharedStorage": True,
+                "jupyterToken": "jupyterToken",
+            },
+        },
+        {
+            "applicationCatalogItemName",
+            "applicationCatalogItemVersion",
+            "cluster",
+            "hardwarePackageName",
+            "name",
+        },
+    )
+
+    client.create_catalog_application(**client_kwargs)
+
+    session.request.assert_called_with(
+        "post",
+        "/api/v1/servers/applications/CreateCatalogApplication",
+        **request_kwargs,
+    )
+
+
+def test_create_catalog_application_httpserver(httpserver: HTTPServer):
+    """
+    Test we're producing valid session HTTP requests
+    """
+    config = Config(
+        defaults={"server": httpserver.url_for("/")},
+        auth=None,
+    )
+
+    session = Session(config)
+    client = Client(session)
+
+    client_kwargs: Dict[str, Any] = {
+        "name": "name",
+        "cluster": "cluster",
+        "hardware_package_name": "hardwarePackageName",
+        "application_catalog_item_name": "applicationCatalogItemName",
+        "application_catalog_item_version": "applicationCatalogItemVersion",
+        "resource_pool": "resourcePool",
+        "ssh_keys": ["foo"],
+        "persist_direct_attached_storage": True,
+        "personal_shared_storage": True,
+        "tenant_shared_storage": True,
+        "jupyter_token": "jupyterToken",
+    }
+
+    request_kwargs = validate_kwargs(
+        "post",
+        "/api/v1/servers/applications/CreateCatalogApplication",
+        {
+            "json": {
+                "name": "name",
+                "cluster": "cluster",
+                "hardwarePackageName": "hardwarePackageName",
+                "applicationCatalogItemName": "applicationCatalogItemName",
+                "applicationCatalogItemVersion": "applicationCatalogItemVersion",
+                "resourcePool": "resourcePool",
+                "sshKeys": ["foo"],
+                "persistDirectAttachedStorage": True,
+                "personalSharedStorage": True,
+                "tenantSharedStorage": True,
+                "jupyterToken": "jupyterToken",
+            },
+        },
+        {
+            "applicationCatalogItemName",
+            "applicationCatalogItemVersion",
+            "cluster",
+            "hardwarePackageName",
+            "name",
+        },
+    )
+
+    # TODO: The request_kwargs response may break if we add schema validation on results.
+    httpserver.expect_request(
+        "/api/v1/servers/applications/CreateCatalogApplication",
+        method="post",
+        query_string=request_kwargs.get("params", None),
+        json=request_kwargs.get("json", UNDEFINED),
+    ).respond_with_json(request_kwargs)
+    assert client.create_catalog_application(**client_kwargs) == request_kwargs
+
+
+@pytest.mark.integration
+def test_create_catalog_application_mockserver(mock_config):
+    """
+    Test our requests/responses match the open api spec with mockserver.
+    """
+    session = Session(mock_config)
+    client = Client(session)
+
+    client_kwargs: Dict[str, Any] = {
+        "name": "name",
+        "cluster": "cluster",
+        "hardware_package_name": "hardwarePackageName",
+        "application_catalog_item_name": "applicationCatalogItemName",
+        "application_catalog_item_version": "applicationCatalogItemVersion",
+        "resource_pool": "resourcePool",
+        "ssh_keys": ["foo"],
+        "persist_direct_attached_storage": True,
+        "personal_shared_storage": True,
+        "tenant_shared_storage": True,
+        "jupyter_token": "jupyterToken",
+    }
+
+    client.create_catalog_application(**client_kwargs)
+    # TODO: Test return type once we add support for that in our genapi script.
+
+
 def test_start_application():
     """
     Unit test default input/output behaviour when mocking the internal Session object.

@@ -40,7 +40,7 @@ INCLUDED_PATHS = [
     "/api/v1/servers/applications/GetConfigurations",
     "/api/v1/servers/applications/GetAvailability",
     "/api/v1/servers/applications/GetApplicationCatalogItems",
-    "/api/v1/servers/applications/CreateApplication",
+    "/api/v1/servers/applications/CreateCatalogApplication",
     "/api/v1/servers/applications/StartApplication",
     "/api/v1/servers/applications/StopApplication",
     "/api/v1/servers/applications/DestroyApplication",
@@ -149,6 +149,7 @@ def generate(included=INCLUDED_PATHS):
 
     # Pull out the main components we're gonna care about
     paths = {k: v for (k, v) in api["paths"].items() if k in included}
+    assert set(paths.keys()) == set(included)
     schemas = api["components"]["schemas"]
 
     # Start generating each new module
