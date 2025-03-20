@@ -9,6 +9,8 @@ on:
   pull_request:
     branches: ["main"]
 
+permissions: {}
+
 jobs:
   # A quick run of our unit tests on all 3 major platforms
   unit:
@@ -27,6 +29,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -45,6 +49,8 @@ jobs:
     needs: unit
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
@@ -70,6 +76,8 @@ jobs:
     needs: integration
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
