@@ -18,20 +18,16 @@ def test_auth(mock_post, mock_get):
                 "refreshToken": "refresh",
                 "expireInSeconds": 60,
                 "refreshTokenExpireInSeconds": 3600,
-            },
+            }
         },
     )
 
-    auth = Auth(
-        "https://api.test.com",
-        "alice@denvrtest.com",
-        "alice.is.the.best",
-    )
+    auth = Auth("https://api.test.com", "alice@denvrtest.com", "alice.is.the.best")
 
     # Set an error case if we try to refresh the token too soon.
     mock_get.return_value = Mock(
         # A bit of a hack cause we can't raise an exception from a lambda function
-        raise_for_status=lambda: (_ for _ in ()).throw(HTTPError("500 Server Error")),
+        raise_for_status=lambda: (_ for _ in ()).throw(HTTPError("500 Server Error"))
     )
 
     r = auth(Mock(headers={}))
@@ -51,25 +47,16 @@ def test_auth_refresh(mock_post, mock_get):
                 "refreshToken": "refresh",
                 "expireInSeconds": -1,
                 "refreshTokenExpireInSeconds": 3600,
-            },
+            }
         },
     )
 
-    auth = Auth(
-        "https://api.test.com",
-        "alice@denvrtest.com",
-        "alice.is.the.best",
-    )
+    auth = Auth("https://api.test.com", "alice@denvrtest.com", "alice.is.the.best")
 
     # Mock the get function to return a new access token
     mock_get.return_value = Mock(
         raise_for_status=lambda: None,
-        json=lambda: {
-            "result": {
-                "accessToken": "access2",
-                "expireInSeconds": 30,
-            },
-        },
+        json=lambda: {"result": {"accessToken": "access2", "expireInSeconds": 30}},
     )
 
     r = auth(Mock(headers={}))
@@ -88,15 +75,11 @@ def test_auth_expired(mock_post):
                 "refreshToken": "refresh",
                 "expireInSeconds": -1,
                 "refreshTokenExpireInSeconds": -1,
-            },
+            }
         },
     )
 
-    auth = Auth(
-        "https://api.test.com",
-        "alice@denvrtest.com",
-        "alice.is.the.best",
-    )
+    auth = Auth("https://api.test.com", "alice@denvrtest.com", "alice.is.the.best")
 
     # Test error when the refresh token is too old.
     with pytest.raises(Exception, match=r"^Auth refresh token has expired.*"):

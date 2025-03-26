@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from denvr.validate import validate_kwargs
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any  # noqa: F401
 
 if TYPE_CHECKING:
     from denvr.session import Session
@@ -12,15 +12,14 @@ class Client:
     def __init__(self, session: Session):
         self.session = session
 
-    def get_servers(
-        self,
-        cluster: str | None = None,
-    ) -> dict:
+    def get_servers(self, cluster: str | None = None) -> dict:
         """
-        Get a list of virtual machines
+        Get a list of virtual machines ::
+
+            client.get_servers(cluster="Cluster")
 
         Keyword Arguments:
-            cluster (str)
+            cluster (str):
 
         Returns:
             items (list):
@@ -28,57 +27,46 @@ class Client:
         config = self.session.config  # noqa: F841
 
         parameters: dict[str, dict] = {
-            "params": {
-                "Cluster": config.getkwarg("cluster", cluster),
-            },
+            "params": {"Cluster": config.getkwarg("cluster", cluster)}
         }
 
-        kwargs = validate_kwargs(
-            "get",
-            "/api/v1/servers/virtual/GetServers",
-            parameters,
-            {},
-        )
+        kwargs = validate_kwargs("get", "/api/v1/servers/virtual/GetServers", parameters, {})
 
-        return self.session.request(
-            "get",
-            "/api/v1/servers/virtual/GetServers",
-            **kwargs,
-        )
+        return self.session.request("get", "/api/v1/servers/virtual/GetServers", **kwargs)
 
     def get_server(
-        self,
-        id: str | None = None,
-        namespace: str | None = None,
-        cluster: str | None = None,
+        self, id: str | None = None, namespace: str | None = None, cluster: str | None = None
     ) -> dict:
         """
-        Get detailed information about a specific virtual machine
+        Get detailed information about a specific virtual machine ::
+
+            client.get_server(id="vm-2024093009357617", namespace="denvr", cluster="Hou1")
 
         Keyword Arguments:
-            id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name. (ex: denvr)
-            cluster (str): The cluster you're operating on (ex: Hou1)
+            id (str): The virtual machine id
+            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name.
+            cluster (str): The cluster you're operating on
 
         Returns:
-            username (str): The user that creatd the vm (ex: john@acme.com)
-            tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
-            rpool (str): Resource pool where the VM has been created (ex: on-demand)
+            username (str): The user that creatd the vm
+            tenancy_name (str): Name of the tenant where the VM has been created
+            rpool (str): Resource pool where the VM has been created
             direct_attached_storage_persisted (bool):
-            id (str): The name of the virtual machine (ex: my-denvr-vm)
+            id (str): The name of the virtual machine
             namespace (str):
-            configuration (str): A VM configuration ID (ex: 15)
-            storage (int): The amount of storage attached to the VM in GB (ex: 13600)
-            gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
-            gpus (int): Number of GPUs attached to the VM (ex: 8)
-            vcpus (int): Number of vCPUs available to the VM (ex: 120)
-            memory (int): Amount of system memory available in GB (ex: 940)
-            ip (str): The public IP address of the VM (ex: 123.45.67.89)
-            private_ip (str): The private IP address of the VM (ex: 120.77.3.21)
-            image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
-            cluster (str): The cluster where the VM is allocated (ex: Msc1)
-            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
+            configuration (str): A VM configuration ID
+            storage (int): The amount of storage attached to the VM in GB
+            gpu_type (str): The specific host GPU type
+            gpus (int): Number of GPUs attached to the VM
+            vcpus (int): Number of vCPUs available to the VM
+            memory (int): Amount of system memory available in GB
+            ip (str): The public IP address of the VM
+            private_ip (str): The private IP address of the VM
+            image (str): Name of the VM image used
+            cluster (str): The cluster where the VM is allocated
+            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
+            root_disk_size (str):
         """
         config = self.session.config  # noqa: F841
 
@@ -87,7 +75,7 @@ class Client:
                 "Id": config.getkwarg("id", id),
                 "Namespace": config.getkwarg("namespace", namespace),
                 "Cluster": config.getkwarg("cluster", cluster),
-            },
+            }
         }
 
         kwargs = validate_kwargs(
@@ -97,11 +85,7 @@ class Client:
             {"Id", "Namespace", "Cluster"},
         )
 
-        return self.session.request(
-            "get",
-            "/api/v1/servers/virtual/GetServer",
-            **kwargs,
-        )
+        return self.session.request("get", "/api/v1/servers/virtual/GetServer", **kwargs)
 
     def create_server(
         self,
@@ -119,41 +103,57 @@ class Client:
         root_disk_size: int | None = None,
     ) -> dict:
         """
-        Create a new virtual machine using a pre-defined configuration
+        Create a new virtual machine using a pre-defined configuration ::
+
+            client.create_server(
+                name="my-denvr-vm",
+                rpool="reserved-denvr",
+                vpc="denvr-vpc",
+                configuration="A100_40GB_PCIe_1x",
+                cluster="Hou1",
+                ssh_keys=["string"],
+                operating_system_image="Ubuntu 22.04.4 LTS",
+                personal_storage_mount_path="/home/ubuntu/personal",
+                tenant_shared_additional_storage="/home/ubuntu/tenant-shared",
+                persist_storage=False,
+                direct_storage_mount_path="/home/ubuntu/direct-attached",
+                root_disk_size=500,
+            )
 
         Keyword Arguments:
-            name (str): Name of virtual server to be created. If not provided, name will be auto-generated. (ex: my-denvr-vm)
-            rpool (str): Name of the pool to be used. If not provided, first pool assigned to a tenant will be used. In case of no pool assigned, 'on-demand' will be used. (ex: reserved-denvr)
-            vpc (str): Name of the VPC to be used. Usually this will match the tenant name. (ex: denvr-vpc)
-            configuration (str): Name of the configuration to be used. For possible values, refer to the otput of api/v1/servers/virtual/GetConfigurations, field 'name' DenvrDashboard.Servers.Dtos.ServerConfiguration.Name (ex: A100_40GB_PCIe_1x)
-            cluster (str): Cluster to be used. For possible values, refer to the otput of api/v1/clusters/GetAll"/> (ex: Hou1)
-            ssh_keys (list)
-            operating_system_image (str): Name of the Operating System image to be used. (ex: Ubuntu 22.04.4 LTS)
-            personal_storage_mount_path (str): Personal storage file system mount path. (ex: /home/ubuntu/personal)
-            tenant_shared_additional_storage (str): Tenant shared storage file system mount path. (ex: /home/ubuntu/tenant-shared)
+            name (str): Name of virtual server to be created. If not provided, name will be auto-generated.
+            rpool (str): Name of the pool to be used. If not provided, first pool assigned to a tenant will be used. In...
+            vpc (str): Name of the VPC to be used. Usually this will match the tenant name.
+            configuration (str): Name of the configuration to be used. For possible values, refer to the otput of...
+            cluster (str): Cluster to be used. For possible values, refer to the otput of api/v1/clusters/GetAll"/>
+            ssh_keys (list):
+            operating_system_image (str): Name of the Operating System image to be used.
+            personal_storage_mount_path (str): Personal storage file system mount path.
+            tenant_shared_additional_storage (str): Tenant shared storage file system mount path.
             persist_storage (bool): Whether direct attached storage should be persistant or ephemeral.
-            direct_storage_mount_path (str): Direct attached storage mount path. (ex: /home/ubuntu/direct-attached)
-            root_disk_size (int): Size of root disk to be created (Gi). (ex: 500)
+            direct_storage_mount_path (str): Direct attached storage mount path.
+            root_disk_size (int): Size of root disk to be created (Gi).
 
         Returns:
-            username (str): The user that creatd the vm (ex: john@acme.com)
-            tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
-            rpool (str): Resource pool where the VM has been created (ex: on-demand)
+            username (str): The user that creatd the vm
+            tenancy_name (str): Name of the tenant where the VM has been created
+            rpool (str): Resource pool where the VM has been created
             direct_attached_storage_persisted (bool):
-            id (str): The name of the virtual machine (ex: my-denvr-vm)
+            id (str): The name of the virtual machine
             namespace (str):
-            configuration (str): A VM configuration ID (ex: 15)
-            storage (int): The amount of storage attached to the VM in GB (ex: 13600)
-            gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
-            gpus (int): Number of GPUs attached to the VM (ex: 8)
-            vcpus (int): Number of vCPUs available to the VM (ex: 120)
-            memory (int): Amount of system memory available in GB (ex: 940)
-            ip (str): The public IP address of the VM (ex: 123.45.67.89)
-            private_ip (str): The private IP address of the VM (ex: 120.77.3.21)
-            image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
-            cluster (str): The cluster where the VM is allocated (ex: Msc1)
-            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
+            configuration (str): A VM configuration ID
+            storage (int): The amount of storage attached to the VM in GB
+            gpu_type (str): The specific host GPU type
+            gpus (int): Number of GPUs attached to the VM
+            vcpus (int): Number of vCPUs available to the VM
+            memory (int): Amount of system memory available in GB
+            ip (str): The public IP address of the VM
+            private_ip (str): The private IP address of the VM
+            image (str): Name of the VM image used
+            cluster (str): The cluster where the VM is allocated
+            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
+            root_disk_size (str):
         """
         config = self.session.config  # noqa: F841
 
@@ -179,7 +179,7 @@ class Client:
                     "direct_storage_mount_path", direct_storage_mount_path
                 ),
                 "rootDiskSize": config.getkwarg("root_disk_size", root_disk_size),
-            },
+            }
         }
 
         kwargs = validate_kwargs(
@@ -189,45 +189,41 @@ class Client:
             {"cluster", "configuration", "ssh_keys", "vpc"},
         )
 
-        return self.session.request(
-            "post",
-            "/api/v1/servers/virtual/CreateServer",
-            **kwargs,
-        )
+        return self.session.request("post", "/api/v1/servers/virtual/CreateServer", **kwargs)
 
     def start_server(
-        self,
-        id: str | None = None,
-        namespace: str | None = None,
-        cluster: str | None = None,
+        self, id: str | None = None, namespace: str | None = None, cluster: str | None = None
     ) -> dict:
         """
-        Start a virtual machine that has been previously set up and provisioned, but is currently OFFLINE
+        Start a virtual machine that has been previously set up and provisioned, but is currently OFFLINE ::
+
+            client.start_server(id="vm-2024093009357617", namespace="denvr", cluster="Hou1")
 
         Keyword Arguments:
-            id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name. (ex: denvr)
-            cluster (str): The cluster you're operating on (ex: Hou1)
+            id (str): The virtual machine id
+            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name.
+            cluster (str): The cluster you're operating on
 
         Returns:
-            username (str): The user that creatd the vm (ex: john@acme.com)
-            tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
-            rpool (str): Resource pool where the VM has been created (ex: on-demand)
+            username (str): The user that creatd the vm
+            tenancy_name (str): Name of the tenant where the VM has been created
+            rpool (str): Resource pool where the VM has been created
             direct_attached_storage_persisted (bool):
-            id (str): The name of the virtual machine (ex: my-denvr-vm)
+            id (str): The name of the virtual machine
             namespace (str):
-            configuration (str): A VM configuration ID (ex: 15)
-            storage (int): The amount of storage attached to the VM in GB (ex: 13600)
-            gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
-            gpus (int): Number of GPUs attached to the VM (ex: 8)
-            vcpus (int): Number of vCPUs available to the VM (ex: 120)
-            memory (int): Amount of system memory available in GB (ex: 940)
-            ip (str): The public IP address of the VM (ex: 123.45.67.89)
-            private_ip (str): The private IP address of the VM (ex: 120.77.3.21)
-            image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
-            cluster (str): The cluster where the VM is allocated (ex: Msc1)
-            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
+            configuration (str): A VM configuration ID
+            storage (int): The amount of storage attached to the VM in GB
+            gpu_type (str): The specific host GPU type
+            gpus (int): Number of GPUs attached to the VM
+            vcpus (int): Number of vCPUs available to the VM
+            memory (int): Amount of system memory available in GB
+            ip (str): The public IP address of the VM
+            private_ip (str): The private IP address of the VM
+            image (str): Name of the VM image used
+            cluster (str): The cluster where the VM is allocated
+            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
+            root_disk_size (str):
         """
         config = self.session.config  # noqa: F841
 
@@ -236,7 +232,7 @@ class Client:
                 "id": config.getkwarg("id", id),
                 "namespace": config.getkwarg("namespace", namespace),
                 "cluster": config.getkwarg("cluster", cluster),
-            },
+            }
         }
 
         kwargs = validate_kwargs(
@@ -246,45 +242,41 @@ class Client:
             {"cluster", "id", "namespace"},
         )
 
-        return self.session.request(
-            "post",
-            "/api/v1/servers/virtual/StartServer",
-            **kwargs,
-        )
+        return self.session.request("post", "/api/v1/servers/virtual/StartServer", **kwargs)
 
     def stop_server(
-        self,
-        id: str | None = None,
-        namespace: str | None = None,
-        cluster: str | None = None,
+        self, id: str | None = None, namespace: str | None = None, cluster: str | None = None
     ) -> dict:
         """
-        Stop a virtual machine, ensuring a secure and orderly shutdown of its operations within the cloud environment
+        Stop a virtual machine, ensuring a secure and orderly shutdown of its operations within the cloud environment ::
+
+            client.stop_server(id="vm-2024093009357617", namespace="denvr", cluster="Hou1")
 
         Keyword Arguments:
-            id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name. (ex: denvr)
-            cluster (str): The cluster you're operating on (ex: Hou1)
+            id (str): The virtual machine id
+            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name.
+            cluster (str): The cluster you're operating on
 
         Returns:
-            username (str): The user that creatd the vm (ex: john@acme.com)
-            tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
-            rpool (str): Resource pool where the VM has been created (ex: on-demand)
+            username (str): The user that creatd the vm
+            tenancy_name (str): Name of the tenant where the VM has been created
+            rpool (str): Resource pool where the VM has been created
             direct_attached_storage_persisted (bool):
-            id (str): The name of the virtual machine (ex: my-denvr-vm)
+            id (str): The name of the virtual machine
             namespace (str):
-            configuration (str): A VM configuration ID (ex: 15)
-            storage (int): The amount of storage attached to the VM in GB (ex: 13600)
-            gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
-            gpus (int): Number of GPUs attached to the VM (ex: 8)
-            vcpus (int): Number of vCPUs available to the VM (ex: 120)
-            memory (int): Amount of system memory available in GB (ex: 940)
-            ip (str): The public IP address of the VM (ex: 123.45.67.89)
-            private_ip (str): The private IP address of the VM (ex: 120.77.3.21)
-            image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
-            cluster (str): The cluster where the VM is allocated (ex: Msc1)
-            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
+            configuration (str): A VM configuration ID
+            storage (int): The amount of storage attached to the VM in GB
+            gpu_type (str): The specific host GPU type
+            gpus (int): Number of GPUs attached to the VM
+            vcpus (int): Number of vCPUs available to the VM
+            memory (int): Amount of system memory available in GB
+            ip (str): The public IP address of the VM
+            private_ip (str): The private IP address of the VM
+            image (str): Name of the VM image used
+            cluster (str): The cluster where the VM is allocated
+            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
+            root_disk_size (str):
         """
         config = self.session.config  # noqa: F841
 
@@ -293,7 +285,7 @@ class Client:
                 "id": config.getkwarg("id", id),
                 "namespace": config.getkwarg("namespace", namespace),
                 "cluster": config.getkwarg("cluster", cluster),
-            },
+            }
         }
 
         kwargs = validate_kwargs(
@@ -303,45 +295,41 @@ class Client:
             {"cluster", "id", "namespace"},
         )
 
-        return self.session.request(
-            "post",
-            "/api/v1/servers/virtual/StopServer",
-            **kwargs,
-        )
+        return self.session.request("post", "/api/v1/servers/virtual/StopServer", **kwargs)
 
     def destroy_server(
-        self,
-        id: str | None = None,
-        namespace: str | None = None,
-        cluster: str | None = None,
+        self, id: str | None = None, namespace: str | None = None, cluster: str | None = None
     ) -> dict:
         """
-        Permanently delete a specified virtual machine, effectively wiping all its data and freeing up resources for other uses
+        Permanently delete a specified virtual machine, effectively wiping all its data and freeing up resources for other uses ::
+
+            client.destroy_server(id="vm-2024093009357617", namespace="denvr", cluster="Hou1")
 
         Keyword Arguments:
-            id (str): The virtual machine id (ex: vm-2024093009357617)
-            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name. (ex: denvr)
-            cluster (str): The cluster you're operating on (ex: Hou1)
+            id (str): The virtual machine id
+            namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name.
+            cluster (str): The cluster you're operating on
 
         Returns:
-            username (str): The user that creatd the vm (ex: john@acme.com)
-            tenancy_name (str): Name of the tenant where the VM has been created (ex: denvr)
-            rpool (str): Resource pool where the VM has been created (ex: on-demand)
+            username (str): The user that creatd the vm
+            tenancy_name (str): Name of the tenant where the VM has been created
+            rpool (str): Resource pool where the VM has been created
             direct_attached_storage_persisted (bool):
-            id (str): The name of the virtual machine (ex: my-denvr-vm)
+            id (str): The name of the virtual machine
             namespace (str):
-            configuration (str): A VM configuration ID (ex: 15)
-            storage (int): The amount of storage attached to the VM in GB (ex: 13600)
-            gpu_type (str): The specific host GPU type (ex: nvidia.com/A100PCIE40GB)
-            gpus (int): Number of GPUs attached to the VM (ex: 8)
-            vcpus (int): Number of vCPUs available to the VM (ex: 120)
-            memory (int): Amount of system memory available in GB (ex: 940)
-            ip (str): The public IP address of the VM (ex: 123.45.67.89)
-            private_ip (str): The private IP address of the VM (ex: 120.77.3.21)
-            image (str): Name of the VM image used (ex: Ubuntu_22.04.4_LTS)
-            cluster (str): The cluster where the VM is allocated (ex: Msc1)
-            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS', 'ONLINE', 'OFFLINE') (ex: ONLINE)
+            configuration (str): A VM configuration ID
+            storage (int): The amount of storage attached to the VM in GB
+            gpu_type (str): The specific host GPU type
+            gpus (int): Number of GPUs attached to the VM
+            vcpus (int): Number of vCPUs available to the VM
+            memory (int): Amount of system memory available in GB
+            ip (str): The public IP address of the VM
+            private_ip (str): The private IP address of the VM
+            image (str): Name of the VM image used
+            cluster (str): The cluster where the VM is allocated
+            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
+            root_disk_size (str):
         """
         config = self.session.config  # noqa: F841
 
@@ -350,7 +338,7 @@ class Client:
                 "Id": config.getkwarg("id", id),
                 "Namespace": config.getkwarg("namespace", namespace),
                 "Cluster": config.getkwarg("cluster", cluster),
-            },
+            }
         }
 
         kwargs = validate_kwargs(
@@ -360,17 +348,13 @@ class Client:
             {"Id", "Namespace", "Cluster"},
         )
 
-        return self.session.request(
-            "delete",
-            "/api/v1/servers/virtual/DestroyServer",
-            **kwargs,
-        )
+        return self.session.request("delete", "/api/v1/servers/virtual/DestroyServer", **kwargs)
 
-    def get_configurations(
-        self,
-    ) -> dict:
+    def get_configurations(self) -> dict:
         """
-        Get detailed information on available configurations for virtual machines
+        Get detailed information on available configurations for virtual machines ::
+
+            client.get_configurations()
 
 
         Returns:
@@ -381,16 +365,11 @@ class Client:
         parameters: dict[str, dict] = {}
 
         kwargs = validate_kwargs(
-            "get",
-            "/api/v1/servers/virtual/GetConfigurations",
-            parameters,
-            {},
+            "get", "/api/v1/servers/virtual/GetConfigurations", parameters, {}
         )
 
         return self.session.request(
-            "get",
-            "/api/v1/servers/virtual/GetConfigurations",
-            **kwargs,
+            "get", "/api/v1/servers/virtual/GetConfigurations", **kwargs
         )
 
     def get_availability(
@@ -400,12 +379,14 @@ class Client:
         report_nodes: bool | None = None,
     ) -> dict:
         """
-        Get information about the current availability of different virtual machine configurations
+        Get information about the current availability of different virtual machine configurations ::
+
+            client.get_availability(cluster="Hou1", resource_pool="reserved-denvr", report_nodes=True)
 
         Keyword Arguments:
-            cluster (str)
-            resource_pool (str)
-            report_nodes (bool): controls if Count and MaxCount is calculated and returned in the response. If they are not needed, use 'false' to improve response time of the endpoint.
+            cluster (str):
+            resource_pool (str):
+            report_nodes (bool): controls if Count and MaxCount is calculated and returned in the response. If they are not...
 
         Returns:
             items (list):
@@ -417,18 +398,11 @@ class Client:
                 "cluster": config.getkwarg("cluster", cluster),
                 "resourcePool": config.getkwarg("resource_pool", resource_pool),
                 "reportNodes": config.getkwarg("report_nodes", report_nodes),
-            },
+            }
         }
 
         kwargs = validate_kwargs(
-            "get",
-            "/api/v1/servers/virtual/GetAvailability",
-            parameters,
-            {"cluster"},
+            "get", "/api/v1/servers/virtual/GetAvailability", parameters, {"cluster"}
         )
 
-        return self.session.request(
-            "get",
-            "/api/v1/servers/virtual/GetAvailability",
-            **kwargs,
-        )
+        return self.session.request("get", "/api/v1/servers/virtual/GetAvailability", **kwargs)

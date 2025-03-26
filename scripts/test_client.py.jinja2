@@ -36,12 +36,16 @@ def test_{{ method.name }}():
     client_kwargs : Dict[str, Any] = {
         {%- if method.params -%}
         {%- for entry in method.params -%}
-        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- if entry.param in method.example -%}
+        '{{ entry.kwarg }}': {{ method.example[entry.param] | quotify | safe }},
+        {%- endif -%}
         {%- endfor -%}
         {%- endif -%}
         {%- if method.json -%}
         {%- for entry in method.json -%}
-        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- if entry.param in method.example -%}
+        '{{ entry.kwarg }}': {{ method.example[entry.param] | quotify | safe }},
+        {%- endif -%}
         {%- endfor -%}
         {%- endif -%}
     }
@@ -53,14 +57,18 @@ def test_{{ method.name }}():
             {%- if method.params -%}
             'params': {
                 {%- for entry in method.params -%}
-                '{{ entry.param }}': {{ entry.val|safe }},
+                {%- if entry.param in method.example %}
+                '{{ entry.param }}': {{ method.example[entry.param] | quotify | safe }},
+                {%- endif -%}
                 {%- endfor -%}
             },
             {%- endif -%}
             {%- if method.json -%}
             'json': {
             {%- for entry in method.json -%}
-            '{{ entry.param }}': {{ entry.val|safe }},
+            {%- if entry.param in method.example -%}
+            '{{ entry.param }}': {{ method.example[entry.param] | quotify | safe }},
+            {%- endif -%}
             {%- endfor -%}
             },
             {%- endif -%}
@@ -91,12 +99,16 @@ def test_{{ method.name }}_httpserver(httpserver: HTTPServer):
     client_kwargs : Dict[str, Any] = {
         {%- if method.params -%}
         {%- for entry in method.params -%}
-        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- if entry.param in method.example -%}
+        '{{ entry.kwarg }}': {{ method.example[entry.param] | quotify | safe }},
+        {%- endif -%}
         {%- endfor -%}
         {%- endif -%}
         {%- if method.json -%}
         {%- for entry in method.json -%}
-        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- if entry.param in method.example -%}
+        '{{ entry.kwarg }}': {{ method.example[entry.param] | quotify | safe }},
+        {%- endif -%}
         {%- endfor -%}
         {%- endif -%}
     }
@@ -108,14 +120,18 @@ def test_{{ method.name }}_httpserver(httpserver: HTTPServer):
             {%- if method.params -%}
             'params': {
                 {%- for entry in method.params -%}
-                '{{ entry.param }}': {{ entry.val|safe }},
+                {%- if entry.param in method.example %}
+                '{{ entry.param }}': {{ method.example[entry.param] | quotify | safe }},
+                {%- endif -%}
                 {%- endfor -%}
             },
             {%- endif -%}
             {%- if method.json -%}
             'json': {
             {%- for entry in method.json -%}
-            '{{ entry.param }}': {{ entry.val|safe }},
+            {%- if entry.param in method.example -%}
+            '{{ entry.param }}': {{ method.example[entry.param] | quotify | safe }},
+            {%- endif -%}
             {%- endfor -%}
             },
             {%- endif -%}
@@ -144,12 +160,16 @@ def test_{{ method.name }}_mockserver(mock_config):
     client_kwargs : Dict[str, Any] = {
         {%- if method.params -%}
         {%- for entry in method.params -%}
-        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- if entry.param in method.example -%}
+        '{{ entry.kwarg }}': {{ method.example[entry.param] | quotify | safe }},
+        {%- endif -%}
         {%- endfor -%}
         {%- endif -%}
         {%- if method.json -%}
         {%- for entry in method.json -%}
-        '{{ entry.kwarg }}': {{ entry.val|safe }},
+        {%- if entry.param in method.example -%}
+        '{{ entry.kwarg }}': {{ method.example[entry.param] | quotify | safe }},
+        {%- endif -%}
         {%- endfor -%}
         {%- endif -%}
     }
