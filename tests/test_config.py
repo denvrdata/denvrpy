@@ -20,7 +20,7 @@ def test_config(mock_post):
                 "refreshToken": "refresh",
                 "expireInSeconds": 60,
                 "refreshTokenExpireInSeconds": 3600,
-            },
+            }
         },
     )
 

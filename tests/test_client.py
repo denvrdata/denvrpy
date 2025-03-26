@@ -12,10 +12,7 @@ def test_client(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/TokenAuth/Authenticate",
         method="post",
-        json={
-            "userNameOrEmailAddress": "alice@denvrtest.com",
-            "password": "alice.is.the.best",
-        },
+        json={"userNameOrEmailAddress": "alice@denvrtest.com", "password": "alice.is.the.best"},
     ).respond_with_json(
         {
             "result": {
@@ -23,8 +20,8 @@ def test_client(httpserver: HTTPServer):
                 "refreshToken": "refresh",
                 "expireInSeconds": 60,
                 "refreshTokenExpireInSeconds": 3600,
-            },
-        },
+            }
+        }
     )
 
     content = """

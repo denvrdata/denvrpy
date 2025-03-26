@@ -15,7 +15,4 @@ def mock_config():
     resp.raise_for_status()
 
     # NOTE: We set Auth to None because our mock server doesn't support the auth endpoint.
-    return Config(
-        defaults={"server": "http://localhost:1080"},
-        auth=None,
-    )
+    return Config(defaults={"server": "http://localhost:1080"}, auth=None)

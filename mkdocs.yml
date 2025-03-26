@@ -8,7 +8,14 @@ theme:
 plugins:
   - mkdocstrings
 markdown_extensions:
+  - pymdownx.inlinehilite
   - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      default_lang: python
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
 nav:
   - Quickstart: index.md
   - Architecture: architecture.md

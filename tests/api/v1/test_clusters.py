@@ -26,42 +26,25 @@ def test_get_all():
 
     client_kwargs: Dict[str, Any] = {}
 
-    request_kwargs = validate_kwargs(
-        "get",
-        "/api/v1/clusters/GetAll",
-        {},
-        {},
-    )
+    request_kwargs = validate_kwargs("get", "/api/v1/clusters/GetAll", {}, {})
 
     client.get_all(**client_kwargs)
 
-    session.request.assert_called_with(
-        "get",
-        "/api/v1/clusters/GetAll",
-        **request_kwargs,
-    )
+    session.request.assert_called_with("get", "/api/v1/clusters/GetAll", **request_kwargs)
 
 
 def test_get_all_httpserver(httpserver: HTTPServer):
     """
     Test we're producing valid session HTTP requests
     """
-    config = Config(
-        defaults={"server": httpserver.url_for("/")},
-        auth=None,
-    )
+    config = Config(defaults={"server": httpserver.url_for("/")}, auth=None)
 
     session = Session(config)
     client = Client(session)
 
     client_kwargs: Dict[str, Any] = {}
 
-    request_kwargs = validate_kwargs(
-        "get",
-        "/api/v1/clusters/GetAll",
-        {},
-        {},
-    )
+    request_kwargs = validate_kwargs("get", "/api/v1/clusters/GetAll", {}, {})
 
     # TODO: The request_kwargs response may break if we add schema validation on results.
     httpserver.expect_request(

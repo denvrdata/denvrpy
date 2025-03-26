@@ -27,18 +27,13 @@ def test_get_operating_system_images():
     client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
-        "get",
-        "/api/v1/servers/images/GetOperatingSystemImages",
-        {},
-        {},
+        "get", "/api/v1/servers/images/GetOperatingSystemImages", {}, {}
     )
 
     client.get_operating_system_images(**client_kwargs)
 
     session.request.assert_called_with(
-        "get",
-        "/api/v1/servers/images/GetOperatingSystemImages",
-        **request_kwargs,
+        "get", "/api/v1/servers/images/GetOperatingSystemImages", **request_kwargs
     )
 
 
@@ -46,10 +41,7 @@ def test_get_operating_system_images_httpserver(httpserver: HTTPServer):
     """
     Test we're producing valid session HTTP requests
     """
-    config = Config(
-        defaults={"server": httpserver.url_for("/")},
-        auth=None,
-    )
+    config = Config(defaults={"server": httpserver.url_for("/")}, auth=None)
 
     session = Session(config)
     client = Client(session)
@@ -57,10 +49,7 @@ def test_get_operating_system_images_httpserver(httpserver: HTTPServer):
     client_kwargs: Dict[str, Any] = {}
 
     request_kwargs = validate_kwargs(
-        "get",
-        "/api/v1/servers/images/GetOperatingSystemImages",
-        {},
-        {},
+        "get", "/api/v1/servers/images/GetOperatingSystemImages", {}, {}
     )
 
     # TODO: The request_kwargs response may break if we add schema validation on results.
