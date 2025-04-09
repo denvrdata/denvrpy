@@ -68,3 +68,8 @@ An object for handling requesting and refreshing access tokens given an initial 
 It is callable and subtypes `requests.auth.AuthBase` so that we can pass it as the `auth` keyword to `requests`
 
 NOTE: The password isn't stored in the object and will be deleted when it goes out of scope in the `Auth` and `Config` constructors.
+
+### Waiter
+
+A `Waiter` object connects an API action like `apps.create_catalog_application` with a check function which polls until the resource is ready (e.g., status is `"ONLINE"`).
+The `waiter` function provides a convenient way to create waiter objects for the most common operations.
