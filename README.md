@@ -24,15 +24,15 @@ pip install denvr
 Getting started with the `denvr` python sdk just involves loading and calling the `client` builder function, which returns a `Client` object for each denvr service (e.g., `clusters`, `vpcs`, `servers/virtual`).
 
 ```python
->>> import json
->>> from denvr.client import client
->>> virtual = client('servers/virtual')
+import json
+from denvr.client import client
+virtual = client('servers/virtual')
 ```
 
 Lets start by fetching some of Denvr's VM configurations.
 We'll use `json.dumps` to make the output a bit easier to read.
 ```python
->>> print(json.dumps(virtual.get_configurations(), indent=2))
+print(json.dumps(virtual.get_configurations(), indent=2))
 {
   "items": [
     {
@@ -93,7 +93,7 @@ We'll use `json.dumps` to make the output a bit easier to read.
 ```
 Next we'll try Creating a new virtual machine:
 ```python
->>> print(json.dumps(
+print(json.dumps(
     virtual.create_server(
         name="api-test",
         rpool="on-demand",
@@ -130,7 +130,14 @@ Next we'll try Creating a new virtual machine:
 
 Similarly, we can also fetch info about a specific vm.
 ```python
->>> print(json.dumps(virtual.get_server(id='rofinn-intel-dev', namespace='denvr', cluster='Hou1'), indent=2))
+print(json.dumps(
+    virtual.get_server(
+        id='rofinn-intel-dev',
+        namespace='denvr',
+        cluster='Hou1'
+    ),
+    indent=2
+))
 {
   "username": "rory@denvrdata.com",
   "tenancy_name": "denvr",
@@ -154,18 +161,18 @@ Similarly, we can also fetch info about a specific vm.
 
 A different example using our applications service.
 ```python
->>> print(json.dumps(
-...     app.create_application(
-...         name="api-test",
-...         cluster="Msc1",
-...         hardware_package_name="g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
-...         application_catalog_item_name="jupyter-notebook",
-...         application_catalog_item_version="python-3.11.9",
-...         resource_pool="on-demand",
-...         jupyter_token="abc123"
-...     ),
-...     indent=2
-... ))
+print(json.dumps(
+    app.create_catalog_application(
+        name="api-test",
+        cluster="Msc1",
+        hardware_package_name="g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
+        application_catalog_item_name="jupyter-notebook",
+        application_catalog_item_version="python-3.11.9",
+        resource_pool="on-demand",
+        jupyter_token="abc123"
+    ),
+    indent=2
+))
 {
   "id": "api-test",
   "cluster": "Msc1",
@@ -184,7 +191,7 @@ A different example using our applications service.
   "personal_shared_storage": false,
   "tenant_shared_storage": false
 }
->>> print(json.dumps(app.get_applications(), indent=2))
+print(json.dumps(app.get_applications(), indent=2))
 {
   "items": [
     {
@@ -208,3 +215,71 @@ A different example using our applications service.
   ]
 }
 ```
+
+## Using a Waiter
+
+```python
+from denvr.waiters import waiter
+
+create_app = waiter(app.create_catalog_application)
+response = create_app(
+  name="api-test",
+  cluster="Msc1",
+  hardware_package_name="g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
+  application_catalog_item_name="jupyter-notebook",
+  application_catalog_item_version="python-3.11.9",
+  resource_pool="on-demand",
+  jupyter_token="abc123"
+)
+print(json.dumps(response, indent=2))
+{
+  "instance_details": {
+    "id": "api-test",
+    "cluster": "Msc1",
+    "status": "ONLINE",
+    "privateIp": "172.16.0.100",
+    "publicIp": "130.250.171.177",
+    "imageCmdOverride": null,
+    "environmentVariables": {
+      "USERNAME": "ubuntu",
+      "JUPYTER_TOKEN": "abc123",
+      "DIRECT_ATTACHED_STORAGE": "True"
+    },
+    "readinessWatcherPort": 443,
+    "createdBy": "rory.finnegan@denvrdata.com",
+    "tenant": "denvr",
+    "resourcePool": "on-demand",
+    "creationTime": "2025-04-09T01:15:35Z",
+    "lastUpdated": "2025-04-09T01:15:35+00:00",
+    "dns": "https://yyc-130-250-171-177.cloud.denvrdata.com/",
+    "persistedDirectAttachedStorage": false,
+    "personalSharedStorage": false,
+    "tenantSharedStorage": false
+  },
+  "application_catalog_item": {
+    "name": "jupyter-notebook",
+    "applicationSourceDetailsUrl": null,
+    "versions": [
+      {
+        "name": "python-3.11.9",
+        "imageUrl": "quay.io/jupyter/base-notebook:python-3.11.9",
+        "imageLastPushDate": "2024-07-14T07:00:00+00:00",
+        "platform": "NVIDIA",
+        "launchType": "jupyter",
+        "releaseNotesUrl": "https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html"
+      }
+    ]
+  },
+  "hardware_package": {
+    "name": "g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
+    "description": "1x A100 40 GB PCIe GPU, 14 vCPUs, 112GB RAM",
+    "gpuCount": 1,
+    "gpuType": "nvidia.com/A100PCIE40GB",
+    "gpuBrand": "NVIDIA",
+    "gpuName": "NVIDIA A100",
+    "vcpusCount": 14,
+    "memoryGb": 112,
+    "directAttachedStorageGb": 1700,
+    "pricePerHour": 1.15
+  }
+}
