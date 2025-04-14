@@ -1,0 +1,60 @@
+name: Nightly API Update
+
+on:
+  schedule:
+    # Run at midnight UTC every day
+    - cron: "0 0 * * *"
+  # Optional: Allow manual triggering
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  # TODO: Split update-api with creating the pull request for security purposes.
+  update-api:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.13
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Run API generator
+        run: uv run scripts/apigen.py
+
+      - name: Format code
+        run: uv run --group lint ruff format
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        if: steps.git-check.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Auto update API and formatting"
+          title: "Nightly API update and code formatting"
+          body: |
+            This is an automated PR created by the nightly workflow.
+
+            - API documentation has been updated
+            - Code has been formatted with ruff
+          branch: automated-api-update
+          branch-suffix: timestamp
+          delete-branch: true
