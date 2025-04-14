@@ -273,6 +273,7 @@ class Client:
         persist_direct_attached_storage: bool | None = None,
         personal_shared_storage: bool | None = None,
         tenant_shared_storage: bool | None = None,
+        security_context: dict | None = None,
     ) -> dict:
         """
         Create a new custom application using a pre-defined configuration and user-defined container image. ::
@@ -294,6 +295,7 @@ class Client:
                 persist_direct_attached_storage=False,
                 personal_shared_storage=True,
                 tenant_shared_storage=True,
+                security_context={"runAsRoot": False},
             )
 
         Keyword Arguments:
@@ -309,6 +311,7 @@ class Client:
             persist_direct_attached_storage (bool): Indicates whether to persist direct attached storage (if resource pool is reserved)
             personal_shared_storage (bool): Enable personal shared storage for the application
             tenant_shared_storage (bool): Enable tenant shared storage for the application
+            security_context (dict):
 
         Returns:
             id (str):
@@ -356,6 +359,7 @@ class Client:
                 "tenantSharedStorage": config.getkwarg(
                     "tenant_shared_storage", tenant_shared_storage
                 ),
+                "securityContext": config.getkwarg("security_context", security_context),
             }
         }
 
