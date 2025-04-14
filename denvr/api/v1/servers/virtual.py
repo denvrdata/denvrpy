@@ -95,6 +95,7 @@ class Client:
         configuration: str | None = None,
         cluster: str | None = None,
         ssh_keys: list | None = None,
+        snapshot_name: str | None = None,
         operating_system_image: str | None = None,
         personal_storage_mount_path: str | None = None,
         tenant_shared_additional_storage: str | None = None,
@@ -112,10 +113,11 @@ class Client:
                 configuration="A100_40GB_PCIe_1x",
                 cluster="Hou1",
                 ssh_keys=["string"],
+                snapshot_name="string",
                 operating_system_image="Ubuntu 22.04.4 LTS",
                 personal_storage_mount_path="/home/ubuntu/personal",
                 tenant_shared_additional_storage="/home/ubuntu/tenant-shared",
-                persist_storage=False,
+                persist_storage=True,
                 direct_storage_mount_path="/home/ubuntu/direct-attached",
                 root_disk_size=500,
             )
@@ -127,6 +129,7 @@ class Client:
             configuration (str): Name of the configuration to be used. For possible values, refer to the otput of...
             cluster (str): Cluster to be used. For possible values, refer to the otput of api/v1/clusters/GetAll"/>
             ssh_keys (list):
+            snapshot_name (str): Snapshot name.
             operating_system_image (str): Name of the Operating System image to be used.
             personal_storage_mount_path (str): Personal storage file system mount path.
             tenant_shared_additional_storage (str): Tenant shared storage file system mount path.
@@ -165,6 +168,7 @@ class Client:
                 "configuration": config.getkwarg("configuration", configuration),
                 "cluster": config.getkwarg("cluster", cluster),
                 "ssh_keys": config.getkwarg("ssh_keys", ssh_keys),
+                "snapshotName": config.getkwarg("snapshot_name", snapshot_name),
                 "operatingSystemImage": config.getkwarg(
                     "operating_system_image", operating_system_image
                 ),

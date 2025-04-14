@@ -551,6 +551,7 @@ def test_create_custom_application():
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
+        "security_context": {"runAsRoot": False},
     }
 
     request_kwargs = validate_kwargs(
@@ -574,6 +575,7 @@ def test_create_custom_application():
                 "persistDirectAttachedStorage": False,
                 "personalSharedStorage": True,
                 "tenantSharedStorage": True,
+                "securityContext": {"runAsRoot": False},
             }
         },
         {"cluster", "hardwarePackageName", "imageRepository", "imageUrl", "name"},
@@ -612,6 +614,7 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
+        "security_context": {"runAsRoot": False},
     }
 
     request_kwargs = validate_kwargs(
@@ -635,6 +638,7 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
                 "persistDirectAttachedStorage": False,
                 "personalSharedStorage": True,
                 "tenantSharedStorage": True,
+                "securityContext": {"runAsRoot": False},
             }
         },
         {"cluster", "hardwarePackageName", "imageRepository", "imageUrl", "name"},
@@ -675,6 +679,7 @@ def test_create_custom_application_mockserver(mock_config):
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
+        "security_context": {"runAsRoot": False},
     }
 
     client.create_custom_application(**client_kwargs)
