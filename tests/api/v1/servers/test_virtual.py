@@ -194,7 +194,7 @@ def test_create_server():
         "operating_system_image": "Ubuntu 22.04.4 LTS",
         "personal_storage_mount_path": "/home/ubuntu/personal",
         "tenant_shared_additional_storage": "/home/ubuntu/tenant-shared",
-        "persist_storage": True,
+        "persist_storage": False,
         "direct_storage_mount_path": "/home/ubuntu/direct-attached",
         "root_disk_size": 500,
     }
@@ -214,7 +214,7 @@ def test_create_server():
                 "operatingSystemImage": "Ubuntu 22.04.4 LTS",
                 "personalStorageMountPath": "/home/ubuntu/personal",
                 "tenantSharedAdditionalStorage": "/home/ubuntu/tenant-shared",
-                "persistStorage": True,
+                "persistStorage": False,
                 "directStorageMountPath": "/home/ubuntu/direct-attached",
                 "rootDiskSize": 500,
             }
@@ -249,7 +249,7 @@ def test_create_server_httpserver(httpserver: HTTPServer):
         "operating_system_image": "Ubuntu 22.04.4 LTS",
         "personal_storage_mount_path": "/home/ubuntu/personal",
         "tenant_shared_additional_storage": "/home/ubuntu/tenant-shared",
-        "persist_storage": True,
+        "persist_storage": False,
         "direct_storage_mount_path": "/home/ubuntu/direct-attached",
         "root_disk_size": 500,
     }
@@ -269,7 +269,7 @@ def test_create_server_httpserver(httpserver: HTTPServer):
                 "operatingSystemImage": "Ubuntu 22.04.4 LTS",
                 "personalStorageMountPath": "/home/ubuntu/personal",
                 "tenantSharedAdditionalStorage": "/home/ubuntu/tenant-shared",
-                "persistStorage": True,
+                "persistStorage": False,
                 "directStorageMountPath": "/home/ubuntu/direct-attached",
                 "rootDiskSize": 500,
             }
@@ -306,7 +306,7 @@ def test_create_server_mockserver(mock_config):
         "operating_system_image": "Ubuntu 22.04.4 LTS",
         "personal_storage_mount_path": "/home/ubuntu/personal",
         "tenant_shared_additional_storage": "/home/ubuntu/tenant-shared",
-        "persist_storage": True,
+        "persist_storage": False,
         "direct_storage_mount_path": "/home/ubuntu/direct-attached",
         "root_disk_size": 500,
     }
