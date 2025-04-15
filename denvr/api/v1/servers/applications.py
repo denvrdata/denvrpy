@@ -295,7 +295,7 @@ class Client:
                 persist_direct_attached_storage=False,
                 personal_shared_storage=True,
                 tenant_shared_storage=True,
-                security_context={"runAsRoot": False},
+                security_context={"runAsRoot": True},
             )
 
         Keyword Arguments:
