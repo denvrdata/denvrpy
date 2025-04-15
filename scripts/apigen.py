@@ -186,7 +186,7 @@ def extract_param_examples(params: list) -> dict:
     return {p["name"]: example(p) for p in params}
 
 
-def extract_schema_examples(schema: dict) -> Any:
+def extract_schema_examples(schema: dict, seed=1234) -> Any:
     """
     Recursively pull examples out of a schema definition.
 
@@ -198,6 +198,9 @@ def extract_schema_examples(schema: dict) -> Any:
 
     NOTE: We assume that the spec has already been flattened.
     """
+    # Ensure that any "random" values are reproducible given the same spec file.
+    random.seed(seed)
+
     # Early exit cases if not flattened, schema is empty or there's an example at the top level
     assert "$ref" not in schema
     if len(schema) == 0:
