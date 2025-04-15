@@ -117,7 +117,7 @@ class Client:
                 operating_system_image="Ubuntu 22.04.4 LTS",
                 personal_storage_mount_path="/home/ubuntu/personal",
                 tenant_shared_additional_storage="/home/ubuntu/tenant-shared",
-                persist_storage=True,
+                persist_storage=False,
                 direct_storage_mount_path="/home/ubuntu/direct-attached",
                 root_disk_size=500,
             )
