@@ -2,8 +2,8 @@ name: Nightly API Update
 
 on:
   schedule:
-    # Run at midnight UTC every day
-    - cron: "0 0 * * *"
+    # Run at 6 AM UTC every day
+    - cron: "0 6 * * *"
   # Optional: Allow manual triggering
   workflow_dispatch:
 
@@ -48,13 +48,11 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Auto update API and formatting"
-          title: "Nightly API update and code formatting"
+          commit-message: "API changes detected in development"
+          title: "Automated API Update"
           body: |
-            This is an automated PR created by the nightly workflow.
-
-            - API documentation has been updated
-            - Code has been formatted with ruff
+            API changes detected in development.
+            The `apigen.py` script has been used with `ruff format` to update the SDK codebase.
+            Please review, merge and tag a new release with the next production release.
           branch: automated-api-update
-          branch-suffix: timestamp
           delete-branch: true
