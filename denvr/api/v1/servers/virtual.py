@@ -96,7 +96,7 @@ class Client:
         cluster: str | None = None,
         ssh_keys: list | None = None,
         snapshot_name: str | None = None,
-        operating_system_image: str | None = None,
+        operating_system_image_x_y_z: str | None = None,
         personal_storage_mount_path: str | None = None,
         tenant_shared_additional_storage: str | None = None,
         persist_storage: bool | None = None,
@@ -114,7 +114,7 @@ class Client:
                 cluster="Hou1",
                 ssh_keys=["string"],
                 snapshot_name="string",
-                operating_system_image="Ubuntu 22.04.4 LTS",
+                operating_system_image_x_y_z="Ubuntu 22.04.4 LTS",
                 personal_storage_mount_path="/home/ubuntu/personal",
                 tenant_shared_additional_storage="/home/ubuntu/tenant-shared",
                 persist_storage=False,
@@ -130,7 +130,7 @@ class Client:
             cluster (str): Cluster to be used. For possible values, refer to the otput of api/v1/clusters/GetAll"/>
             ssh_keys (list):
             snapshot_name (str): Snapshot name.
-            operating_system_image (str): Name of the Operating System image to be used.
+            operating_system_image_x_y_z (str): Name of the Operating System image to be used.
             personal_storage_mount_path (str): Personal storage file system mount path.
             tenant_shared_additional_storage (str): Tenant shared storage file system mount path.
             persist_storage (bool): Whether direct attached storage should be persistant or ephemeral.
@@ -169,8 +169,8 @@ class Client:
                 "cluster": config.getkwarg("cluster", cluster),
                 "ssh_keys": config.getkwarg("ssh_keys", ssh_keys),
                 "snapshotName": config.getkwarg("snapshot_name", snapshot_name),
-                "operatingSystemImage": config.getkwarg(
-                    "operating_system_image", operating_system_image
+                "operatingSystemImageXYZ": config.getkwarg(
+                    "operating_system_image_x_y_z", operating_system_image_x_y_z
                 ),
                 "personalStorageMountPath": config.getkwarg(
                     "personal_storage_mount_path", personal_storage_mount_path
