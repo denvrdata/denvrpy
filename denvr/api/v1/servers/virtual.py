@@ -302,14 +302,21 @@ class Client:
         return self.session.request("post", "/api/v1/servers/virtual/StopServer", **kwargs)
 
     def destroy_server(
-        self, id: str | None = None, namespace: str | None = None, cluster: str | None = None
+        self,
+        delete_snapshots: bool | None = None,
+        id: str | None = None,
+        namespace: str | None = None,
+        cluster: str | None = None,
     ) -> dict:
         """
         Permanently delete a specified virtual machine, effectively wiping all its data and freeing up resources for other uses ::
 
-            client.destroy_server(id="vm-2024093009357617", namespace="denvr", cluster="Hou1")
+            client.destroy_server(
+                delete_snapshots=True, id="vm-2024093009357617", namespace="denvr", cluster="Hou1"
+            )
 
         Keyword Arguments:
+            delete_snapshots (bool): Should also delete snapshots with virtual machine.
             id (str): The virtual machine id
             namespace (str): The namespace/vpc where the virtual machine lives. Default one is same as tenant name.
             cluster (str): The cluster you're operating on
@@ -339,6 +346,7 @@ class Client:
 
         parameters: dict[str, dict] = {
             "params": {
+                "DeleteSnapshots": config.getkwarg("delete_snapshots", delete_snapshots),
                 "Id": config.getkwarg("id", id),
                 "Namespace": config.getkwarg("namespace", namespace),
                 "Cluster": config.getkwarg("cluster", cluster),
