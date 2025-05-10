@@ -241,12 +241,26 @@ def test_reprovision_host():
     else:
         client.reprovision_host()
 
-    client_kwargs: Dict[str, Any] = {"id": "string", "cluster": "Hou1"}
+    client_kwargs: Dict[str, Any] = {
+        "image_url": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
+        "image_checksum": "https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
+        "cloud_init_base64": "SGVsbG8sIFdvcmxkIQ==",
+        "id": "string",
+        "cluster": "Hou1",
+    }
 
     request_kwargs = validate_kwargs(
         "post",
         "/api/v1/servers/metal/ReprovisionHost",
-        {"json": {"id": "string", "cluster": "Hou1"}},
+        {
+            "json": {
+                "imageUrl": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
+                "imageChecksum": "https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
+                "cloudInitBase64": "SGVsbG8sIFdvcmxkIQ==",
+                "id": "string",
+                "cluster": "Hou1",
+            }
+        },
         {"cluster", "id"},
     )
 
@@ -266,12 +280,26 @@ def test_reprovision_host_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs: Dict[str, Any] = {"id": "string", "cluster": "Hou1"}
+    client_kwargs: Dict[str, Any] = {
+        "image_url": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
+        "image_checksum": "https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
+        "cloud_init_base64": "SGVsbG8sIFdvcmxkIQ==",
+        "id": "string",
+        "cluster": "Hou1",
+    }
 
     request_kwargs = validate_kwargs(
         "post",
         "/api/v1/servers/metal/ReprovisionHost",
-        {"json": {"id": "string", "cluster": "Hou1"}},
+        {
+            "json": {
+                "imageUrl": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
+                "imageChecksum": "https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
+                "cloudInitBase64": "SGVsbG8sIFdvcmxkIQ==",
+                "id": "string",
+                "cluster": "Hou1",
+            }
+        },
         {"cluster", "id"},
     )
 
@@ -293,7 +321,13 @@ def test_reprovision_host_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs: Dict[str, Any] = {"id": "string", "cluster": "Hou1"}
+    client_kwargs: Dict[str, Any] = {
+        "image_url": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
+        "image_checksum": "https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
+        "cloud_init_base64": "SGVsbG8sIFdvcmxkIQ==",
+        "id": "string",
+        "cluster": "Hou1",
+    }
 
     client.reprovision_host(**client_kwargs)
     # TODO: Test return type once we add support for that in our genapi script.
