@@ -507,6 +507,7 @@ def test_destroy_server():
         client.destroy_server()
 
     client_kwargs: Dict[str, Any] = {
+        "delete_snapshots": True,
         "id": "vm-2024093009357617",
         "namespace": "denvr",
         "cluster": "Hou1",
@@ -515,7 +516,14 @@ def test_destroy_server():
     request_kwargs = validate_kwargs(
         "delete",
         "/api/v1/servers/virtual/DestroyServer",
-        {"params": {"Id": "vm-2024093009357617", "Namespace": "denvr", "Cluster": "Hou1"}},
+        {
+            "params": {
+                "DeleteSnapshots": True,
+                "Id": "vm-2024093009357617",
+                "Namespace": "denvr",
+                "Cluster": "Hou1",
+            }
+        },
         {"Id", "Namespace", "Cluster"},
     )
 
@@ -536,6 +544,7 @@ def test_destroy_server_httpserver(httpserver: HTTPServer):
     client = Client(session)
 
     client_kwargs: Dict[str, Any] = {
+        "delete_snapshots": True,
         "id": "vm-2024093009357617",
         "namespace": "denvr",
         "cluster": "Hou1",
@@ -544,7 +553,14 @@ def test_destroy_server_httpserver(httpserver: HTTPServer):
     request_kwargs = validate_kwargs(
         "delete",
         "/api/v1/servers/virtual/DestroyServer",
-        {"params": {"Id": "vm-2024093009357617", "Namespace": "denvr", "Cluster": "Hou1"}},
+        {
+            "params": {
+                "DeleteSnapshots": True,
+                "Id": "vm-2024093009357617",
+                "Namespace": "denvr",
+                "Cluster": "Hou1",
+            }
+        },
         {"Id", "Namespace", "Cluster"},
     )
 
@@ -567,6 +583,7 @@ def test_destroy_server_mockserver(mock_config):
     client = Client(session)
 
     client_kwargs: Dict[str, Any] = {
+        "delete_snapshots": True,
         "id": "vm-2024093009357617",
         "namespace": "denvr",
         "cluster": "Hou1",
