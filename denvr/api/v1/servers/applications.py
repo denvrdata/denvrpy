@@ -293,7 +293,7 @@ class Client:
                 },
                 resource_pool="on-demand",
                 readiness_watcher_port=443,
-                proxy_port=443,
+                proxy_port=8888,
                 persist_direct_attached_storage=False,
                 personal_shared_storage=True,
                 tenant_shared_storage=True,
@@ -310,7 +310,7 @@ class Client:
             image_repository (dict):
             resource_pool (str): The resource pool to use for the application
             readiness_watcher_port (int): The port used for monitoring application readiness and status. Common examples:  - 443...
-            proxy_port (int): Port where your service expects HTTPS traffic.
+            proxy_port (int): The port your application uses to receive HTTPS traffic.   Port 443 is reserved for the reverse...
             persist_direct_attached_storage (bool): Indicates whether to persist direct attached storage (if resource pool is reserved)
             personal_shared_storage (bool): Enable personal shared storage for the application
             tenant_shared_storage (bool): Enable tenant shared storage for the application
