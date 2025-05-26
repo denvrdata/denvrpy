@@ -209,25 +209,9 @@ class Client:
             cluster (str): The cluster you're operating on
 
         Returns:
-            username (str): The user that creatd the vm
-            tenancy_name (str): Name of the tenant where the VM has been created
-            rpool (str): Resource pool where the VM has been created
-            direct_attached_storage_persisted (bool):
-            id (str): The name of the virtual machine
-            namespace (str):
-            configuration (str): A VM configuration ID
-            storage (int): The amount of storage attached to the VM in GB
-            gpu_type (str): The specific host GPU type
-            gpus (int): Number of GPUs attached to the VM
-            vcpus (int): Number of vCPUs available to the VM
-            memory (int): Amount of system memory available in GB
-            ip (str): The public IP address of the VM
-            private_ip (str): The private IP address of the VM
-            image (str): Name of the VM image used
-            cluster (str): The cluster where the VM is allocated
-            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
-            storage_type (str):
-            root_disk_size (str):
+            id (str):
+            cluster (str):
+            status (str):
         """
         config = self.session.config  # noqa: F841
 
@@ -262,25 +246,9 @@ class Client:
             cluster (str): The cluster you're operating on
 
         Returns:
-            username (str): The user that creatd the vm
-            tenancy_name (str): Name of the tenant where the VM has been created
-            rpool (str): Resource pool where the VM has been created
-            direct_attached_storage_persisted (bool):
-            id (str): The name of the virtual machine
-            namespace (str):
-            configuration (str): A VM configuration ID
-            storage (int): The amount of storage attached to the VM in GB
-            gpu_type (str): The specific host GPU type
-            gpus (int): Number of GPUs attached to the VM
-            vcpus (int): Number of vCPUs available to the VM
-            memory (int): Amount of system memory available in GB
-            ip (str): The public IP address of the VM
-            private_ip (str): The private IP address of the VM
-            image (str): Name of the VM image used
-            cluster (str): The cluster where the VM is allocated
-            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
-            storage_type (str):
-            root_disk_size (str):
+            id (str):
+            cluster (str):
+            status (str):
         """
         config = self.session.config  # noqa: F841
 
@@ -322,25 +290,9 @@ class Client:
             cluster (str): The cluster you're operating on
 
         Returns:
-            username (str): The user that creatd the vm
-            tenancy_name (str): Name of the tenant where the VM has been created
-            rpool (str): Resource pool where the VM has been created
-            direct_attached_storage_persisted (bool):
-            id (str): The name of the virtual machine
-            namespace (str):
-            configuration (str): A VM configuration ID
-            storage (int): The amount of storage attached to the VM in GB
-            gpu_type (str): The specific host GPU type
-            gpus (int): Number of GPUs attached to the VM
-            vcpus (int): Number of vCPUs available to the VM
-            memory (int): Amount of system memory available in GB
-            ip (str): The public IP address of the VM
-            private_ip (str): The private IP address of the VM
-            image (str): Name of the VM image used
-            cluster (str): The cluster where the VM is allocated
-            status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
-            storage_type (str):
-            root_disk_size (str):
+            id (str):
+            cluster (str):
+            status (str):
         """
         config = self.session.config  # noqa: F841
 
