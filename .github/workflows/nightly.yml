@@ -30,7 +30,7 @@ jobs:
           python-version: 3.13
 
       - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v6
 
       - name: Run API generator
         run: uv run scripts/apigen.py
