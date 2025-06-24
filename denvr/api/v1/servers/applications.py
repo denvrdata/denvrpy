@@ -274,6 +274,7 @@ class Client:
         persist_direct_attached_storage: bool | None = None,
         personal_shared_storage: bool | None = None,
         tenant_shared_storage: bool | None = None,
+        user_scripts: dict | None = None,
         security_context: dict | None = None,
     ) -> dict:
         """
@@ -297,6 +298,7 @@ class Client:
                 persist_direct_attached_storage=False,
                 personal_shared_storage=True,
                 tenant_shared_storage=True,
+                user_scripts={},
                 security_context={"runAsRoot": False},
             )
 
@@ -314,6 +316,7 @@ class Client:
             persist_direct_attached_storage (bool): Indicates whether to persist direct attached storage (if resource pool is reserved)
             personal_shared_storage (bool): Enable personal shared storage for the application
             tenant_shared_storage (bool): Enable tenant shared storage for the application
+            user_scripts (dict): Dictionary of script filenames to script content. Each scripts to be mounted at...
             security_context (dict):
 
         Returns:
@@ -363,6 +366,7 @@ class Client:
                 "tenantSharedStorage": config.getkwarg(
                     "tenant_shared_storage", tenant_shared_storage
                 ),
+                "userScripts": config.getkwarg("user_scripts", user_scripts),
                 "securityContext": config.getkwarg("security_context", security_context),
             }
         }
