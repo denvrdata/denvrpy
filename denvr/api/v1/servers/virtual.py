@@ -67,6 +67,7 @@ class Client:
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
             root_disk_size (str):
+            last_updated (str):
         """
         config = self.session.config  # noqa: F841
 
@@ -157,6 +158,7 @@ class Client:
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
             root_disk_size (str):
+            last_updated (str):
         """
         config = self.session.config  # noqa: F841
 
