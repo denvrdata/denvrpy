@@ -380,8 +380,8 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "requests" },
-    { name = "toml" },
+    { name = "requests", specifier = ">=2.27" },
+    { name = "toml", specifier = "~=0.10" },
 ]
 
 [package.metadata.requires-dev]
