@@ -4,6 +4,8 @@ import requests
 from requests.adapters import HTTPAdapter
 from requests.auth import AuthBase
 
+from denvr.utils import retry
+
 
 class Auth(AuthBase):
     """
@@ -18,7 +20,10 @@ class Auth(AuthBase):
         self._session = requests.Session()
         self._session.headers.update({"Content-type": "application/json"})
         if retries:
-            self._session.mount(self._server, HTTPAdapter(max_retries=retries))
+            self._session.mount(
+                self._server,
+                HTTPAdapter(max_retries=retry(retries=retries, idempotent_only=False)),
+            )
 
         # Requests an initial authorization token
         # storing the username, password, token / refresh tokens and when they expire

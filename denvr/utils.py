@@ -1,6 +1,7 @@
 import logging
 import typing
 
+from urllib3.util.retry import Retry
 from requests import JSONDecodeError, HTTPError, Response
 
 logger = logging.getLogger(__name__)
@@ -66,3 +67,31 @@ def raise_for_status(resp: Response):
 
     if msg:
         raise HTTPError(msg, response=resp)
+
+
+def retry(retries: int = 3, idempotent_only: bool = True):
+    """
+    Generates a reasonable default Retry object for use with the requests library
+    given a total number of retries.
+
+    NOTES:
+        - by default only retry on idempotent requests (including DELETE and PUT)
+        - only retry for 5xx or 429 errors
+        - Allow redirects, but remove Authorization headers
+        - Leave error handling to the caller
+    """
+    allowed_methods = ["GET", "HEAD", "PUT", "DELETE", "OPTIONS", "TRACE"]
+
+    if not idempotent_only:
+        allowed_methods.extend(["POST", "PATCH"])
+
+    return Retry(
+        total=retries,
+        backoff_factor=1,
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=allowed_methods,
+        respect_retry_after_header=True,
+        remove_headers_on_redirect=["Authorization"],
+        raise_on_redirect=False,
+        raise_on_status=False,
+    )
