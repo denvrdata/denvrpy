@@ -10,9 +10,10 @@ from denvr.config import config
 from tests.utils import temp_env
 
 
-@patch("requests.post")
-def test_config(mock_post):
-    mock_post.return_value = Mock(
+@patch("requests.Session")
+def test_config(mock_session_class):
+    mock_session = mock_session_class.return_value
+    mock_session.post.return_value = Mock(
         raise_for_status=lambda: None,
         json=lambda: {
             "result": {

@@ -1,6 +1,7 @@
 import time
 
 import requests
+from requests.adapters import HTTPAdapter
 from requests.auth import AuthBase
 
 
@@ -12,18 +13,21 @@ class Auth(AuthBase):
     username and password.
     """
 
-    def __init__(self, server, username, password):
+    def __init__(self, server, username, password, retries=3):
+        self._server = server
+        self._session = requests.Session()
+        self._session.headers.update({"Content-type": "application/json"})
+        if retries:
+            self._session.mount(self._server, HTTPAdapter(max_retries=retries))
+
         # Requests an initial authorization token
         # storing the username, password, token / refresh tokens and when they expire
-        resp = requests.post(
-            f"{server}/api/TokenAuth/Authenticate",
-            headers={"Content-type": "application/json"},
+        resp = self._session.post(
+            f"{self._server}/api/TokenAuth/Authenticate",
             json={"userNameOrEmailAddress": username, "password": password},
         )
         resp.raise_for_status()
         content = resp.json()["result"]
-
-        self._server = server
         self._access_token = content["accessToken"]
         self._refresh_token = content["refreshToken"]
         self._access_expires = time.time() + content["expireInSeconds"]
@@ -35,7 +39,7 @@ class Auth(AuthBase):
             raise Exception("Auth refresh token has expired. Unable to refresh access token.")
 
         if time.time() > self._access_expires:
-            resp = requests.get(
+            resp = self._session.get(
                 f"{self._server}/api/TokenAuth/RefreshToken",
                 params={"refreshToken": self._refresh_token},
             )
