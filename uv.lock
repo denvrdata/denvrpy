@@ -351,6 +351,8 @@ source = { editable = "." }
 dependencies = [
     { name = "requests" },
     { name = "toml" },
+    { name = "urllib3", version = "2.2.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "urllib3", version = "2.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
 ]
 
 [package.dev-dependencies]
@@ -382,6 +384,7 @@ test = [
 requires-dist = [
     { name = "requests", specifier = ">=2.27" },
     { name = "toml", specifier = "~=0.10" },
+    { name = "urllib3", specifier = ">=2.2.3" },
 ]
 
 [package.metadata.requires-dev]

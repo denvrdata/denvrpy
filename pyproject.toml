@@ -23,7 +23,7 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = ["requests>=2.27", "toml~=0.10"]
+dependencies = ["requests>=2.27", "toml~=0.10", "urllib3>=2.2.3"]
 
 [project.urls]
 Documentation = "https://github.com/denvrdata/denvrpy#readme"

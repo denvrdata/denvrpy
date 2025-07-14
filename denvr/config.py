@@ -76,4 +76,6 @@ def config(path=None):
 
     # NOTE: We're intentionally letting the loaded username/password go out of scope for security reasons.
     # The auth object should be able to handle everything from here onward.
-    return Config(defaults=defaults, auth=Auth(server, username, password))
+    return Config(
+        defaults=defaults, auth=Auth(server, username, password, defaults.get("retries", 3))
+    )

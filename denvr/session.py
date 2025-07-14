@@ -4,7 +4,7 @@ import requests
 from requests.adapters import HTTPAdapter
 
 from denvr.config import Config
-from denvr.utils import snakecase, raise_for_status
+from denvr.utils import snakecase, raise_for_status, retry
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +23,10 @@ class Session:
         # Set the auth, header and retry strategy for the session object
         self.session.auth = self.config.auth
         self.session.headers.update({"Content-Type": "application/json"})
-        self.session.mount(self.config.server, HTTPAdapter(max_retries=self.config.retries))
+        if self.config.retries:
+            self.session.mount(
+                self.config.server, HTTPAdapter(max_retries=retry(retries=self.config.retries))
+            )
 
     def request(self, method, path, **kwargs):
         url = "/".join([self.config.server, *filter(None, path.split("/"))])
