@@ -4,7 +4,9 @@ import os
 
 import toml
 
-from denvr.auth import Auth
+from requests.auth import AuthBase
+
+from denvr.auth import auth
 
 DEFAULT_CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".config", "denvr.toml")
 
@@ -14,7 +16,7 @@ class Config:
     Stores the auth and defaults.
     """
 
-    def __init__(self, defaults: dict, auth: Auth | None):
+    def __init__(self, defaults: dict, auth: AuthBase | None):
         self.defaults = defaults
         self.auth = auth
 
@@ -63,19 +65,11 @@ def config(path=None):
     config_path = path if path else os.getenv("DENVR_CONFIG", DEFAULT_CONFIG_PATH)
     config = toml.load(config_path) if os.path.exists(config_path) else {}
     defaults = config.get("defaults", {})
-    credentials = config.get("credentials", {})
     server = defaults.get("server", "https://api.cloud.denvrdata.com")
 
-    username = os.getenv("DENVR_USERNAME", credentials.get("username", ""))
-    if not username:
-        raise Exception('Could not find username in "DENVR_USERNAME" or ' + config_path)
-
-    password = os.getenv("DENVR_PASSWORD", credentials.get("password", ""))
-    if not password:
-        raise Exception('Could not find password in "DENVR_PASSWORD" or ' + config_path)
-
-    # NOTE: We're intentionally letting the loaded username/password go out of scope for security reasons.
-    # The auth object should be able to handle everything from here onward.
     return Config(
-        defaults=defaults, auth=Auth(server, username, password, defaults.get("retries", 3))
+        defaults=defaults,
+        auth=auth(
+            config_path, config.get("credentials", {}), server, defaults.get("retries", 3)
+        ),
     )

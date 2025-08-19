@@ -1,15 +1,66 @@
+import os
 import time
-
 import requests
+
 from requests.adapters import HTTPAdapter
 from requests.auth import AuthBase
 
 from denvr.utils import retry
 
 
-class Auth(AuthBase):
+def auth(src: str, credentials: dict, server: str, retries: int) -> AuthBase:
     """
-    Auth(server, username, password)
+    auth(src, credentials, server, retries)
+
+    A simply auth factory function which determines the correct Auth type to use.
+
+    Args:
+        src: Filepath for the credentials config
+        credentials: Lookup dict for apikey, username and/or password
+        server: Server to authenticate against for bearer auth
+        retries: Retry attempts for requests using bearer auth
+
+    Priority:
+    - Environment variables take precedence over configuration files.
+    - DENVR_APIKEY / apikey takes precedence over DENVR_USERNAME / username and DENVR_PASSWORD / password.
+
+    NOTE:
+        We're intentionally letting the loaded username/password go out of scope for security reasons.
+        The auth object should be able to handle everything from here onward.
+    """
+    apikey = os.getenv("DENVR_APIKEY", credentials.get("apikey", ""))
+    if apikey:
+        return ApiKey(apikey)
+
+    username = os.getenv("DENVR_USERNAME", credentials.get("username", ""))
+    if not username:
+        raise Exception(f"Could not find username in 'DENVR_USERNAME' or {src}")
+
+    password = os.getenv("DENVR_PASSWORD", credentials.get("password", ""))
+    if not password:
+        raise Exception(f"Could not find password in 'DENVR_PASSWORD' or {src}")
+
+    return Bearer(server, username, password)
+
+
+class ApiKey(AuthBase):
+    """
+    ApiKey(key)
+
+    Simply wraps the provied key and injects the header into requests.
+    """
+
+    def __init__(self, key):
+        self._key = key
+
+    def __call__(self, request):
+        request.headers["Authorization"] = f"ApiKey {self._key}"
+        return request
+
+
+class Bearer(AuthBase):
+    """
+    Bearer(server, username, password)
 
     Handles authorization, renewal and logouts given a
     username and password.
@@ -56,7 +107,7 @@ class Auth(AuthBase):
         return self._access_token
 
     def __call__(self, request):
-        request.headers["Authorization"] = "Bearer " + self.token
+        request.headers["Authorization"] = f"Bearer {self.token}"
         return request
 
     def __del__(self):

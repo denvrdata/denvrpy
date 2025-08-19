@@ -7,11 +7,12 @@ from unittest.mock import Mock, patch
 import pytest
 
 from denvr.config import config
+from denvr.auth import ApiKey, Bearer
 from tests.utils import temp_env
 
 
 @patch("requests.Session")
-def test_config(mock_session_class):
+def test_bearer_config(mock_session_class):
     mock_session = mock_session_class.return_value
     mock_session.post.return_value = Mock(
         raise_for_status=lambda: None,
@@ -47,6 +48,7 @@ def test_config(mock_session_class):
 
         conf = config(path=fp.name)
 
+        assert isinstance(conf.auth, Bearer)
         assert conf.auth._access_token == "access1"
         assert conf.auth._refresh_token == "refresh"
         assert conf.server == "https://api.cloud.denvrdata.com"
@@ -64,6 +66,7 @@ def test_config(mock_session_class):
         os.environ["DENVR_PASSWORD"] = "test.foo.bar.baz"
         conf = config()
 
+        assert isinstance(conf.auth, Bearer)
         assert conf.auth._access_token == "access1"
         assert conf.auth._refresh_token == "refresh"
         assert conf.server == "https://api.cloud.denvrdata.com"
@@ -80,6 +83,21 @@ def test_config(mock_session_class):
         os.environ["DENVR_USERNAME"] = "test@foobar.com"
         with pytest.raises(Exception, match=r"^Could not find password in"):
             config()
+
+    # Test apikey
+    with temp_env():
+        os.environ["DENVR_CONFIG"] = os.path.join(os.getcwd(), "missing", "config.toml")
+        os.environ["DENVR_APIKEY"] = "foo.bar.baz"
+        conf = config()
+        assert isinstance(conf.auth, ApiKey)
+        assert conf.auth._key == "foo.bar.baz"
+        assert conf.server == "https://api.cloud.denvrdata.com"
+        assert conf.api == "v1"
+        assert conf.cluster == "Msc1"
+        assert conf.tenant is None
+        assert conf.vpcid is None
+        assert conf.rpool == "on-demand"
+        assert conf.retries == 3
 
     # Test no auth info
     with temp_env():
