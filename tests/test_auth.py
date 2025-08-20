@@ -3,11 +3,11 @@ from unittest.mock import Mock, patch
 import pytest
 from requests.exceptions import HTTPError
 
-from denvr.auth import Auth
+from denvr.auth import Bearer
 
 
 @patch("requests.Session")
-def test_auth(mock_session_class):
+def test_bearer(mock_session_class):
     # Create a mock session instance
     mock_session = Mock()
     mock_session_class.return_value = mock_session
@@ -31,7 +31,7 @@ def test_auth(mock_session_class):
         raise_for_status=lambda: (_ for _ in ()).throw(HTTPError("500 Server Error"))
     )
 
-    auth = Auth("https://api.test.com", "alice@denvrtest.com", "alice.is.the.best", 0)
+    auth = Bearer("https://api.test.com", "alice@denvrtest.com", "alice.is.the.best", 0)
 
     r = auth(Mock(headers={}))
     assert "Authorization" in r.headers
@@ -39,7 +39,7 @@ def test_auth(mock_session_class):
 
 
 @patch("requests.Session")
-def test_auth_refresh(mock_session_class):
+def test_bearer_refresh(mock_session_class):
     # Create a mock session instance
     mock_session = Mock()
     mock_session_class.return_value = mock_session
@@ -63,7 +63,7 @@ def test_auth_refresh(mock_session_class):
         json=lambda: {"result": {"accessToken": "access2", "expireInSeconds": 30}},
     )
 
-    auth = Auth("https://api.test.com", "alice@denvrtest.com", "alice.is.the.best", 0)
+    auth = Bearer("https://api.test.com", "alice@denvrtest.com", "alice.is.the.best", 0)
 
     r = auth(Mock(headers={}))
     assert "Authorization" in r.headers
@@ -71,7 +71,7 @@ def test_auth_refresh(mock_session_class):
 
 
 @patch("requests.Session")
-def test_auth_expired(mock_session_class):
+def test_bearer_expired(mock_session_class):
     # Create a mock session instance
     mock_session = Mock()
     mock_session_class.return_value = mock_session
@@ -89,7 +89,7 @@ def test_auth_expired(mock_session_class):
         },
     )
 
-    auth = Auth("https://api.test.com", "alice@denvrtest.com", "alice.is.the.best")
+    auth = Bearer("https://api.test.com", "alice@denvrtest.com", "alice.is.the.best")
 
     # Test error when the refresh token is too old.
     with pytest.raises(Exception, match=r"^Auth refresh token has expired.*"):
