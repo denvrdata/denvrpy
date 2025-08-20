@@ -15,13 +15,18 @@ This file contains sensitive information and should be locked down with `chmod 6
       - `rpool`: The default rpool to use (e.g., `on-demand`, `reserved-denvr`)
       - `retries`: The number of retries to use when making requests
     - `[credentials]`
+      - `apikey`: An api key created from the web interface
       - `username`: The users email address
       - `password`: The users password
+
+NOTES:
+- You can provide an `apikey` and/or `username`/`password`, however, the `apikey` will always take priority.
 
 ## Environment Variables
 
 These environment variables take priority over any values in the config if they exist.
 
 - `DENVR_CONFIG`: Alternative location of the `denvr.toml` file
+- `DENVR_APIKEY`: An api key created from the web interface
 - `DENVR_USERNAME`: The users email address
 - `DENVR_PASSWORD`: The users password
