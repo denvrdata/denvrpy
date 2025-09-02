@@ -15,7 +15,9 @@ import json
 import logging
 import os
 import random
+import re
 import sys
+
 from collections import defaultdict
 from typing import Any
 
@@ -108,18 +110,64 @@ def validate(func):
     return wrapper
 
 
+def paths(spec: dict, included: list):
+    """Returns a dict of the filtered paths."""
+    results = {}
+    for k, v in spec["paths"].items():
+        if k in included:
+            results[k] = v
+
+    return results
+
+
+def schemas(spec, init):
+    """Returns a dict of all schemas recursively referenced by the init objects"""
+    found = set()
+    queued = set()
+    results = {}
+
+    def add(string):
+        """Adds a potential reference to the set of all and queued refs if not already present"""
+        match = re.match(r"#/components/schemas/([^/]+)", string)
+        if match and match.group(1) not in found:
+            found.add(match.group(1))
+            queued.add(match.group(1))
+
+    def populate(item):
+        """
+        Add $ref values or recurse on lists or dicts.
+
+        NOTE: We also remove date-time formats to avoid RFC3339 parsing errors when the server returns
+        strings that are missing timezones. https://github.com/denvrdata/DenvrDashboard/issues/3048
+        """
+        if isinstance(item, dict) and item.get("type") == "string" and item.get("format") == "date-time":
+            del item["format"]
+        elif isinstance(item, dict) and "$ref" in item:
+            add(item["$ref"])
+        elif isinstance(item, (list, dict)):
+            for value in item if isinstance(item, list) else item.values():
+                populate(value)
+
+    populate(init)
+
+    while queued:
+        ref = queued.pop()
+        if ref in spec.get("components", {}).get("schemas", {}):
+            results[ref] = spec["components"]["schemas"][ref]
+            populate(results[ref])
+
+    return results
+
+
 @validate
 def filter(api: dict, included=INCLUDED_PATHS) -> dict:
     """
-    Given an OpenAPI spec, remove all paths that are not in the included paths.
+    Given an OpenAPI spec, remove all paths and referenced schemaqthat are not in the included paths.
     """
-    rem = set(api["paths"].keys()).difference(set(included))
-
-    for path in rem:
-        logger.info("Dropping path %s", path)
-        api["paths"].pop(path)
-
-    return api
+    results = copy.deepcopy(api)
+    results["paths"] = paths(api, included)
+    results["components"]["schemas"] = schemas(api, results["paths"])
+    return results
 
 
 @validate
@@ -314,7 +362,7 @@ def generate(included=INCLUDED_PATHS):
     client_template = template_env.get_template("client.py.jinja2")
     test_template = template_env.get_template("test_client.py.jinja2")
 
-    api = filter(flatten(fetchapi()))
+    api = flatten(filter(fetchapi(), included))
     paths = api["paths"]
 
     # Start generating each new module

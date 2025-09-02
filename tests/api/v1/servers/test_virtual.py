@@ -186,7 +186,7 @@ def test_create_server():
     client_kwargs: Dict[str, Any] = {
         "name": "my-denvr-vm",
         "rpool": "reserved-denvr",
-        "vpc": "denvr-vpc",
+        "vpc": "denvr",
         "configuration": "A100_40GB_PCIe_1x",
         "cluster": "Hou1",
         "ssh_keys": ["string"],
@@ -206,7 +206,7 @@ def test_create_server():
             "json": {
                 "name": "my-denvr-vm",
                 "rpool": "reserved-denvr",
-                "vpc": "denvr-vpc",
+                "vpc": "denvr",
                 "configuration": "A100_40GB_PCIe_1x",
                 "cluster": "Hou1",
                 "ssh_keys": ["string"],
@@ -241,7 +241,7 @@ def test_create_server_httpserver(httpserver: HTTPServer):
     client_kwargs: Dict[str, Any] = {
         "name": "my-denvr-vm",
         "rpool": "reserved-denvr",
-        "vpc": "denvr-vpc",
+        "vpc": "denvr",
         "configuration": "A100_40GB_PCIe_1x",
         "cluster": "Hou1",
         "ssh_keys": ["string"],
@@ -261,7 +261,7 @@ def test_create_server_httpserver(httpserver: HTTPServer):
             "json": {
                 "name": "my-denvr-vm",
                 "rpool": "reserved-denvr",
-                "vpc": "denvr-vpc",
+                "vpc": "denvr",
                 "configuration": "A100_40GB_PCIe_1x",
                 "cluster": "Hou1",
                 "ssh_keys": ["string"],
@@ -298,7 +298,7 @@ def test_create_server_mockserver(mock_config):
     client_kwargs: Dict[str, Any] = {
         "name": "my-denvr-vm",
         "rpool": "reserved-denvr",
-        "vpc": "denvr-vpc",
+        "vpc": "denvr",
         "configuration": "A100_40GB_PCIe_1x",
         "cluster": "Hou1",
         "ssh_keys": ["string"],
