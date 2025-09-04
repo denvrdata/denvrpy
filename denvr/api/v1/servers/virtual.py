@@ -110,7 +110,7 @@ class Client:
             client.create_server(
                 name="my-denvr-vm",
                 rpool="reserved-denvr",
-                vpc="denvr-vpc",
+                vpc="denvr",
                 configuration="A100_40GB_PCIe_1x",
                 cluster="Hou1",
                 ssh_keys=["string"],
