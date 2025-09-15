@@ -140,7 +140,11 @@ def schemas(spec, init):
         NOTE: We also remove date-time formats to avoid RFC3339 parsing errors when the server returns
         strings that are missing timezones. https://github.com/denvrdata/DenvrDashboard/issues/3048
         """
-        if isinstance(item, dict) and item.get("type") == "string" and item.get("format") == "date-time":
+        if (
+            isinstance(item, dict)
+            and item.get("type") == "string"
+            and item.get("format") == "date-time"
+        ):
             del item["format"]
         elif isinstance(item, dict) and "$ref" in item:
             add(item["$ref"])
