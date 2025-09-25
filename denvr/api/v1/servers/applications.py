@@ -162,6 +162,7 @@ class Client:
         persist_direct_attached_storage: bool | None = None,
         personal_shared_storage: bool | None = None,
         tenant_shared_storage: bool | None = None,
+        selected_node: str | None = None,
         jupyter_token: str | None = None,
     ) -> dict:
         """
@@ -178,6 +179,7 @@ class Client:
                 persist_direct_attached_storage=False,
                 personal_shared_storage=True,
                 tenant_shared_storage=True,
+                selected_node="yycdp-dev-k8sw03",
                 jupyter_token="abc123",
             )
 
@@ -192,6 +194,7 @@ class Client:
             persist_direct_attached_storage (bool): Indicates whether to persist direct attached storage (if resource pool is reserved)
             personal_shared_storage (bool): Enable personal shared storage for the application
             tenant_shared_storage (bool): Enable tenant shared storage for the application
+            selected_node (str): Specific node name to target for application deployment. Used for non-on-demand resource pools...
             jupyter_token (str): An authentication token for accessing Jupyter Notebook enabled applications
 
         Returns:
@@ -238,6 +241,7 @@ class Client:
                 "tenantSharedStorage": config.getkwarg(
                     "tenant_shared_storage", tenant_shared_storage
                 ),
+                "selectedNode": config.getkwarg("selected_node", selected_node),
                 "jupyterToken": config.getkwarg("jupyter_token", jupyter_token),
             }
         }
@@ -274,6 +278,7 @@ class Client:
         persist_direct_attached_storage: bool | None = None,
         personal_shared_storage: bool | None = None,
         tenant_shared_storage: bool | None = None,
+        selected_node: str | None = None,
         user_scripts: dict | None = None,
         security_context: dict | None = None,
     ) -> dict:
@@ -298,6 +303,7 @@ class Client:
                 persist_direct_attached_storage=False,
                 personal_shared_storage=True,
                 tenant_shared_storage=True,
+                selected_node="yycdp-dev-k8sw03",
                 user_scripts={},
                 security_context={"runAsRoot": False},
             )
@@ -316,6 +322,7 @@ class Client:
             persist_direct_attached_storage (bool): Indicates whether to persist direct attached storage (if resource pool is reserved)
             personal_shared_storage (bool): Enable personal shared storage for the application
             tenant_shared_storage (bool): Enable tenant shared storage for the application
+            selected_node (str): Specific node name to target for application deployment. Used for non-on-demand resource pools...
             user_scripts (dict): Dictionary of script filenames to script content. Each scripts to be mounted at...
             security_context (dict):
 
@@ -366,6 +373,7 @@ class Client:
                 "tenantSharedStorage": config.getkwarg(
                     "tenant_shared_storage", tenant_shared_storage
                 ),
+                "selectedNode": config.getkwarg("selected_node", selected_node),
                 "userScripts": config.getkwarg("user_scripts", user_scripts),
                 "securityContext": config.getkwarg("security_context", security_context),
             }
