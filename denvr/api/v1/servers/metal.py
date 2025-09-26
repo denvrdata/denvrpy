@@ -29,6 +29,7 @@ class Client:
             node_type (str): The specific host node type
             image (str): The image used to provision the host
             private_ip (str): private IP address of the host
+            public_ip (str): public IP address of the host
             provisioned_hostname (str): host name provisioned by the system
             operational_status (str): operational status of the host
             powered_on (bool): true if the host is powered on
@@ -88,6 +89,7 @@ class Client:
             node_type (str): The specific host node type
             image (str): The image used to provision the host
             private_ip (str): private IP address of the host
+            public_ip (str): public IP address of the host
             provisioned_hostname (str): host name provisioned by the system
             operational_status (str): operational status of the host
             powered_on (bool): true if the host is powered on
@@ -141,6 +143,7 @@ class Client:
             node_type (str): The specific host node type
             image (str): The image used to provision the host
             private_ip (str): private IP address of the host
+            public_ip (str): public IP address of the host
             provisioned_hostname (str): host name provisioned by the system
             operational_status (str): operational status of the host
             powered_on (bool): true if the host is powered on

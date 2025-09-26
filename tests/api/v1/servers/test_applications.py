@@ -391,6 +391,7 @@ def test_create_catalog_application():
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
+        "selected_node": "yycdp-dev-k8sw03",
         "jupyter_token": "abc123",
     }
 
@@ -409,6 +410,7 @@ def test_create_catalog_application():
                 "persistDirectAttachedStorage": False,
                 "personalSharedStorage": True,
                 "tenantSharedStorage": True,
+                "selectedNode": "yycdp-dev-k8sw03",
                 "jupyterToken": "abc123",
             }
         },
@@ -448,6 +450,7 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
+        "selected_node": "yycdp-dev-k8sw03",
         "jupyter_token": "abc123",
     }
 
@@ -466,6 +469,7 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
                 "persistDirectAttachedStorage": False,
                 "personalSharedStorage": True,
                 "tenantSharedStorage": True,
+                "selectedNode": "yycdp-dev-k8sw03",
                 "jupyterToken": "abc123",
             }
         },
@@ -507,6 +511,7 @@ def test_create_catalog_application_mockserver(mock_config):
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
+        "selected_node": "yycdp-dev-k8sw03",
         "jupyter_token": "abc123",
     }
 
@@ -552,6 +557,7 @@ def test_create_custom_application():
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
+        "selected_node": "yycdp-dev-k8sw03",
         "user_scripts": {},
         "security_context": {"runAsRoot": False},
     }
@@ -578,6 +584,7 @@ def test_create_custom_application():
                 "persistDirectAttachedStorage": False,
                 "personalSharedStorage": True,
                 "tenantSharedStorage": True,
+                "selectedNode": "yycdp-dev-k8sw03",
                 "userScripts": {},
                 "securityContext": {"runAsRoot": False},
             }
@@ -619,6 +626,7 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
+        "selected_node": "yycdp-dev-k8sw03",
         "user_scripts": {},
         "security_context": {"runAsRoot": False},
     }
@@ -645,6 +653,7 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
                 "persistDirectAttachedStorage": False,
                 "personalSharedStorage": True,
                 "tenantSharedStorage": True,
+                "selectedNode": "yycdp-dev-k8sw03",
                 "userScripts": {},
                 "securityContext": {"runAsRoot": False},
             }
@@ -688,6 +697,7 @@ def test_create_custom_application_mockserver(mock_config):
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
+        "selected_node": "yycdp-dev-k8sw03",
         "user_scripts": {},
         "security_context": {"runAsRoot": False},
     }
