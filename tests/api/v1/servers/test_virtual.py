@@ -197,6 +197,7 @@ def test_create_server():
         "persist_storage": False,
         "direct_storage_mount_path": "/home/ubuntu/direct-attached",
         "root_disk_size": 500,
+        "selected_node": "yycdp-dev-k8sw03",
     }
 
     request_kwargs = validate_kwargs(
@@ -217,6 +218,7 @@ def test_create_server():
                 "persistStorage": False,
                 "directStorageMountPath": "/home/ubuntu/direct-attached",
                 "rootDiskSize": 500,
+                "selectedNode": "yycdp-dev-k8sw03",
             }
         },
         {"cluster", "configuration", "ssh_keys", "vpc"},
@@ -252,6 +254,7 @@ def test_create_server_httpserver(httpserver: HTTPServer):
         "persist_storage": False,
         "direct_storage_mount_path": "/home/ubuntu/direct-attached",
         "root_disk_size": 500,
+        "selected_node": "yycdp-dev-k8sw03",
     }
 
     request_kwargs = validate_kwargs(
@@ -272,6 +275,7 @@ def test_create_server_httpserver(httpserver: HTTPServer):
                 "persistStorage": False,
                 "directStorageMountPath": "/home/ubuntu/direct-attached",
                 "rootDiskSize": 500,
+                "selectedNode": "yycdp-dev-k8sw03",
             }
         },
         {"cluster", "configuration", "ssh_keys", "vpc"},
@@ -309,6 +313,7 @@ def test_create_server_mockserver(mock_config):
         "persist_storage": False,
         "direct_storage_mount_path": "/home/ubuntu/direct-attached",
         "root_disk_size": 500,
+        "selected_node": "yycdp-dev-k8sw03",
     }
 
     client.create_server(**client_kwargs)

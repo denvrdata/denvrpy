@@ -64,6 +64,7 @@ class Client:
             private_ip (str): The private IP address of the VM
             image (str): Name of the VM image used
             cluster (str): The cluster where the VM is allocated
+            node_selector (str): The specific node where the VM is scheduled
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
             root_disk_size (str):
@@ -103,6 +104,7 @@ class Client:
         persist_storage: bool | None = None,
         direct_storage_mount_path: str | None = None,
         root_disk_size: int | None = None,
+        selected_node: str | None = None,
     ) -> dict:
         """
         Create a new virtual machine using a pre-defined configuration ::
@@ -121,6 +123,7 @@ class Client:
                 persist_storage=False,
                 direct_storage_mount_path="/home/ubuntu/direct-attached",
                 root_disk_size=500,
+                selected_node="yycdp-dev-k8sw03",
             )
 
         Keyword Arguments:
@@ -137,6 +140,7 @@ class Client:
             persist_storage (bool): Whether direct attached storage should be persistant or ephemeral.
             direct_storage_mount_path (str): Direct attached storage mount path.
             root_disk_size (int): Size of root disk to be created (Gi).
+            selected_node (str): Specific node name to target for VM deployment.  Used for non-on-demand resource pools to allow...
 
         Returns:
             username (str): The user that creatd the vm
@@ -155,6 +159,7 @@ class Client:
             private_ip (str): The private IP address of the VM
             image (str): Name of the VM image used
             cluster (str): The cluster where the VM is allocated
+            node_selector (str): The specific node where the VM is scheduled
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
             root_disk_size (str):
@@ -185,6 +190,7 @@ class Client:
                     "direct_storage_mount_path", direct_storage_mount_path
                 ),
                 "rootDiskSize": config.getkwarg("root_disk_size", root_disk_size),
+                "selectedNode": config.getkwarg("selected_node", selected_node),
             }
         }
 
