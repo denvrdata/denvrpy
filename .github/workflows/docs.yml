@@ -27,5 +27,5 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v6 # zizmor: ignore[unpinned-uses]
+        uses: astral-sh/setup-uv@v7 # zizmor: ignore[unpinned-uses]
       - run: uv run --group docs mkdocs gh-deploy --force
