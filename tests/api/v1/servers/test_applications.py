@@ -532,7 +532,7 @@ def test_create_custom_application():
     # Check that missing required arguments without a default should through a TypeError
     if any(
         getattr(config, k, None) is None
-        for k in ["cluster", "hardwarePackageName", "imageRepository", "imageUrl", "name"]
+        for k in ["cluster", "hardwarePackageName", "imageUrl", "name"]
     ):
         with pytest.raises(TypeError, match=r"^Required"):
             client.create_custom_application()
@@ -554,6 +554,7 @@ def test_create_custom_application():
         "resource_pool": "on-demand",
         "readiness_watcher_port": 443,
         "proxy_port": 8888,
+        "proxy_api_keys": ["key_user1", "key_user2"],
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
@@ -581,6 +582,7 @@ def test_create_custom_application():
                 "resourcePool": "on-demand",
                 "readinessWatcherPort": 443,
                 "proxyPort": 8888,
+                "proxyApiKeys": ["key_user1", "key_user2"],
                 "persistDirectAttachedStorage": False,
                 "personalSharedStorage": True,
                 "tenantSharedStorage": True,
@@ -589,7 +591,7 @@ def test_create_custom_application():
                 "securityContext": {"runAsRoot": False},
             }
         },
-        {"cluster", "hardwarePackageName", "imageRepository", "imageUrl", "name"},
+        {"cluster", "hardwarePackageName", "imageUrl", "name"},
     )
 
     client.create_custom_application(**client_kwargs)
@@ -623,6 +625,7 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
         "resource_pool": "on-demand",
         "readiness_watcher_port": 443,
         "proxy_port": 8888,
+        "proxy_api_keys": ["key_user1", "key_user2"],
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,
@@ -650,6 +653,7 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
                 "resourcePool": "on-demand",
                 "readinessWatcherPort": 443,
                 "proxyPort": 8888,
+                "proxyApiKeys": ["key_user1", "key_user2"],
                 "persistDirectAttachedStorage": False,
                 "personalSharedStorage": True,
                 "tenantSharedStorage": True,
@@ -658,7 +662,7 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
                 "securityContext": {"runAsRoot": False},
             }
         },
-        {"cluster", "hardwarePackageName", "imageRepository", "imageUrl", "name"},
+        {"cluster", "hardwarePackageName", "imageUrl", "name"},
     )
 
     # TODO: The request_kwargs response may break if we add schema validation on results.
@@ -694,6 +698,7 @@ def test_create_custom_application_mockserver(mock_config):
         "resource_pool": "on-demand",
         "readiness_watcher_port": 443,
         "proxy_port": 8888,
+        "proxy_api_keys": ["key_user1", "key_user2"],
         "persist_direct_attached_storage": False,
         "personal_shared_storage": True,
         "tenant_shared_storage": True,

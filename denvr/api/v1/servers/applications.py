@@ -275,6 +275,7 @@ class Client:
         resource_pool: str | None = None,
         readiness_watcher_port: int | None = None,
         proxy_port: int | None = None,
+        proxy_api_keys: list | None = None,
         persist_direct_attached_storage: bool | None = None,
         personal_shared_storage: bool | None = None,
         tenant_shared_storage: bool | None = None,
@@ -300,6 +301,7 @@ class Client:
                 resource_pool="on-demand",
                 readiness_watcher_port=443,
                 proxy_port=8888,
+                proxy_api_keys=["key_user1", "key_user2"],
                 persist_direct_attached_storage=False,
                 personal_shared_storage=True,
                 tenant_shared_storage=True,
@@ -318,7 +320,8 @@ class Client:
             image_repository (dict):
             resource_pool (str): The resource pool to use for the application
             readiness_watcher_port (int): The port used for monitoring application readiness and status. Common examples:  - 443...
-            proxy_port (int): The port your application uses to receive HTTPS traffic.   Port 443 is reserved for the reverse...
+            proxy_port (int): The port your application uses to receive HTTPS traffic. When set, a reverse proxy will be...
+            proxy_api_keys (list): API keys for authenticating with the reverse proxy service. Optional, but requires proxyPort to...
             persist_direct_attached_storage (bool): Indicates whether to persist direct attached storage (if resource pool is reserved)
             personal_shared_storage (bool): Enable personal shared storage for the application
             tenant_shared_storage (bool): Enable tenant shared storage for the application
@@ -364,6 +367,7 @@ class Client:
                     "readiness_watcher_port", readiness_watcher_port
                 ),
                 "proxyPort": config.getkwarg("proxy_port", proxy_port),
+                "proxyApiKeys": config.getkwarg("proxy_api_keys", proxy_api_keys),
                 "persistDirectAttachedStorage": config.getkwarg(
                     "persist_direct_attached_storage", persist_direct_attached_storage
                 ),
@@ -383,7 +387,7 @@ class Client:
             "post",
             "/api/v1/servers/applications/CreateCustomApplication",
             parameters,
-            {"cluster", "hardwarePackageName", "imageRepository", "imageUrl", "name"},
+            {"cluster", "hardwarePackageName", "imageUrl", "name"},
         )
 
         return self.session.request(
