@@ -164,12 +164,16 @@ class Client:
         tenant_shared_storage: bool | None = None,
         selected_node: str | None = None,
         jupyter_token: str | None = None,
+        startup_commands: list | None = None,
+        environment_variables: dict | None = None,
+        proxy_port: str | None = None,
+        proxy_api_keys: list | None = None,
     ) -> dict:
         """
         Create a new application using a pre-defined configuration and application catalog item ::
 
             client.create_catalog_application(
-                name="my-jupyter-application",
+                name="my-jupyter-notebook",
                 cluster="Msc1",
                 hardware_package_name="g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
                 application_catalog_item_name="jupyter-notebook",
@@ -181,6 +185,13 @@ class Client:
                 tenant_shared_storage=True,
                 selected_node="yycdp-dev-k8sw03",
                 jupyter_token="abc123",
+                startup_commands=["pip install custom-package", "python setup.py"],
+                environment_variables={
+                    "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+                    "CACHE_DIR": "/mnt/storage/.cache",
+                },
+                proxy_port="8000",
+                proxy_api_keys=["api-key-abc123", "api-key-def456"],
             )
 
         Keyword Arguments:
@@ -196,6 +207,10 @@ class Client:
             tenant_shared_storage (bool): Enable tenant shared storage for the application
             selected_node (str): Specific node name to target for application deployment. Used for non-on-demand resource pools...
             jupyter_token (str): An authentication token for accessing Jupyter Notebook enabled applications
+            startup_commands (list): List of startup commands to be executed during container initialization. Commands are executed...
+            environment_variables (dict): Custom environment variables for the application. Key-value pairs that will be set in the...
+            proxy_port (str): The port number for the application proxy service. Required to setup the proxy Used in...
+            proxy_api_keys (list): Optional API keys for authenticating with the application proxy service. Multiple keys can be...
 
         Returns:
             id (str):
@@ -243,6 +258,12 @@ class Client:
                 ),
                 "selectedNode": config.getkwarg("selected_node", selected_node),
                 "jupyterToken": config.getkwarg("jupyter_token", jupyter_token),
+                "startupCommands": config.getkwarg("startup_commands", startup_commands),
+                "environmentVariables": config.getkwarg(
+                    "environment_variables", environment_variables
+                ),
+                "proxyPort": config.getkwarg("proxy_port", proxy_port),
+                "proxyApiKeys": config.getkwarg("proxy_api_keys", proxy_api_keys),
             }
         }
 
