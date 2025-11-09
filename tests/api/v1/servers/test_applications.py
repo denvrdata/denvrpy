@@ -381,7 +381,7 @@ def test_create_catalog_application():
         client.create_catalog_application()
 
     client_kwargs: Dict[str, Any] = {
-        "name": "my-jupyter-application",
+        "name": "my-jupyter-notebook",
         "cluster": "Msc1",
         "hardware_package_name": "g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
         "application_catalog_item_name": "jupyter-notebook",
@@ -393,6 +393,13 @@ def test_create_catalog_application():
         "tenant_shared_storage": True,
         "selected_node": "yycdp-dev-k8sw03",
         "jupyter_token": "abc123",
+        "startup_commands": ["pip install custom-package", "python setup.py"],
+        "environment_variables": {
+            "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+            "CACHE_DIR": "/mnt/storage/.cache",
+        },
+        "proxy_port": "8000",
+        "proxy_api_keys": ["api-key-abc123", "api-key-def456"],
     }
 
     request_kwargs = validate_kwargs(
@@ -400,7 +407,7 @@ def test_create_catalog_application():
         "/api/v1/servers/applications/CreateCatalogApplication",
         {
             "json": {
-                "name": "my-jupyter-application",
+                "name": "my-jupyter-notebook",
                 "cluster": "Msc1",
                 "hardwarePackageName": "g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
                 "applicationCatalogItemName": "jupyter-notebook",
@@ -412,6 +419,13 @@ def test_create_catalog_application():
                 "tenantSharedStorage": True,
                 "selectedNode": "yycdp-dev-k8sw03",
                 "jupyterToken": "abc123",
+                "startupCommands": ["pip install custom-package", "python setup.py"],
+                "environmentVariables": {
+                    "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+                    "CACHE_DIR": "/mnt/storage/.cache",
+                },
+                "proxyPort": "8000",
+                "proxyApiKeys": ["api-key-abc123", "api-key-def456"],
             }
         },
         {
@@ -440,7 +454,7 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
     client = Client(session)
 
     client_kwargs: Dict[str, Any] = {
-        "name": "my-jupyter-application",
+        "name": "my-jupyter-notebook",
         "cluster": "Msc1",
         "hardware_package_name": "g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
         "application_catalog_item_name": "jupyter-notebook",
@@ -452,6 +466,13 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
         "tenant_shared_storage": True,
         "selected_node": "yycdp-dev-k8sw03",
         "jupyter_token": "abc123",
+        "startup_commands": ["pip install custom-package", "python setup.py"],
+        "environment_variables": {
+            "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+            "CACHE_DIR": "/mnt/storage/.cache",
+        },
+        "proxy_port": "8000",
+        "proxy_api_keys": ["api-key-abc123", "api-key-def456"],
     }
 
     request_kwargs = validate_kwargs(
@@ -459,7 +480,7 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
         "/api/v1/servers/applications/CreateCatalogApplication",
         {
             "json": {
-                "name": "my-jupyter-application",
+                "name": "my-jupyter-notebook",
                 "cluster": "Msc1",
                 "hardwarePackageName": "g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
                 "applicationCatalogItemName": "jupyter-notebook",
@@ -471,6 +492,13 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
                 "tenantSharedStorage": True,
                 "selectedNode": "yycdp-dev-k8sw03",
                 "jupyterToken": "abc123",
+                "startupCommands": ["pip install custom-package", "python setup.py"],
+                "environmentVariables": {
+                    "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+                    "CACHE_DIR": "/mnt/storage/.cache",
+                },
+                "proxyPort": "8000",
+                "proxyApiKeys": ["api-key-abc123", "api-key-def456"],
             }
         },
         {
@@ -501,7 +529,7 @@ def test_create_catalog_application_mockserver(mock_config):
     client = Client(session)
 
     client_kwargs: Dict[str, Any] = {
-        "name": "my-jupyter-application",
+        "name": "my-jupyter-notebook",
         "cluster": "Msc1",
         "hardware_package_name": "g-nvidia-1xa100-40gb-pcie-14vcpu-112gb",
         "application_catalog_item_name": "jupyter-notebook",
@@ -513,6 +541,13 @@ def test_create_catalog_application_mockserver(mock_config):
         "tenant_shared_storage": True,
         "selected_node": "yycdp-dev-k8sw03",
         "jupyter_token": "abc123",
+        "startup_commands": ["pip install custom-package", "python setup.py"],
+        "environment_variables": {
+            "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+            "CACHE_DIR": "/mnt/storage/.cache",
+        },
+        "proxy_port": "8000",
+        "proxy_api_keys": ["api-key-abc123", "api-key-def456"],
     }
 
     client.create_catalog_application(**client_kwargs)
