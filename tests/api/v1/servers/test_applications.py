@@ -395,7 +395,7 @@ def test_create_catalog_application():
         "jupyter_token": "abc123",
         "startup_commands": ["pip install custom-package", "python setup.py"],
         "environment_variables": {
-            "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+            "HF_TOKEN": "your-token-here",
             "CACHE_DIR": "/mnt/storage/.cache",
         },
         "proxy_port": "8000",
@@ -421,7 +421,7 @@ def test_create_catalog_application():
                 "jupyterToken": "abc123",
                 "startupCommands": ["pip install custom-package", "python setup.py"],
                 "environmentVariables": {
-                    "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+                    "HF_TOKEN": "your-token-here",
                     "CACHE_DIR": "/mnt/storage/.cache",
                 },
                 "proxyPort": "8000",
@@ -468,7 +468,7 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
         "jupyter_token": "abc123",
         "startup_commands": ["pip install custom-package", "python setup.py"],
         "environment_variables": {
-            "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+            "HF_TOKEN": "your-token-here",
             "CACHE_DIR": "/mnt/storage/.cache",
         },
         "proxy_port": "8000",
@@ -494,7 +494,7 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
                 "jupyterToken": "abc123",
                 "startupCommands": ["pip install custom-package", "python setup.py"],
                 "environmentVariables": {
-                    "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+                    "HF_TOKEN": "your-token-here",
                     "CACHE_DIR": "/mnt/storage/.cache",
                 },
                 "proxyPort": "8000",
@@ -543,7 +543,7 @@ def test_create_catalog_application_mockserver(mock_config):
         "jupyter_token": "abc123",
         "startup_commands": ["pip install custom-package", "python setup.py"],
         "environment_variables": {
-            "HUGGING_FACE_HUB_TOKEN": "your-token-here",
+            "HF_TOKEN": "your-token-here",
             "CACHE_DIR": "/mnt/storage/.cache",
         },
         "proxy_port": "8000",
