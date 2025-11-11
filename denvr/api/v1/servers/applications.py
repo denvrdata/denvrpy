@@ -186,10 +186,7 @@ class Client:
                 selected_node="yycdp-dev-k8sw03",
                 jupyter_token="abc123",
                 startup_commands=["pip install custom-package", "python setup.py"],
-                environment_variables={
-                    "HUGGING_FACE_HUB_TOKEN": "your-token-here",
-                    "CACHE_DIR": "/mnt/storage/.cache",
-                },
+                environment_variables={"HF_TOKEN": "your-token-here", "CACHE_DIR": "/mnt/storage/.cache"},
                 proxy_port="8000",
                 proxy_api_keys=["api-key-abc123", "api-key-def456"],
             )
