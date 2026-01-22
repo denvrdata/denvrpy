@@ -192,7 +192,7 @@ class Client:
             )
 
         Keyword Arguments:
-            name (str): The application name
+            name (str): The application name. Must be 52 characters or less.
             cluster (str): The cluster you're operating on
             hardware_package_name (str): The name or unique identifier of the application hardware configuration to use for the application.
             application_catalog_item_name (str): The name of the application catalog item.
@@ -329,7 +329,7 @@ class Client:
             )
 
         Keyword Arguments:
-            name (str): The application name
+            name (str): The application name. Must be 52 characters or less.
             cluster (str): The cluster you're operating on
             hardware_package_name (str): The name or unique identifier of the application hardware configuration to use for the application.
             image_url (str): Image URL for the custom application.
