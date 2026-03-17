@@ -50,6 +50,7 @@ class Client:
             instance_details (dict):
             application_catalog_item (dict):
             hardware_package (dict):
+            serving_details (dict):
         """
         config = self.session.config  # noqa: F841
 
@@ -94,16 +95,27 @@ class Client:
         )
 
     def get_availability(
-        self, cluster: str | None = None, resource_pool: str | None = None
+        self,
+        cluster: str | None = None,
+        resource_pool: str | None = None,
+        application_catalog_item_name: str | None = None,
+        application_catalog_item_version: str | None = None,
     ) -> dict:
         """
         Get detailed information on available configurations for applications ::
 
-            client.get_availability(cluster="Msc1", resource_pool="on-demand")
+            client.get_availability(
+                cluster="Msc1",
+                resource_pool="on-demand",
+                application_catalog_item_name="applicationCatalogItemName",
+                application_catalog_item_version="applicationCatalogItemVersion",
+            )
 
         Keyword Arguments:
             cluster (str):
             resource_pool (str):
+            application_catalog_item_name (str):
+            application_catalog_item_version (str):
 
         Returns:
             items (list):
@@ -114,6 +126,12 @@ class Client:
             "params": {
                 "cluster": config.getkwarg("cluster", cluster),
                 "resourcePool": config.getkwarg("resource_pool", resource_pool),
+                "applicationCatalogItemName": config.getkwarg(
+                    "application_catalog_item_name", application_catalog_item_name
+                ),
+                "applicationCatalogItemVersion": config.getkwarg(
+                    "application_catalog_item_version", application_catalog_item_version
+                ),
             }
         }
 
@@ -128,19 +146,21 @@ class Client:
             "get", "/api/v1/servers/applications/GetAvailability", **kwargs
         )
 
-    def get_application_catalog_items(self) -> dict:
+    def get_application_catalog_items(self, types: list | None = None) -> dict:
         """
         Get a list of application catalog items ::
 
-            client.get_application_catalog_items()
+            client.get_application_catalog_items(types=["foo"])
 
+        Keyword Arguments:
+            types (list):
 
         Returns:
             items (list):
         """
         config = self.session.config  # noqa: F841
 
-        parameters: dict[str, dict] = {}
+        parameters: dict[str, dict] = {"params": {"types": config.getkwarg("types", types)}}
 
         kwargs = validate_kwargs(
             "get", "/api/v1/servers/applications/GetApplicationCatalogItems", parameters, {}

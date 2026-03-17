@@ -232,12 +232,24 @@ def test_get_availability():
     else:
         client.get_availability()
 
-    client_kwargs: Dict[str, Any] = {"cluster": "Msc1", "resource_pool": "on-demand"}
+    client_kwargs: Dict[str, Any] = {
+        "cluster": "Msc1",
+        "resource_pool": "on-demand",
+        "application_catalog_item_name": "applicationCatalogItemName",
+        "application_catalog_item_version": "applicationCatalogItemVersion",
+    }
 
     request_kwargs = validate_kwargs(
         "get",
         "/api/v1/servers/applications/GetAvailability",
-        {"params": {"cluster": "Msc1", "resourcePool": "on-demand"}},
+        {
+            "params": {
+                "cluster": "Msc1",
+                "resourcePool": "on-demand",
+                "applicationCatalogItemName": "applicationCatalogItemName",
+                "applicationCatalogItemVersion": "applicationCatalogItemVersion",
+            }
+        },
         {"cluster", "resourcePool"},
     )
 
@@ -257,12 +269,24 @@ def test_get_availability_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs: Dict[str, Any] = {"cluster": "Msc1", "resource_pool": "on-demand"}
+    client_kwargs: Dict[str, Any] = {
+        "cluster": "Msc1",
+        "resource_pool": "on-demand",
+        "application_catalog_item_name": "applicationCatalogItemName",
+        "application_catalog_item_version": "applicationCatalogItemVersion",
+    }
 
     request_kwargs = validate_kwargs(
         "get",
         "/api/v1/servers/applications/GetAvailability",
-        {"params": {"cluster": "Msc1", "resourcePool": "on-demand"}},
+        {
+            "params": {
+                "cluster": "Msc1",
+                "resourcePool": "on-demand",
+                "applicationCatalogItemName": "applicationCatalogItemName",
+                "applicationCatalogItemVersion": "applicationCatalogItemVersion",
+            }
+        },
         {"cluster", "resourcePool"},
     )
 
@@ -284,7 +308,12 @@ def test_get_availability_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs: Dict[str, Any] = {"cluster": "Msc1", "resource_pool": "on-demand"}
+    client_kwargs: Dict[str, Any] = {
+        "cluster": "Msc1",
+        "resource_pool": "on-demand",
+        "application_catalog_item_name": "applicationCatalogItemName",
+        "application_catalog_item_version": "applicationCatalogItemVersion",
+    }
 
     client.get_availability(**client_kwargs)
     # TODO: Test return type once we add support for that in our genapi script.
@@ -302,10 +331,13 @@ def test_get_application_catalog_items():
 
     client.get_application_catalog_items()
 
-    client_kwargs: Dict[str, Any] = {}
+    client_kwargs: Dict[str, Any] = {"types": ["foo"]}
 
     request_kwargs = validate_kwargs(
-        "get", "/api/v1/servers/applications/GetApplicationCatalogItems", {}, {}
+        "get",
+        "/api/v1/servers/applications/GetApplicationCatalogItems",
+        {"params": {"types": ["foo"]}},
+        {},
     )
 
     client.get_application_catalog_items(**client_kwargs)
@@ -324,10 +356,13 @@ def test_get_application_catalog_items_httpserver(httpserver: HTTPServer):
     session = Session(config)
     client = Client(session)
 
-    client_kwargs: Dict[str, Any] = {}
+    client_kwargs: Dict[str, Any] = {"types": ["foo"]}
 
     request_kwargs = validate_kwargs(
-        "get", "/api/v1/servers/applications/GetApplicationCatalogItems", {}, {}
+        "get",
+        "/api/v1/servers/applications/GetApplicationCatalogItems",
+        {"params": {"types": ["foo"]}},
+        {},
     )
 
     # TODO: The request_kwargs response may break if we add schema validation on results.
@@ -348,7 +383,7 @@ def test_get_application_catalog_items_mockserver(mock_config):
     session = Session(mock_config)
     client = Client(session)
 
-    client_kwargs: Dict[str, Any] = {}
+    client_kwargs: Dict[str, Any] = {"types": ["foo"]}
 
     client.get_application_catalog_items(**client_kwargs)
     # TODO: Test return type once we add support for that in our genapi script.
