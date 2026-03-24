@@ -1,0 +1,750 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../configuration/">
+      
+      
+        <link rel="next" href="../api/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+    
+    
+      
+        <title>Contributing - denvrpy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#contributing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="denvrpy" class="md-header__button md-logo" aria-label="denvrpy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            denvrpy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contributing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="denvrpy" class="md-nav__button md-logo" aria-label="denvrpy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    denvrpy
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issues
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-requests-prs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Requests (PRs)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Generation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issues
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-requests-prs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Requests (PRs)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Generation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="contributing">Contributing</h1>
+<p><a href="LICENSE.txt"><img alt="License" src="https://img.shields.io/badge/License-MIT-%234493c5?style=flat" /></a>
+<a href="CODEOFCONDUCT.md"><img alt="Contributor Covenant" src="https://img.shields.io/badge/Contributor_Covenant-2.1-%234493c5?style=flat" /></a></p>
+<p>Requirements:</p>
+<ul>
+<li><a href="https://github.com/join">GitHub Account</a></li>
+<li><a href="https://wiki.python.org/moin/BeginnersGuide/Download">Python</a></li>
+<li><a href="https://git-scm.com/">Git</a></li>
+<li><a href="https://github.com/denvrdata/denvrpy">denvrpy</a></li>
+</ul>
+<p>The <a href="https://docs.github.com/en/get-started">GitHub docs</a> already have a lot of useful info to help you get started
+creating an account, using <code>git</code>, and making issues/pull requests.</p>
+<h2 id="issues">Issues</h2>
+<p>The easiest way to help the denvrpy project is to open <a href="https://github.com/denvrdata/denvrpy/issues/new/choose">issues</a>.
+That being said, here is a list of common details we recommend including:</p>
+<ul>
+<li>Objective</li>
+<li>Code snippets</li>
+<li>Logs</li>
+<li>Stacktrace</li>
+<li>Settings</li>
+<li>Environments (e.g., docker container)</li>
+</ul>
+<h2 id="pull-requests-prs">Pull Requests (PRs)</h2>
+<p>Our primary workflow for making changes to <code>denvrpy</code> is with pull requests (PRs).
+This process involves:</p>
+<ol>
+<li>Forking the original repo (from the browser)</li>
+<li>Clone your fork with <code>git clone</code></li>
+<li>Make your changes locally</li>
+<li>Add your modified files with <code>git add</code></li>
+<li>Commit your changes with a descriptive message <code>git commit</code></li>
+<li>Push your change back up to your fork <code>git push</code></li>
+<li>Open a pull request on the original repository (from the browser)</li>
+</ol>
+<p>Again, the <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">GitHub docs</a> already have a detailed summary of this workflow.</p>
+<p>When opening a pull request it's best to:</p>
+<ol>
+<li>Summarize what you're changing and why</li>
+<li>Keep you changes minimial</li>
+<li>Include any needed tests and docs</li>
+<li>Ensure all tests, linting and coverage checks pass</li>
+</ol>
+<h2 id="development">Development</h2>
+<p>We currently use <a href="https://docs.astral.sh/uv/">uv</a> as our Python package and project manager.
+This tool helps us manage package and dev dependencies in virtual environments:</p>
+<h3 id="environment">Environment</h3>
+<p>To get started with the default development just run:
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>sync
+</span></code></pre></div>
+This will handle setting up a python <code>.venv</code> directory the necessary python and package version to get started contibuting.
+You can activate the <code>.venv</code> directory like any other virtual env.
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate.fish
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python
+</span></code></pre></div></p>
+<h3 id="debugging">Debugging</h3>
+<p>This SDK is still in beta as we're still iterating on our REST API. Apart from loading up <code>pdb</code> we also provide some debug logs.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span><span class="w"> </span><span class="nn">denvr.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">client</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">virtual</span> <span class="o">=</span> <span class="n">client</span><span class="p">(</span><span class="s1">&#39;servers/virtual&#39;</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">DEBUG</span><span class="p">:</span><span class="n">urllib3</span><span class="o">.</span><span class="n">connectionpool</span><span class="p">:</span><span class="n">Starting</span> <span class="n">new</span> <span class="n">HTTPS</span> <span class="n">connection</span> <span class="p">(</span><span class="mi">1</span><span class="p">):</span> <span class="n">api</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">denvrdata</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="mi">443</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">DEBUG</span><span class="p">:</span><span class="n">urllib3</span><span class="o">.</span><span class="n">connectionpool</span><span class="p">:</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">denvrdata</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="mi">443</span> <span class="s2">&quot;POST /api/TokenAuth/Authenticate HTTP/11&quot;</span> <span class="mi">200</span> <span class="kc">None</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="o">...</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">virtual</span><span class="o">.</span><span class="n">create_server</span><span class="p">(</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;api-test&quot;</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="n">rpool</span><span class="o">=</span><span class="s2">&quot;on-demand&quot;</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="n">vpc</span><span class="o">=</span><span class="s2">&quot;denvr&quot;</span><span class="p">,</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="n">configuration</span><span class="o">=</span><span class="s2">&quot;H100_80GB_SXM_8x&quot;</span><span class="p">,</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        <span class="n">cluster</span><span class="o">=</span><span class="s2">&quot;Hou1&quot;</span><span class="p">,</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        <span class="n">ssh_keys</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAA...&quot;</span><span class="p">],</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="n">operating_system_image</span><span class="o">=</span><span class="s2">&quot;Ubuntu 22.04.4 LTS&quot;</span><span class="p">,</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="n">root_disk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="p">),</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="n">indent</span><span class="o">=</span><span class="mi">2</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="p">))</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="n">DEBUG</span><span class="p">:</span><span class="n">denvr</span><span class="o">.</span><span class="n">session</span><span class="p">:</span><span class="n">Dropping</span> <span class="n">missing</span> <span class="n">json</span> <span class="n">argument</span> <span class="n">personalStorageMountPath</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="n">DEBUG</span><span class="p">:</span><span class="n">denvr</span><span class="o">.</span><span class="n">session</span><span class="p">:</span><span class="n">Dropping</span> <span class="n">missing</span> <span class="n">json</span> <span class="n">argument</span> <span class="n">tenantSharedAdditionalStorage</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="n">DEBUG</span><span class="p">:</span><span class="n">denvr</span><span class="o">.</span><span class="n">session</span><span class="p">:</span><span class="n">Dropping</span> <span class="n">missing</span> <span class="n">json</span> <span class="n">argument</span> <span class="n">persistStorage</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="n">DEBUG</span><span class="p">:</span><span class="n">denvr</span><span class="o">.</span><span class="n">session</span><span class="p">:</span><span class="n">Dropping</span> <span class="n">missing</span> <span class="n">json</span> <span class="n">argument</span> <span class="n">directStorageMountPath</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="n">DEBUG</span><span class="p">:</span><span class="n">denvr</span><span class="o">.</span><span class="n">session</span><span class="p">:</span><span class="n">Request</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">denvrdata</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">servers</span><span class="o">/</span><span class="n">virtual</span><span class="o">/</span><span class="n">CreateServer</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;json&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;api-test&#39;</span><span class="p">,</span> <span class="s1">&#39;rpool&#39;</span><span class="p">:</span> <span class="s1">&#39;on-dema</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="n">nd</span><span class="s1">&#39;, &#39;</span><span class="n">vpc</span><span class="s1">&#39;: &#39;</span><span class="n">denvr</span><span class="s1">&#39;, &#39;</span><span class="n">configuration</span><span class="s1">&#39;: &#39;</span><span class="n">H100_80GB_SXM_8x</span><span class="s1">&#39;, &#39;</span><span class="n">cluster</span><span class="s1">&#39;: &#39;</span><span class="n">Hou1</span><span class="s1">&#39;, &#39;</span><span class="n">ssh_keys</span><span class="s1">&#39;: [&#39;</span><span class="n">ssh</span><span class="o">-</span><span class="n">rsa</span> <span class="n">AAAAB3NzaC1yc2EAAAADAQABAAA</span><span class="o">...</span><span class="s1">&#39;], &#39;</span><span class="n">operatingSystemImage</span><span class="s1">&#39;: &#39;</span><span class="n">Ubuntu</span> <span class="mf">22.04.4</span> <span class="n">L</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="n">TS</span><span class="s1">&#39;, &#39;</span><span class="n">rootDiskSize</span><span class="s1">&#39;: 500}}</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="n">DEBUG</span><span class="p">:</span><span class="n">urllib3</span><span class="o">.</span><span class="n">connectionpool</span><span class="p">:</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">denvrdata</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="mi">443</span> <span class="s2">&quot;POST /api/v1/servers/virtual/CreateServer HTTP/11&quot;</span> <span class="mi">202</span> <span class="mi">482</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="p">{</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>  <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;rory@denvrdata.com&quot;</span><span class="p">,</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>  <span class="s2">&quot;tenancy_name&quot;</span><span class="p">:</span> <span class="s2">&quot;denvr&quot;</span><span class="p">,</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>  <span class="s2">&quot;rpool&quot;</span><span class="p">:</span> <span class="s2">&quot;on-demand&quot;</span><span class="p">,</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>  <span class="s2">&quot;direct_attached_storage_persisted&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>  <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;api-test&quot;</span><span class="p">,</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>  <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;denvr&quot;</span><span class="p">,</span>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>  <span class="s2">&quot;configuration&quot;</span><span class="p">:</span> <span class="s2">&quot;H100_80GB_SXM_8x&quot;</span><span class="p">,</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>  <span class="s2">&quot;storage&quot;</span><span class="p">:</span> <span class="mi">20000</span><span class="p">,</span>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>  <span class="s2">&quot;gpu_type&quot;</span><span class="p">:</span> <span class="s2">&quot;nvidia.com/H100SXM480GB&quot;</span><span class="p">,</span>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>  <span class="s2">&quot;gpus&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>  <span class="s2">&quot;vcpus&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>  <span class="s2">&quot;memory&quot;</span><span class="p">:</span> <span class="mi">940</span><span class="p">,</span>
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>  <span class="s2">&quot;ip&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>  <span class="s2">&quot;private_ip&quot;</span><span class="p">:</span> <span class="s2">&quot;172.16.0.2&quot;</span><span class="p">,</span>
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>  <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;Ubuntu_22.04.4_LTS&quot;</span><span class="p">,</span>
+</span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>  <span class="s2">&quot;cluster&quot;</span><span class="p">:</span> <span class="s2">&quot;Hou1&quot;</span><span class="p">,</span>
+</span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;na&quot;</span><span class="p">,</span>
+</span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>  <span class="s2">&quot;storage_type&quot;</span><span class="p">:</span> <span class="s2">&quot;na&quot;</span>
+</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="testing">Testing</h3>
+<p>For quickly running unit tests you can use the following:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&gt;<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--only-group<span class="w"> </span><span class="nb">test</span><span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;not integration&quot;</span><span class="w"> </span>--cov<span class="o">=</span>denvr<span class="w"> </span>tests/
+</span></code></pre></div>
+<p>NOTE: <code>scripts/test</code> is essentially an alias for quickly running linting, autoformatting and unit testings.</p>
+<p>However, for full integration tests we run mockserver against our open api spec.</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&gt;<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span><span class="m">1080</span>:1080<span class="w"> </span>mockserver/mockserver
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>&gt;<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--only-group<span class="w"> </span><span class="nb">test</span><span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>denvr<span class="w"> </span>tests/
+</span></code></pre></div>
+<h3 id="docs">Docs</h3>
+<p>To run the local mkdocs server:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&gt;<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--only-group<span class="w"> </span>docs<span class="w"> </span>mkdocs<span class="w"> </span>serve<span class="w"> </span>--dev-addr<span class="w"> </span>localhost:8000
+</span></code></pre></div>
+<h3 id="linting">Linting</h3>
+<p>To help keep our code well formatted and following best practices we use <a href="https://docs.astral.sh/ruff/formatter/">ruff</a>.</p>
+<p>To just check for issues run:
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&gt;<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--only-group<span class="w"> </span>lint<span class="w"> </span>ruff<span class="w"> </span>check
+</span></code></pre></div></p>
+<p>However, to fix the issues and format your code run:
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&gt;<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--only-group<span class="w"> </span>lint<span class="w"> </span>ruff<span class="w"> </span>format
+</span></code></pre></div></p>
+<p>If you disagree with <code>ruff</code> you can choose to either globally add the exception to the <code>pyproject.toml</code>:
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">...</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">[tool.ruff.lint.per-file-ignores]</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="s2">&quot;denvr/api/*&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;A002&quot;</span><span class="p">]</span><span class="w"> </span><span class="c1"># shadowing likely in generated code</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">...</span>
+</span></code></pre></div>
+or preferably specific inline instances with a <code># noqa: ...</code> comment:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="o">...</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">config</span>  <span class="c1"># noqa: F841</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="o">...</span>
+</span></code></pre></div></p>
+<h3 id="api-generation">API Generation</h3>
+<p>To make changes to any files within the <code>api/</code> directory you'll need to modify the files in <code>scripts/</code>.
+The <code>apigen.py</code> pulls down and processes our open api spec.
+The <code>client.py.jinja2</code> and <code>test_client.py.jinja2</code> files are used to populate the API service clients and corresponding tests.</p>
+<p>To regenerate the <code>api/</code> and <code>tests/api/</code> files run:</p>
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>&gt;<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>scripts/apigen.py
+</span></code></pre></div>
+<p>You'll also want to rerun the formatter to fix any consistency or linting issues in the generated files.
+<div class="language-shell highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>&gt;<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--only-group<span class="w"> </span>lint<span class="w"> </span>ruff<span class="w"> </span>format
+</span></code></pre></div></p>
+<p>TODO: Run the linter inside <code>apigen.py</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
