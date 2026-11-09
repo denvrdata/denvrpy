@@ -5,6 +5,7 @@ from typing import Any, Dict
 from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
+from werkzeug.datastructures import MultiDict
 
 from denvr.config import Config
 from denvr.session import Session
@@ -54,7 +55,7 @@ def test_get_vpcs_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/vpcs/GetVpcs",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_vpcs(**client_kwargs) == request_kwargs
@@ -127,7 +128,7 @@ def test_get_vpc_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/vpcs/GetVpc",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_vpc(**client_kwargs) == request_kwargs
@@ -224,7 +225,7 @@ def test_create_vpc_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/vpcs/CreateVpc",
         method="post",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.create_vpc(**client_kwargs) == request_kwargs
@@ -302,7 +303,7 @@ def test_destroy_vpc_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/vpcs/DestroyVpc",
         method="delete",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.destroy_vpc(**client_kwargs) == request_kwargs

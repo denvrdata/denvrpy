@@ -5,6 +5,7 @@ from typing import Any, Dict
 from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
+from werkzeug.datastructures import MultiDict
 
 from denvr.config import Config
 from denvr.session import Session
@@ -56,7 +57,7 @@ def test_get_applications_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/applications/GetApplications",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_applications(**client_kwargs) == request_kwargs
@@ -131,7 +132,7 @@ def test_get_application_details_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/applications/GetApplicationDetails",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_application_details(**client_kwargs) == request_kwargs
@@ -195,7 +196,7 @@ def test_get_configurations_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/applications/GetConfigurations",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_configurations(**client_kwargs) == request_kwargs
@@ -294,7 +295,7 @@ def test_get_availability_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/applications/GetAvailability",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_availability(**client_kwargs) == request_kwargs
@@ -369,7 +370,7 @@ def test_get_application_catalog_items_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/applications/GetApplicationCatalogItems",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_application_catalog_items(**client_kwargs) == request_kwargs
@@ -433,8 +434,13 @@ def test_create_catalog_application():
             "HF_TOKEN": "your-token-here",
             "CACHE_DIR": "/mnt/storage/.cache",
         },
-        "proxy_port": "8000",
+        "proxy_port": 8000,
         "proxy_api_keys": ["api-key-abc123", "api-key-def456"],
+        "inline_volumes": [
+            {"name": "open-webui-data", "capacity": "50Gi", "mountPoint": "/app/backend/data"}
+        ],
+        "open_webui_admin_email": "admin@example.com",
+        "open_webui_admin_password": "your-secure-password",
     }
 
     request_kwargs = validate_kwargs(
@@ -459,8 +465,17 @@ def test_create_catalog_application():
                     "HF_TOKEN": "your-token-here",
                     "CACHE_DIR": "/mnt/storage/.cache",
                 },
-                "proxyPort": "8000",
+                "proxyPort": 8000,
                 "proxyApiKeys": ["api-key-abc123", "api-key-def456"],
+                "inlineVolumes": [
+                    {
+                        "name": "open-webui-data",
+                        "capacity": "50Gi",
+                        "mountPoint": "/app/backend/data",
+                    }
+                ],
+                "openWebuiAdminEmail": "admin@example.com",
+                "openWebuiAdminPassword": "your-secure-password",
             }
         },
         {
@@ -506,8 +521,13 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
             "HF_TOKEN": "your-token-here",
             "CACHE_DIR": "/mnt/storage/.cache",
         },
-        "proxy_port": "8000",
+        "proxy_port": 8000,
         "proxy_api_keys": ["api-key-abc123", "api-key-def456"],
+        "inline_volumes": [
+            {"name": "open-webui-data", "capacity": "50Gi", "mountPoint": "/app/backend/data"}
+        ],
+        "open_webui_admin_email": "admin@example.com",
+        "open_webui_admin_password": "your-secure-password",
     }
 
     request_kwargs = validate_kwargs(
@@ -532,8 +552,17 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
                     "HF_TOKEN": "your-token-here",
                     "CACHE_DIR": "/mnt/storage/.cache",
                 },
-                "proxyPort": "8000",
+                "proxyPort": 8000,
                 "proxyApiKeys": ["api-key-abc123", "api-key-def456"],
+                "inlineVolumes": [
+                    {
+                        "name": "open-webui-data",
+                        "capacity": "50Gi",
+                        "mountPoint": "/app/backend/data",
+                    }
+                ],
+                "openWebuiAdminEmail": "admin@example.com",
+                "openWebuiAdminPassword": "your-secure-password",
             }
         },
         {
@@ -549,7 +578,7 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/applications/CreateCatalogApplication",
         method="post",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.create_catalog_application(**client_kwargs) == request_kwargs
@@ -581,8 +610,13 @@ def test_create_catalog_application_mockserver(mock_config):
             "HF_TOKEN": "your-token-here",
             "CACHE_DIR": "/mnt/storage/.cache",
         },
-        "proxy_port": "8000",
+        "proxy_port": 8000,
         "proxy_api_keys": ["api-key-abc123", "api-key-def456"],
+        "inline_volumes": [
+            {"name": "open-webui-data", "capacity": "50Gi", "mountPoint": "/app/backend/data"}
+        ],
+        "open_webui_admin_email": "admin@example.com",
+        "open_webui_admin_password": "your-secure-password",
     }
 
     client.create_catalog_application(**client_kwargs)
@@ -621,7 +655,7 @@ def test_create_custom_application():
             "username": "your-docker-username",
             "password": "dckr_pat__xxx1234567890abcdef",
         },
-        "resource_pool": "on-demand",
+        "resource_pool": "reserved-denvr",
         "readiness_watcher_port": 443,
         "proxy_port": 8888,
         "proxy_api_keys": ["key_user1", "key_user2"],
@@ -630,7 +664,11 @@ def test_create_custom_application():
         "tenant_shared_storage": True,
         "selected_node": "yycdp-dev-k8sw03",
         "user_scripts": {},
-        "security_context": {"runAsRoot": False},
+        "security_context": {
+            "runAsRoot": False,
+            "containerUid": 1892932127,
+            "containerGid": 1892932127,
+        },
     }
 
     request_kwargs = validate_kwargs(
@@ -649,7 +687,7 @@ def test_create_custom_application():
                     "username": "your-docker-username",
                     "password": "dckr_pat__xxx1234567890abcdef",
                 },
-                "resourcePool": "on-demand",
+                "resourcePool": "reserved-denvr",
                 "readinessWatcherPort": 443,
                 "proxyPort": 8888,
                 "proxyApiKeys": ["key_user1", "key_user2"],
@@ -658,7 +696,11 @@ def test_create_custom_application():
                 "tenantSharedStorage": True,
                 "selectedNode": "yycdp-dev-k8sw03",
                 "userScripts": {},
-                "securityContext": {"runAsRoot": False},
+                "securityContext": {
+                    "runAsRoot": False,
+                    "containerUid": 1892932127,
+                    "containerGid": 1892932127,
+                },
             }
         },
         {"cluster", "hardwarePackageName", "imageUrl", "name"},
@@ -692,7 +734,7 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
             "username": "your-docker-username",
             "password": "dckr_pat__xxx1234567890abcdef",
         },
-        "resource_pool": "on-demand",
+        "resource_pool": "reserved-denvr",
         "readiness_watcher_port": 443,
         "proxy_port": 8888,
         "proxy_api_keys": ["key_user1", "key_user2"],
@@ -701,7 +743,11 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
         "tenant_shared_storage": True,
         "selected_node": "yycdp-dev-k8sw03",
         "user_scripts": {},
-        "security_context": {"runAsRoot": False},
+        "security_context": {
+            "runAsRoot": False,
+            "containerUid": 1892932127,
+            "containerGid": 1892932127,
+        },
     }
 
     request_kwargs = validate_kwargs(
@@ -720,7 +766,7 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
                     "username": "your-docker-username",
                     "password": "dckr_pat__xxx1234567890abcdef",
                 },
-                "resourcePool": "on-demand",
+                "resourcePool": "reserved-denvr",
                 "readinessWatcherPort": 443,
                 "proxyPort": 8888,
                 "proxyApiKeys": ["key_user1", "key_user2"],
@@ -729,7 +775,11 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
                 "tenantSharedStorage": True,
                 "selectedNode": "yycdp-dev-k8sw03",
                 "userScripts": {},
-                "securityContext": {"runAsRoot": False},
+                "securityContext": {
+                    "runAsRoot": False,
+                    "containerUid": 1892932127,
+                    "containerGid": 1892932127,
+                },
             }
         },
         {"cluster", "hardwarePackageName", "imageUrl", "name"},
@@ -739,7 +789,7 @@ def test_create_custom_application_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/applications/CreateCustomApplication",
         method="post",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.create_custom_application(**client_kwargs) == request_kwargs
@@ -765,7 +815,7 @@ def test_create_custom_application_mockserver(mock_config):
             "username": "your-docker-username",
             "password": "dckr_pat__xxx1234567890abcdef",
         },
-        "resource_pool": "on-demand",
+        "resource_pool": "reserved-denvr",
         "readiness_watcher_port": 443,
         "proxy_port": 8888,
         "proxy_api_keys": ["key_user1", "key_user2"],
@@ -774,7 +824,11 @@ def test_create_custom_application_mockserver(mock_config):
         "tenant_shared_storage": True,
         "selected_node": "yycdp-dev-k8sw03",
         "user_scripts": {},
-        "security_context": {"runAsRoot": False},
+        "security_context": {
+            "runAsRoot": False,
+            "containerUid": 1892932127,
+            "containerGid": 1892932127,
+        },
     }
 
     client.create_custom_application(**client_kwargs)
@@ -836,7 +890,7 @@ def test_start_application_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/applications/StartApplication",
         method="post",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.start_application(**client_kwargs) == request_kwargs
@@ -911,7 +965,7 @@ def test_stop_application_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/applications/StopApplication",
         method="post",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.stop_application(**client_kwargs) == request_kwargs
@@ -986,7 +1040,7 @@ def test_destroy_application_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/applications/DestroyApplication",
         method="delete",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.destroy_application(**client_kwargs) == request_kwargs

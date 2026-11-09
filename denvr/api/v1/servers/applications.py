@@ -153,7 +153,7 @@ class Client:
             client.get_application_catalog_items(types=["foo"])
 
         Keyword Arguments:
-            types (list):
+            types (list): Only return catalog items of these types. Leave it out to return every type. Repeat for more...
 
         Returns:
             items (list):
@@ -188,6 +188,9 @@ class Client:
         environment_variables: dict | None = None,
         proxy_port: str | None = None,
         proxy_api_keys: list | None = None,
+        inline_volumes: list | None = None,
+        open_webui_admin_email: str | None = None,
+        open_webui_admin_password: str | None = None,
     ) -> dict:
         """
         Create a new application using a pre-defined configuration and application catalog item ::
@@ -207,12 +210,17 @@ class Client:
                 jupyter_token="abc123",
                 startup_commands=["pip install custom-package", "python setup.py"],
                 environment_variables={"HF_TOKEN": "your-token-here", "CACHE_DIR": "/mnt/storage/.cache"},
-                proxy_port="8000",
+                proxy_port=8000,
                 proxy_api_keys=["api-key-abc123", "api-key-def456"],
+                inline_volumes=[
+                    {"name": "open-webui-data", "capacity": "50Gi", "mountPoint": "/app/backend/data"}
+                ],
+                open_webui_admin_email="admin@example.com",
+                open_webui_admin_password="your-secure-password",
             )
 
         Keyword Arguments:
-            name (str): The application name. Must be 52 characters or less.
+            name (str): The application name. Must be 47 characters or less.
             cluster (str): The cluster you're operating on
             hardware_package_name (str): The name or unique identifier of the application hardware configuration to use for the application.
             application_catalog_item_name (str): The name of the application catalog item.
@@ -228,6 +236,9 @@ class Client:
             environment_variables (dict): Custom environment variables for the application. Key-value pairs that will be set in the...
             proxy_port (str): The port number for the application proxy service. Required to setup the proxy Used in...
             proxy_api_keys (list): Optional API keys for authenticating with the application proxy service. Multiple keys can be...
+            inline_volumes (list): Persistent CephFS-backed volumes to provision and mount into the container. Currently only Open...
+            open_webui_admin_email (str): Admin user email for Open WebUI initial setup. Required when creating an open-webui application.
+            open_webui_admin_password (str): Admin user password for Open WebUI initial setup. Required when creating an open-webui...
 
         Returns:
             id (str):
@@ -281,6 +292,13 @@ class Client:
                 ),
                 "proxyPort": config.getkwarg("proxy_port", proxy_port),
                 "proxyApiKeys": config.getkwarg("proxy_api_keys", proxy_api_keys),
+                "inlineVolumes": config.getkwarg("inline_volumes", inline_volumes),
+                "openWebuiAdminEmail": config.getkwarg(
+                    "open_webui_admin_email", open_webui_admin_email
+                ),
+                "openWebuiAdminPassword": config.getkwarg(
+                    "open_webui_admin_password", open_webui_admin_password
+                ),
             }
         }
 
@@ -336,7 +354,7 @@ class Client:
                     "username": "your-docker-username",
                     "password": "dckr_pat__xxx1234567890abcdef",
                 },
-                resource_pool="on-demand",
+                resource_pool="reserved-denvr",
                 readiness_watcher_port=443,
                 proxy_port=8888,
                 proxy_api_keys=["key_user1", "key_user2"],
@@ -345,18 +363,22 @@ class Client:
                 tenant_shared_storage=True,
                 selected_node="yycdp-dev-k8sw03",
                 user_scripts={},
-                security_context={"runAsRoot": False},
+                security_context={
+                    "runAsRoot": False,
+                    "containerUid": 1892932127,
+                    "containerGid": 1892932127,
+                },
             )
 
         Keyword Arguments:
-            name (str): The application name. Must be 52 characters or less.
+            name (str): The application name. Must be 47 characters or less.
             cluster (str): The cluster you're operating on
             hardware_package_name (str): The name or unique identifier of the application hardware configuration to use for the application.
             image_url (str): Image URL for the custom application.
             image_cmd_override (list): Optional Image CMD override allows users to specify a custom command to run in the container....
             environment_variables (dict): Environment variables for the application. Names must start with a letter or underscore and...
             image_repository (dict):
-            resource_pool (str): The resource pool to use for the application
+            resource_pool (str): The resource pool to use for the application. Custom applications support reserved resource...
             readiness_watcher_port (int): The port used for monitoring application readiness and status. Common examples:  - 443...
             proxy_port (int): The port your application uses to receive HTTPS traffic. When set, a reverse proxy will be...
             proxy_api_keys (list): API keys for authenticating with the reverse proxy service. Optional, but requires proxyPort to...

@@ -5,6 +5,7 @@ from typing import Any, Dict
 from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
+from werkzeug.datastructures import MultiDict
 
 from denvr.config import Config
 from denvr.session import Session
@@ -56,7 +57,7 @@ def test_get_servers_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/virtual/GetServers",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_servers(**client_kwargs) == request_kwargs
@@ -139,7 +140,7 @@ def test_get_server_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/virtual/GetServer",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_server(**client_kwargs) == request_kwargs
@@ -191,11 +192,13 @@ def test_create_server():
         "cluster": "Hou1",
         "ssh_keys": ["string"],
         "snapshot_name": "string",
+        "tenant_custom_image_file_name": "string",
         "operating_system_image": "Ubuntu 22.04.4 LTS",
         "personal_storage_mount_path": "/home/ubuntu/personal",
         "tenant_shared_additional_storage": "/home/ubuntu/tenant-shared",
         "persist_storage": False,
         "direct_storage_mount_path": "/home/ubuntu/direct-attached",
+        "block_storage_names": ["string"],
         "root_disk_size": 500,
         "selected_node": "yycdp-dev-k8sw03",
     }
@@ -212,11 +215,13 @@ def test_create_server():
                 "cluster": "Hou1",
                 "ssh_keys": ["string"],
                 "snapshotName": "string",
+                "tenantCustomImageFileName": "string",
                 "operatingSystemImage": "Ubuntu 22.04.4 LTS",
                 "personalStorageMountPath": "/home/ubuntu/personal",
                 "tenantSharedAdditionalStorage": "/home/ubuntu/tenant-shared",
                 "persistStorage": False,
                 "directStorageMountPath": "/home/ubuntu/direct-attached",
+                "blockStorageNames": ["string"],
                 "rootDiskSize": 500,
                 "selectedNode": "yycdp-dev-k8sw03",
             }
@@ -248,11 +253,13 @@ def test_create_server_httpserver(httpserver: HTTPServer):
         "cluster": "Hou1",
         "ssh_keys": ["string"],
         "snapshot_name": "string",
+        "tenant_custom_image_file_name": "string",
         "operating_system_image": "Ubuntu 22.04.4 LTS",
         "personal_storage_mount_path": "/home/ubuntu/personal",
         "tenant_shared_additional_storage": "/home/ubuntu/tenant-shared",
         "persist_storage": False,
         "direct_storage_mount_path": "/home/ubuntu/direct-attached",
+        "block_storage_names": ["string"],
         "root_disk_size": 500,
         "selected_node": "yycdp-dev-k8sw03",
     }
@@ -269,11 +276,13 @@ def test_create_server_httpserver(httpserver: HTTPServer):
                 "cluster": "Hou1",
                 "ssh_keys": ["string"],
                 "snapshotName": "string",
+                "tenantCustomImageFileName": "string",
                 "operatingSystemImage": "Ubuntu 22.04.4 LTS",
                 "personalStorageMountPath": "/home/ubuntu/personal",
                 "tenantSharedAdditionalStorage": "/home/ubuntu/tenant-shared",
                 "persistStorage": False,
                 "directStorageMountPath": "/home/ubuntu/direct-attached",
+                "blockStorageNames": ["string"],
                 "rootDiskSize": 500,
                 "selectedNode": "yycdp-dev-k8sw03",
             }
@@ -285,7 +294,7 @@ def test_create_server_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/virtual/CreateServer",
         method="post",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.create_server(**client_kwargs) == request_kwargs
@@ -307,11 +316,13 @@ def test_create_server_mockserver(mock_config):
         "cluster": "Hou1",
         "ssh_keys": ["string"],
         "snapshot_name": "string",
+        "tenant_custom_image_file_name": "string",
         "operating_system_image": "Ubuntu 22.04.4 LTS",
         "personal_storage_mount_path": "/home/ubuntu/personal",
         "tenant_shared_additional_storage": "/home/ubuntu/tenant-shared",
         "persist_storage": False,
         "direct_storage_mount_path": "/home/ubuntu/direct-attached",
+        "block_storage_names": ["string"],
         "root_disk_size": 500,
         "selected_node": "yycdp-dev-k8sw03",
     }
@@ -383,7 +394,7 @@ def test_start_server_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/virtual/StartServer",
         method="post",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.start_server(**client_kwargs) == request_kwargs
@@ -470,7 +481,7 @@ def test_stop_server_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/virtual/StopServer",
         method="post",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.stop_server(**client_kwargs) == request_kwargs
@@ -573,7 +584,7 @@ def test_destroy_server_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/virtual/DestroyServer",
         method="delete",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.destroy_server(**client_kwargs) == request_kwargs
@@ -638,7 +649,7 @@ def test_get_configurations_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/virtual/GetConfigurations",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_configurations(**client_kwargs) == request_kwargs
@@ -721,7 +732,7 @@ def test_get_availability_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/virtual/GetAvailability",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_availability(**client_kwargs) == request_kwargs
