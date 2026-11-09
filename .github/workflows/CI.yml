@@ -21,7 +21,7 @@ jobs:
       matrix:
         # Run all support python version on linux
         # We're doing this at the CI level to make reporting a bit clearer
-        python-version: ["3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: ["ubuntu-latest"]
         include:
           - os: windows-latest
