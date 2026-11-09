@@ -262,6 +262,13 @@ def extract_schema_examples(schema: dict, seed=1234) -> Any:
     assert "$ref" not in schema
     if schema.get("type") == "object" and not isinstance(schema.get("example", {}), dict):
         schema = {k: v for k, v in schema.items() if k != "example"}  # Ignore invalid examples
+    if (
+        schema.get("type") == "string"
+        and isinstance(schema.get("example"), (int, float))
+        and not isinstance(schema.get("example"), bool)
+    ):
+        # Swashbuckle emits `<example>8000</example>` as a number even for string properties
+        schema = {**schema, "example": str(schema["example"])}
     if len(schema) == 0:
         return None
     elif "example" in schema:

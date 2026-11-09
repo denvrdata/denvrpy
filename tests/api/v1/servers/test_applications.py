@@ -434,7 +434,7 @@ def test_create_catalog_application():
             "HF_TOKEN": "your-token-here",
             "CACHE_DIR": "/mnt/storage/.cache",
         },
-        "proxy_port": 8000,
+        "proxy_port": "8000",
         "proxy_api_keys": ["api-key-abc123", "api-key-def456"],
         "inline_volumes": [
             {"name": "open-webui-data", "capacity": "50Gi", "mountPoint": "/app/backend/data"}
@@ -465,7 +465,7 @@ def test_create_catalog_application():
                     "HF_TOKEN": "your-token-here",
                     "CACHE_DIR": "/mnt/storage/.cache",
                 },
-                "proxyPort": 8000,
+                "proxyPort": "8000",
                 "proxyApiKeys": ["api-key-abc123", "api-key-def456"],
                 "inlineVolumes": [
                     {
@@ -521,7 +521,7 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
             "HF_TOKEN": "your-token-here",
             "CACHE_DIR": "/mnt/storage/.cache",
         },
-        "proxy_port": 8000,
+        "proxy_port": "8000",
         "proxy_api_keys": ["api-key-abc123", "api-key-def456"],
         "inline_volumes": [
             {"name": "open-webui-data", "capacity": "50Gi", "mountPoint": "/app/backend/data"}
@@ -552,7 +552,7 @@ def test_create_catalog_application_httpserver(httpserver: HTTPServer):
                     "HF_TOKEN": "your-token-here",
                     "CACHE_DIR": "/mnt/storage/.cache",
                 },
-                "proxyPort": 8000,
+                "proxyPort": "8000",
                 "proxyApiKeys": ["api-key-abc123", "api-key-def456"],
                 "inlineVolumes": [
                     {
@@ -610,7 +610,7 @@ def test_create_catalog_application_mockserver(mock_config):
             "HF_TOKEN": "your-token-here",
             "CACHE_DIR": "/mnt/storage/.cache",
         },
-        "proxy_port": 8000,
+        "proxy_port": "8000",
         "proxy_api_keys": ["api-key-abc123", "api-key-def456"],
         "inline_volumes": [
             {"name": "open-webui-data", "capacity": "50Gi", "mountPoint": "/app/backend/data"}
