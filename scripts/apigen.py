@@ -260,6 +260,8 @@ def extract_schema_examples(schema: dict, seed=1234) -> Any:
 
     # Early exit cases if not flattened, schema is empty or there's an example at the top level
     assert "$ref" not in schema
+    if schema.get("type") == "object" and not isinstance(schema.get("example", {}), dict):
+        schema = {k: v for k, v in schema.items() if k != "example"}  # Ignore invalid examples
     if len(schema) == 0:
         return None
     elif "example" in schema:
@@ -364,9 +366,7 @@ def generate(included=INCLUDED_PATHS):
         trim_blocks=True,
         lstrip_blocks=True,
     )
-    template_env.filters["quotify"] = (
-        lambda val: "'{}'".format(val) if isinstance(val, str) else val
-    )
+    template_env.filters["quotify"] = repr
     client_template = template_env.get_template("client.py.jinja2")
     test_template = template_env.get_template("test_client.py.jinja2")
 
