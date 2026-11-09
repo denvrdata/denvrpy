@@ -21,13 +21,13 @@ jobs:
       matrix:
         # Run all support python version on linux
         # We're doing this at the CI level to make reporting a bit clearer
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
         os: ["ubuntu-latest"]
         include:
           - os: windows-latest
-            python-version: "3.12"
+            python-version: "3.14"
           - os: macos-latest
-            python-version: "3.12"
+            python-version: "3.14"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
@@ -53,10 +53,10 @@ jobs:
       - uses: actions/checkout@v5
         with:
           persist-credentials: false
-      - name: Set up Python 3.12
+      - name: Set up Python 3.14
         uses: actions/setup-python@v6
         with:
-          python-version: 3.12
+          python-version: 3.14
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v6 # zizmor: ignore[unpinned-uses]
       - name: Tests
