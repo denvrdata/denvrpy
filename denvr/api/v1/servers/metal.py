@@ -74,7 +74,7 @@ class Client:
 
     def reboot_host(self, id: str | None = None, cluster: str | None = None) -> dict:
         """
-        Reboot the bare metal host ::
+        Power cycle the bare metal host (hard power off and on through the BMC) ::
 
             client.reboot_host(id="string", cluster="Hou1")
 
@@ -112,29 +112,29 @@ class Client:
 
     def reprovision_host(
         self,
+        id: str | None = None,
+        cluster: str | None = None,
         image_url: str | None = None,
         image_checksum: str | None = None,
         cloud_init_base64: str | None = None,
-        id: str | None = None,
-        cluster: str | None = None,
     ) -> dict:
         """
         Reprovision the bare metal host ::
 
             client.reprovision_host(
+                id="string",
+                cluster="Hou1",
                 image_url="https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
                 image_checksum="https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
                 cloud_init_base64="SGVsbG8sIFdvcmxkIQ==",
-                id="string",
-                cluster="Hou1",
             )
 
         Keyword Arguments:
+            id (str): Unique identifier for a resource within the cluster
+            cluster (str): The cluster you're operating on
             image_url (str): The URL to the image to use for the host
             image_checksum (str): The checksum url of the image to use for the host
             cloud_init_base64 (str): Base64 encoded cloud-init data yaml file to use for the host
-            id (str): Unique identifier for a resource within the cluster
-            cluster (str): The cluster you're operating on
 
         Returns:
             id (str): The bare metal id, unique identifier
@@ -153,11 +153,11 @@ class Client:
 
         parameters: dict[str, dict] = {
             "json": {
+                "id": config.getkwarg("id", id),
+                "cluster": config.getkwarg("cluster", cluster),
                 "imageUrl": config.getkwarg("image_url", image_url),
                 "imageChecksum": config.getkwarg("image_checksum", image_checksum),
                 "cloudInitBase64": config.getkwarg("cloud_init_base64", cloud_init_base64),
-                "id": config.getkwarg("id", id),
-                "cluster": config.getkwarg("cluster", cluster),
             }
         }
 

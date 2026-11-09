@@ -5,6 +5,7 @@ from typing import Any, Dict
 from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
+from werkzeug.datastructures import MultiDict
 
 from denvr.config import Config
 from denvr.session import Session
@@ -65,7 +66,7 @@ def test_get_host_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/metal/GetHost",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_host(**client_kwargs) == request_kwargs
@@ -129,7 +130,7 @@ def test_get_hosts_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/metal/GetHosts",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_hosts(**client_kwargs) == request_kwargs
@@ -204,7 +205,7 @@ def test_reboot_host_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/metal/RebootHost",
         method="post",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.reboot_host(**client_kwargs) == request_kwargs
@@ -242,11 +243,11 @@ def test_reprovision_host():
         client.reprovision_host()
 
     client_kwargs: Dict[str, Any] = {
+        "id": "string",
+        "cluster": "Hou1",
         "image_url": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
         "image_checksum": "https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
         "cloud_init_base64": "SGVsbG8sIFdvcmxkIQ==",
-        "id": "string",
-        "cluster": "Hou1",
     }
 
     request_kwargs = validate_kwargs(
@@ -254,11 +255,11 @@ def test_reprovision_host():
         "/api/v1/servers/metal/ReprovisionHost",
         {
             "json": {
+                "id": "string",
+                "cluster": "Hou1",
                 "imageUrl": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
                 "imageChecksum": "https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
                 "cloudInitBase64": "SGVsbG8sIFdvcmxkIQ==",
-                "id": "string",
-                "cluster": "Hou1",
             }
         },
         {"cluster", "id"},
@@ -281,11 +282,11 @@ def test_reprovision_host_httpserver(httpserver: HTTPServer):
     client = Client(session)
 
     client_kwargs: Dict[str, Any] = {
+        "id": "string",
+        "cluster": "Hou1",
         "image_url": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
         "image_checksum": "https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
         "cloud_init_base64": "SGVsbG8sIFdvcmxkIQ==",
-        "id": "string",
-        "cluster": "Hou1",
     }
 
     request_kwargs = validate_kwargs(
@@ -293,11 +294,11 @@ def test_reprovision_host_httpserver(httpserver: HTTPServer):
         "/api/v1/servers/metal/ReprovisionHost",
         {
             "json": {
+                "id": "string",
+                "cluster": "Hou1",
                 "imageUrl": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
                 "imageChecksum": "https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
                 "cloudInitBase64": "SGVsbG8sIFdvcmxkIQ==",
-                "id": "string",
-                "cluster": "Hou1",
             }
         },
         {"cluster", "id"},
@@ -307,7 +308,7 @@ def test_reprovision_host_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/servers/metal/ReprovisionHost",
         method="post",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.reprovision_host(**client_kwargs) == request_kwargs
@@ -322,11 +323,11 @@ def test_reprovision_host_mockserver(mock_config):
     client = Client(session)
 
     client_kwargs: Dict[str, Any] = {
+        "id": "string",
+        "cluster": "Hou1",
         "image_url": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img",
         "image_checksum": "https://cloud-images.ubuntu.com/jammy/current/MD5SUMS",
         "cloud_init_base64": "SGVsbG8sIFdvcmxkIQ==",
-        "id": "string",
-        "cluster": "Hou1",
     }
 
     client.reprovision_host(**client_kwargs)

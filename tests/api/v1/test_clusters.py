@@ -5,6 +5,7 @@ from typing import Any, Dict
 from unittest.mock import Mock
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.httpserver import UNDEFINED
+from werkzeug.datastructures import MultiDict
 
 from denvr.config import Config
 from denvr.session import Session
@@ -50,7 +51,7 @@ def test_get_all_httpserver(httpserver: HTTPServer):
     httpserver.expect_request(
         "/api/v1/clusters/GetAll",
         method="get",
-        query_string=request_kwargs.get("params", None),
+        query_string=MultiDict(request_kwargs.get("params", {})),
         json=request_kwargs.get("json", UNDEFINED),
     ).respond_with_json(request_kwargs)
     assert client.get_all(**client_kwargs) == request_kwargs

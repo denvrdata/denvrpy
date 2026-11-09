@@ -48,10 +48,6 @@ class Client:
             cluster (str): The cluster you're operating on
 
         Returns:
-            username (str): The user that creatd the vm
-            tenancy_name (str): Name of the tenant where the VM has been created
-            rpool (str): Resource pool where the VM has been created
-            direct_attached_storage_persisted (bool):
             id (str): The name of the virtual machine
             namespace (str):
             configuration (str): A VM configuration ID
@@ -64,7 +60,11 @@ class Client:
             private_ip (str): The private IP address of the VM
             image (str): Name of the VM image used
             cluster (str): The cluster where the VM is allocated
+            username (str): The user that creatd the vm
+            tenancy_name (str): Name of the tenant where the VM has been created
+            rpool (str): Resource pool where the VM has been created
             node_selector (str): The specific node where the VM is scheduled
+            direct_attached_storage_persisted (bool):
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
             root_disk_size (str):
@@ -98,11 +98,13 @@ class Client:
         cluster: str | None = None,
         ssh_keys: list | None = None,
         snapshot_name: str | None = None,
+        tenant_custom_image_file_name: str | None = None,
         operating_system_image: str | None = None,
         personal_storage_mount_path: str | None = None,
         tenant_shared_additional_storage: str | None = None,
         persist_storage: bool | None = None,
         direct_storage_mount_path: str | None = None,
+        block_storage_names: list | None = None,
         root_disk_size: int | None = None,
         selected_node: str | None = None,
     ) -> dict:
@@ -117,11 +119,13 @@ class Client:
                 cluster="Hou1",
                 ssh_keys=["string"],
                 snapshot_name="string",
+                tenant_custom_image_file_name="string",
                 operating_system_image="Ubuntu 22.04.4 LTS",
                 personal_storage_mount_path="/home/ubuntu/personal",
                 tenant_shared_additional_storage="/home/ubuntu/tenant-shared",
                 persist_storage=False,
                 direct_storage_mount_path="/home/ubuntu/direct-attached",
+                block_storage_names=["string"],
                 root_disk_size=500,
                 selected_node="yycdp-dev-k8sw03",
             )
@@ -134,19 +138,17 @@ class Client:
             cluster (str): Cluster to be used. For possible values, refer to the otput of api/v1/clusters/GetAll"/>
             ssh_keys (list):
             snapshot_name (str): Snapshot name.
+            tenant_custom_image_file_name (str): Tenant custom image file name. When set, the VM is deployed from a tenant custom image.
             operating_system_image (str): Name of the Operating System image to be used.
             personal_storage_mount_path (str): Personal storage file system mount path.
             tenant_shared_additional_storage (str): Tenant shared storage file system mount path.
             persist_storage (bool): Whether direct attached storage should be persistant or ephemeral.
             direct_storage_mount_path (str): Direct attached storage mount path.
+            block_storage_names (list): Names of additional block storage volumes to attach at deploy time.
             root_disk_size (int): Size of root disk to be created (Gi).
             selected_node (str): Specific node name to target for VM deployment.  Used for non-on-demand resource pools to allow...
 
         Returns:
-            username (str): The user that creatd the vm
-            tenancy_name (str): Name of the tenant where the VM has been created
-            rpool (str): Resource pool where the VM has been created
-            direct_attached_storage_persisted (bool):
             id (str): The name of the virtual machine
             namespace (str):
             configuration (str): A VM configuration ID
@@ -159,7 +161,11 @@ class Client:
             private_ip (str): The private IP address of the VM
             image (str): Name of the VM image used
             cluster (str): The cluster where the VM is allocated
+            username (str): The user that creatd the vm
+            tenancy_name (str): Name of the tenant where the VM has been created
+            rpool (str): Resource pool where the VM has been created
             node_selector (str): The specific node where the VM is scheduled
+            direct_attached_storage_persisted (bool):
             status (str): The status of the VM (e.g. 'PLANNED', 'PENDING' 'PENDING_RESOURCES', 'PENDING_READINESS',...
             storage_type (str):
             root_disk_size (str):
@@ -176,6 +182,9 @@ class Client:
                 "cluster": config.getkwarg("cluster", cluster),
                 "ssh_keys": config.getkwarg("ssh_keys", ssh_keys),
                 "snapshotName": config.getkwarg("snapshot_name", snapshot_name),
+                "tenantCustomImageFileName": config.getkwarg(
+                    "tenant_custom_image_file_name", tenant_custom_image_file_name
+                ),
                 "operatingSystemImage": config.getkwarg(
                     "operating_system_image", operating_system_image
                 ),
@@ -188,6 +197,9 @@ class Client:
                 "persistStorage": config.getkwarg("persist_storage", persist_storage),
                 "directStorageMountPath": config.getkwarg(
                     "direct_storage_mount_path", direct_storage_mount_path
+                ),
+                "blockStorageNames": config.getkwarg(
+                    "block_storage_names", block_storage_names
                 ),
                 "rootDiskSize": config.getkwarg("root_disk_size", root_disk_size),
                 "selectedNode": config.getkwarg("selected_node", selected_node),
